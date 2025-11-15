@@ -1,0 +1,8 @@
+body {
+    background-color: rgb(19, 6, 212);
+}
+
+h1, h4, p, .nav-link, .form-label, a {
+    color: rgb(255, 255, 255);
+}
+
