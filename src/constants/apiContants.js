@@ -1,1 +1,1 @@
-export const BACKEND_API_BASE_URL = "http://127.0.0.1:8000/api/"
+export const BACKEND_API_BASE_URL = "https://thecharityshop-9c7b08c3213c.herokuapp.com/api/"
