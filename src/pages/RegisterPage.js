@@ -35,7 +35,14 @@ function RegisterPage() {
 
     if (userInfo) {      
         window.location.href = '/'
-    }   
+    } 
+
+    if (loading){
+
+        return (
+           <NormalSpinner />  
+        )
+    }
 
     return (
         <>
