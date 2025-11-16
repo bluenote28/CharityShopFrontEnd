@@ -56,6 +56,9 @@ export const register = (firstName, lastName, email, password) => async (dispatc
             const response = await fetch(BACKEND_API_BASE_URL + 'users/register/', config)
             const data = await response.json()
 
+            console.log("reponse", response)
+            console.log("data", data)
+
             if (!response.ok) {
                 throw new Error(data.detail || 'Registration failed')
             }
