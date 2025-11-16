@@ -59,7 +59,7 @@ export const register = (firstName, lastName, email, password) => async (dispatc
             console.log("reponse", response)
             console.log("data", data)
 
-            if (!response.ok) {
+            if (!response.ok || response.status == 500) {
                 throw new Error(data.detail || 'Registration failed')
             }
             
