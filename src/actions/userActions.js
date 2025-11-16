@@ -68,14 +68,13 @@ export const register = (firstName, lastName, email, password) => async (dispatc
             if (!response.ok) {
                 let errorMessage = 'Registration failed'
                 try {
-                    const data = await response.json()
-                    console.log('Error response data:', data)
+                    const text = await response.text()
+                    console.log('Raw error response:', text)
+                    const data = JSON.parse(text)
                     errorMessage = data.detail || data.message || errorMessage
                 } catch (parseError) {
                     console.log('Failed to parse error response:', parseError)
-                    const text = await response.text()
-                    console.log('Raw error response:', text)
-                    errorMessage = `Server error: ${response.status}`
+                    errorMessage = `Server error: ${response.status} - ${response.statusText}`
                 }
                 throw new Error(errorMessage)
             }
