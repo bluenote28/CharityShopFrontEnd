@@ -6,6 +6,7 @@ import { register } from '../actions/userActions'
 import LoginFormContainer from '../components/LoginFormContainer'
 import FormPageLayout from '../components/FormPageLayout'
 import { isValidPassword } from '../utilities/validators'
+import NormalSpinner from '../components/Spinner'
 
 function RegisterPage() {
 
@@ -33,17 +34,32 @@ function RegisterPage() {
         }
     }
 
-    if (userInfo) {      
-        window.location.href = '/'
-    } 
+    
+    useEffect(() => {
 
-    if (loading){
+        if (error){
+            setAlert(error)
+        }
+
+        if (userInfo){
+
+            if(userInfo.detail){
+                setAlert(userInfo.detail)
+            }
+            else{
+                window.location.href = '/'
+            }
+
+        }
+    }, [userInfo, error])
+
+     if (loading){
 
         return (
            <NormalSpinner />  
         )
     }
-
+    
     return (
         <>
         <FormPageLayout>
