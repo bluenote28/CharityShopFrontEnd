@@ -44,6 +44,7 @@ function RegisterPage() {
         if (userInfo){
 
             if(userInfo.detail){
+                console.log(userInfo.detail)
                 setAlert(userInfo.detail)
             }
             else{
