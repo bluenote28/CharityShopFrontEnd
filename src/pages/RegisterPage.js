@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import AlertBox from '../components/Alert'
 import { Form, Button } from 'react-bootstrap'
 import { useDispatch, useSelector} from "react-redux"
@@ -22,7 +22,6 @@ function RegisterPage() {
     
     const submithandler = (e) => {
         e.preventDefault()
-        e.stopPropagation()
 
         if (password != confirmPassword){
               setAlert("Passwords do not match");
@@ -31,31 +30,21 @@ function RegisterPage() {
              setAlert("Please enter a valid password")
         }
         else{
-              setAlert(null)
-              dispatch(register(firstName.trim(), lastName.trim(), email.trim(), password))
+              dispatch(register(firstName, lastName, email, password))
         }
     }
 
+    if (userInfo) {      
+        window.location.href = '/'
+    }
     
-    useEffect(() => {
-
-        if (error){
-            setAlert(error)
-        }
-
-        if (userInfo){
-          
-            window.location.href = '/'     
-        }
-    }, [userInfo, error])
-
-     if (loading){
+    if (loading){
 
         return (
            <NormalSpinner />  
         )
     }
-    
+
     return (
         <>
         <FormPageLayout>
