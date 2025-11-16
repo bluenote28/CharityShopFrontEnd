@@ -23,13 +23,20 @@ export const login = (email, password) => async (dispatch) => {
                 body: JSON.stringify({'username': email, 'password': password})
             }
             const response = await fetch(BACKEND_API_BASE_URL + 'users/login/', config)
-            const data = await response.json()
             
             if (response.ok) {
+                const data = await response.json()
                 dispatch({type: USER_LOGIN_SUCCESS, payload: data})
                 localStorage.setItem('userInfo', JSON.stringify(data))
             } else {
-                dispatch({type: USER_LOGIN_FAIL, payload: data.detail || 'Login failed'})
+                let errorMessage = 'Login failed'
+                try {
+                    const data = await response.json()
+                    errorMessage = data.detail || errorMessage
+                } catch {
+                    errorMessage = `Server error: ${response.status}`
+                }
+                dispatch({type: USER_LOGIN_FAIL, payload: errorMessage})
             }
         }catch(error){
             dispatch({type: USER_LOGIN_FAIL, payload: error.message})
@@ -54,14 +61,19 @@ export const register = (firstName, lastName, email, password) => async (dispatc
                 body: JSON.stringify({'email': email, 'password': password, 'first_name': firstName, 'last_name': lastName})
             }
             const response = await fetch(BACKEND_API_BASE_URL + 'users/register/', config)
-            const data = await response.json()
 
-            console.log("reponse", response)
-            console.log("data", data)
-
-            if (!response.ok || response.status == 500) {
-                throw new Error(data.detail || 'Registration failed')
+            if (!response.ok) {
+                let errorMessage = 'Registration failed'
+                try {
+                    const data = await response.json()
+                    errorMessage = data.detail || errorMessage
+                } catch {
+                    errorMessage = `Server error: ${response.status}`
+                }
+                throw new Error(errorMessage)
             }
+            
+            const data = await response.json()
             
             dispatch({type: USER_REGISTER_SUCCESS, payload: data})
             localStorage.setItem('userInfo', JSON.stringify(data))
