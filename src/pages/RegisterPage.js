@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import AlertBox from '../components/Alert'
 import { Form, Button } from 'react-bootstrap'
 import { useDispatch, useSelector} from "react-redux"
@@ -34,17 +34,33 @@ function RegisterPage() {
         }
     }
 
-    if (userInfo) {      
-        window.location.href = '/'
-    }
+    console.log("userinfo: ", userInfo)
     
-    if (loading){
+    useEffect(() => {
+
+        if (error){
+            setAlert(error)
+        }
+
+        if (userInfo){
+            
+            console.log("userInfo", userInfo)
+            //window.location.href = '/'
+        }
+    }, [userInfo, error])
+
+
+    if(error){
+        console.log("error", error)
+    }   
+
+     if (loading){
 
         return (
            <NormalSpinner />  
         )
     }
-
+    
     return (
         <>
         <FormPageLayout>
