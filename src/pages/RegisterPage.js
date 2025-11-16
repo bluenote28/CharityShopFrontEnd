@@ -22,6 +22,7 @@ function RegisterPage() {
     
     const submithandler = (e) => {
         e.preventDefault()
+        e.stopPropagation()
 
         if (password != confirmPassword){
               setAlert("Passwords do not match");
@@ -30,7 +31,8 @@ function RegisterPage() {
              setAlert("Please enter a valid password")
         }
         else{
-              dispatch(register(firstName, lastName, email, password))
+              setAlert(null)
+              dispatch(register(firstName.trim(), lastName.trim(), email.trim(), password))
         }
     }
 
