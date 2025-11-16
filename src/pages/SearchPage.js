@@ -45,26 +45,28 @@ function SearchPage() {
   return (
     <>
     {errorMessage && <AlertBox message={errorMessage}/>}
-    <div>
+  
       <Row>
         <Col>
-            <Container className='d-flex justify-content-center mb-3 mt-3'>
+            <Container className='d-flex justify-content-start mb-3 mt-3'>
                     
-                        <Select options={allCharitites} onChange={(e) => setCharity(e.value)} defaultValue={{value: null, label: "All Charities"}} /> 
+                        <Select className="mx-1 w-25" options={allCharitites} onChange={(e) => setCharity(e.value)} defaultValue={{value: null, label: "All Charities"}} /> 
         
-                        <Select options={CATEGORY_OPTIONS} onChange={(e) => setCategory(e.value)} defaultValue={{value: category, label: 'Select Category'}} /> 
+                        <Select className="w-25" options={CATEGORY_OPTIONS} onChange={(e) => setCategory(e.value)} defaultValue={{value: category, label: 'Select Category'}} /> 
 
-                        <Form.Control className='w-50' type="search" placeholder="Search Items" onChange={(e) => setSearchText(e.target.value)}/>
+                        <Form.Control className='w-25 me-3 ms-1' type="search" placeholder="Search Items" onChange={(e) => setSearchText(e.target.value)}/>
                      
             </Container>
-  
+        </Col>
+      </Row>
+
+      <Row>
+        <Col>
             <Container>
                       <DisplayListings charityId={charity} category={category} search={searchText}/>  
             </Container> 
         </Col>
       </Row>
-    
-      </div> 
       </> 
   )
 }
