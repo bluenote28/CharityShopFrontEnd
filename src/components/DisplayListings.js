@@ -39,7 +39,7 @@ function DisplayListings(props) {
   }, [items, props.charityId, props.category, props.search])
 
 
-  if (filteredItems.length == 0){
+  if (filteredItems.length == 0 && !loading){
 
       return <p style={{textAlign: 'center'}}>No items to display</p>
 
