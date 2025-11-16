@@ -55,6 +55,10 @@ export const register = (firstName, lastName, email, password) => async (dispatc
             }
             const response = await fetch(BACKEND_API_BASE_URL + 'users/register/', config)
             const data = await response.json()
+
+            if (!response.ok) {
+                throw new Error(data.detail || 'Registration failed')
+            }
             
             dispatch({type: USER_REGISTER_SUCCESS, payload: data})
             localStorage.setItem('userInfo', JSON.stringify(data))
