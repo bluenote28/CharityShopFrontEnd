@@ -32,7 +32,7 @@ export const login = (email, password) => async (dispatch) => {
                 let errorMessage = 'Login failed'
                 try {
                     const data = await response.json()
-                    errorMessage = data.detail || errorMessage
+                    errorMessage = data.detail || data.message || errorMessage
                 } catch {
                     errorMessage = `Server error: ${response.status}`
                 }
@@ -60,14 +60,21 @@ export const register = (firstName, lastName, email, password) => async (dispatc
                 },
                 body: JSON.stringify({'email': email, 'password': password, 'first_name': firstName, 'last_name': lastName})
             }
+            
+            console.log('Registration request:', BACKEND_API_BASE_URL + 'users/register/', config)
             const response = await fetch(BACKEND_API_BASE_URL + 'users/register/', config)
+            console.log('Registration response status:', response.status)
 
             if (!response.ok) {
                 let errorMessage = 'Registration failed'
                 try {
                     const data = await response.json()
-                    errorMessage = data.detail || errorMessage
-                } catch {
+                    console.log('Error response data:', data)
+                    errorMessage = data.detail || data.message || errorMessage
+                } catch (parseError) {
+                    console.log('Failed to parse error response:', parseError)
+                    const text = await response.text()
+                    console.log('Raw error response:', text)
                     errorMessage = `Server error: ${response.status}`
                 }
                 throw new Error(errorMessage)
@@ -78,7 +85,8 @@ export const register = (firstName, lastName, email, password) => async (dispatc
             dispatch({type: USER_REGISTER_SUCCESS, payload: data})
             localStorage.setItem('userInfo', JSON.stringify(data))
         }catch(error){
-            dispatch({type: USER_REGISTER_FAIL, payload: error.response && error.response.data.message ? error.response.data.message : error.message})
+            console.log('Registration error:', error)
+            dispatch({type: USER_REGISTER_FAIL, payload: error.message})
         }
 }
 
