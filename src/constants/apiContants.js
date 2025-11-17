@@ -1,1 +1,1 @@
-export const BACKEND_API_BASE_URL = "https://charityshop-digitalcatholic.pythonanywhere.com/api/"
+export const BACKEND_API_BASE_URL = "https://thecharityshop-9c7b08c3213c.herokuapp.com/api/"
