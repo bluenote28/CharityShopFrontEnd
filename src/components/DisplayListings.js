@@ -23,31 +23,14 @@ function DisplayListings(props) {
   useEffect(() => {
 
       if (items && items.length > 0) {
-          const filter = new ListingFilter(items);
-          setFilteringItems(true)
-          filterItems(filter).then(() => {
+          const filter = new ListingFilter(items, props.charityId, props.category, props.search);
+          filter.filterByAll(filter).then(() => {
             setFilteredItems(formatItemsIntoRows(filter.getItems()))
             setFilteringItems(false)
           })
       }
     
-    }, [items, props.charityId, props.category, props.search])
-
-  async function filterItems(filter){
-
-      if(props.charityId != null){
-        filter.filterByCharity(props.charityId);
-
-      }
-
-      if (props.category != null){
-        filter.filterByCategory(props.category);
-      }
-
-      if (props.search != null){
-        filter.filterBySearch(props.search);
-      }
-  }
+    }, [items, props.charityId, props.category, props.search, filteringItems])
 
   if (loading || filteringItems){
     return <NormalSpinner />
