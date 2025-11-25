@@ -6,6 +6,7 @@ import Col from 'react-bootstrap/esm/Col';
 import Row from 'react-bootstrap/esm/Row';
 import ListingFilter from '../utilities/FilterClass';
 import formatItemsIntoRows from '../utilities/ItemsGridFormatter';
+import NormalSpinner from './Spinner';
 
 function DisplayListings(props) {
 
@@ -13,17 +14,30 @@ function DisplayListings(props) {
   const itemListing = useSelector((state) => state.items);
   const { error, loading, items } = itemListing
   const [ filteredItems, setFilteredItems ] = useState([])
+  const [filteringItems, setFilteringItems ] = useState(true)
 
   useEffect(() => {
     dispatch(getItems())
   }, [dispatch])
 
   useEffect(() => {
-    if (items && items.length > 0) {
-      const filter = new ListingFilter(items);
+
+      if (items && items.length > 0) {
+          const filter = new ListingFilter(items);
+          setFilteringItems(true)
+          filterItems(filter).then(() => {
+            setFilteredItems(formatItemsIntoRows(filter.getItems()))
+            setFilteringItems(false)
+          })
+      }
+    
+    }, [items, props.charityId, props.category, props.search])
+
+  async function filterItems(filter){
 
       if(props.charityId != null){
         filter.filterByCharity(props.charityId);
+
       }
 
       if (props.category != null){
@@ -33,11 +47,11 @@ function DisplayListings(props) {
       if (props.search != null){
         filter.filterBySearch(props.search);
       }
+  }
 
-      setFilteredItems(formatItemsIntoRows(filter.getItems()))
-    }
-  }, [items, props.charityId, props.category, props.search])
-
+  if (loading || filteringItems){
+    return <NormalSpinner />
+  }
 
   if (filteredItems.length == 0 && !loading){
 
@@ -54,8 +68,7 @@ function DisplayListings(props) {
                     
                     return (
                     <>        
-                        {loading ? <p>loading</p> :
-                            error ? <p>{error}</p>:
+                        {error ? <p>{error}</p>:
                         
                               <Row key={index}>
 
