@@ -20,26 +20,29 @@ function DisplayListings(props) {
     dispatch(getItems())
   }, [dispatch])
 
+  console.log(filteringItems)
+
+  useEffect(() => {
+      setFilteringItems(true)
+    }, [props.charityId, props.category, props.search]);
+
   useEffect(() => {
 
-      if (items && items.length > 0) {
-          const filter = new ListingFilter(items, props.charityId, props.category, props.search);
-          filter.filterByAll(filter).then(() => {
-            setFilteredItems(formatItemsIntoRows(filter.getItems()))
-            setFilteringItems(false)
-          })
-      }
+      if (loading || !items) return;
+      if (!Array.isArray(items)) return;
+      const filter = new ListingFilter(items, props.charityId, props.category, props.search);
+      filter.filterByAll();
+      setFilteredItems(formatItemsIntoRows(filter.getItems()));
+      setTimeout(()=> setFilteringItems(false), 1);     
     
-    }, [items, props.charityId, props.category, props.search, filteringItems])
+    }, [items, props.charityId, props.category, props.search, loading])
 
   if (loading || filteringItems){
     return <NormalSpinner />
   }
 
   if (filteredItems.length == 0 && !loading){
-
       return <p style={{textAlign: 'center'}}>No items to display</p>
-
   }
   
   else{
@@ -50,7 +53,7 @@ function DisplayListings(props) {
                 filteredItems.map((item, index) => { 
                     
                     return (
-                    <>        
+                    <div key={index}>        
                         {error ? <p>{error}</p>:
                         
                               <Row key={index}>
@@ -66,7 +69,7 @@ function DisplayListings(props) {
                                       )}
                               </Row>
                          }
-                    </>
+                    </div>
                     )
                 })
             }      
