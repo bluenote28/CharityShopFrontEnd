@@ -20,8 +20,6 @@ function DisplayListings(props) {
     dispatch(getItems())
   }, [dispatch])
 
-  console.log(filteringItems)
-
   useEffect(() => {
       setFilteringItems(true)
     }, [props.charityId, props.category, props.search]);
