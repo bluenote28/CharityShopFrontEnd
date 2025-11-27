@@ -55,7 +55,7 @@ export default class ListingFilter{
             this.data = filterBySearch
         }
 
-        async filterByAll(){
+        filterByAll(){
 
             console.log(this.charity, this.category, this.search)
 
@@ -72,7 +72,7 @@ export default class ListingFilter{
                   if (this.charity != null && this.charity != item.charity){
                     continue
                   }
-                  if (this.category != null && this.category != item.category){
+                  if (this.category != "All Categories" && this.category != item.category){
                      continue
                   }
                   if(this.search != null && !this.data[i].name.toLowerCase().includes(this.search.toLowerCase())){
