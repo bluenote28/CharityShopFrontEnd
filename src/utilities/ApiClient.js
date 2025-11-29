@@ -2,9 +2,10 @@ import { BACKEND_API_BASE_URL } from "../constants/apiContants";
 
 class Api{
 
-    constructor(link){
+    constructor(link, token=null){
         this.link = link;
         this.data = null
+        this.token = token
     }
 
 
@@ -33,7 +34,7 @@ class Api{
 
     makeApiCall(method, link){
 
-            if (method == "POST" || method == "PUT"){
+            if (method === "POST" || method === "PUT"){
 
                 const response = fetch(link, {
                     method: method,
@@ -51,26 +52,45 @@ class Api{
 
                 return response;
 
-            }else {
+            }
+            else {
 
-                const response = fetch(link, {
-                    method: method,
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },})
-                    .then(response => response.json())
-                    .then(data => {
-                        return data;
-                    })
-                    .catch(error => {
-                        console.error('Error:', error);
-                    });
+                if(this.token == null){
 
-                    return response;
+                        const response = fetch(link, {
+                            method: method,
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },})
+                            .then(response => response.json())
+                            .then(data => {
+                                return data;
+                            })
+                            .catch(error => {
+                                console.error('Error:', error);
+                            });
+
+                            return response;
+                }
+                else{
+                        const response = fetch(link, {
+                        method: method,
+                        headers: {
+                            'Content-Type': 'application/json',
+                            Authorization: `Bearer ${this.token}`
+                        },})
+                        .then(response => response.json())
+                        .then(data => {
+                            return data;
+                        })
+                        .catch(error => {
+                            console.error('Error:', error);
+                        });
+
+                        return response;
+                }
+             }   
         }
-        
-        }
-
 }
 
 
@@ -131,5 +151,16 @@ export class ItemsApi extends Api{
 
     async delete(id){
         return await this.makeApiCall("DELETE", this.link + id)
+    }
+}
+
+export class ReportApi extends Api{
+
+     constructor(token){
+        super(BACKEND_API_BASE_URL + 'report/', token);
+    }
+
+     async getAllData(){
+        return await this.makeApiCall("GET", this.link + 'report'); 
     }
 }
