@@ -5,6 +5,7 @@ import SubmitCharityForm from '../components/SubmitCharityForm';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
+import AdminReport from '../components/AdminReport';
 
 function AdminPage() {
 
@@ -17,7 +18,7 @@ function AdminPage() {
         setCharities(data)
     });
   
-    }, [])
+    })
       
 
   return (
@@ -35,6 +36,12 @@ function AdminPage() {
                 <Container>
                     <h4 className='mt-2' style={{textAlign: 'center'}}>Enter or Update a Charity</h4>
                     <SubmitCharityForm />
+                </Container>
+            </Row>
+            <Row className='w-50 mt-3 mb-5 m-auto border rounded-3'>
+                <Container>
+                    <h4 className='mt-2' style={{textAlign: 'center'}}>Database Report</h4>
+                    <AdminReport />
                 </Container>
             </Row>
       </Col>
