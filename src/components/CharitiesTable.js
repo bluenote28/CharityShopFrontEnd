@@ -48,7 +48,7 @@ function CharitiesTable(props) {
           <tbody>
           
             {
-                filteredData.map(
+              filteredData && filteredData.map(
                 (item, index) => {
                     return (
                     <tr key={index}>
