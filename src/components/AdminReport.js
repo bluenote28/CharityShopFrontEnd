@@ -9,13 +9,14 @@ function AdminReport() {
   const [reportData, setReportData] = useState(null)
   const user = useSelector((state) => state.userLogin);
   const { userInfo } = user
-  const client = new ReportApi(userInfo.access);
 
-  useEffect(() => {
+  useEffect(() => {    
+    const client = new ReportApi(userInfo.access);
+
     client.getAllData().then((data) => {
         setReportData(data);
         });       
-    });    
+    }, [userInfo.access]);    
 
   return (
     <>
