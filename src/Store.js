@@ -2,13 +2,15 @@ import { combineReducers } from 'redux'
 import { configureStore } from '@reduxjs/toolkit'
 import { thunk } from 'redux-thunk'
 import { itemsReducer } from './reducers/itemReducers'
+import { charityReducer } from './reducers/charityReducers'
 import { userLoginReducer, userRegisterReducer, userUpdateReducer} from './reducers/userReducers';
 
 const reducer = combineReducers({
   items: itemsReducer,
   userLogin: userLoginReducer,
   userRegister: userRegisterReducer,
-  userUpdate: userUpdateReducer
+  userUpdate: userUpdateReducer,
+  charities: charityReducer
 })
 
 const middleware = [thunk]
