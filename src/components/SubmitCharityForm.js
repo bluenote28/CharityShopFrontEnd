@@ -17,39 +17,44 @@ function SubmitCharityForm() {
 
     e.preventDefault();
 
-    let validCharityID = isValidCharityId(charityId)
-    let validCharityDescription = isValidCharityDescription(description)
-    let validCharityName = isValidCharityName(name)
-
-    if (validCharityID && validCharityDescription && validCharityName){
+    if (validateCharityInput()){
       
         client.add({id: charityId, name: name, description: description});
         window.location.reload();
     }
-    else{
-        if (!validCharityID){
-            setAlert("Please enter a valid charity ID");
-        }
-        else if (!validCharityDescription){
-            setAlert("Please enter a valid charity description");
-        }
-        else if (!validCharityName){
-            setAlert("Please enter a valid charity name");
-        }
-    }
-
   }
 
   const handleUpdate = () => {
 
-   if (isValidCharityId(charityId) && isValidCharityDescription(description) && isValidCharityName(name)){
+   if (validateCharityInput()){
 
         client.update({id: charityId, name: name, description: description});
         window.location.reload();
      }
-   else{
-        setAlert("Please enter valid data");
-    }
+  }
+
+
+  const validateCharityInput = () =>{
+
+        let validCharityID = isValidCharityId(charityId)
+        let validCharityDescription = isValidCharityDescription(description)
+        let validCharityName = isValidCharityName(name)
+
+        if (!validCharityID){
+            setAlert("Please enter a valid charity ID");
+            return false
+        }
+        else if (!validCharityDescription){
+            setAlert("Please enter a valid charity description");
+            return false
+        }
+        else if (!validCharityName){
+            setAlert("Please enter a valid charity name");
+            return false
+        }
+        else{
+          return true;
+        }
   }
 
   return (
