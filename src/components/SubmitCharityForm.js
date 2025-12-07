@@ -17,13 +17,25 @@ function SubmitCharityForm() {
 
     e.preventDefault();
 
-    if (isValidCharityId(charityId) && isValidCharityDescription(description) && isValidCharityName(name)){
+    let validCharityID = isValidCharityId(charityId)
+    let validCharityDescription = isValidCharityDescription(description)
+    let validCharityName = isValidCharityName(name)
+
+    if (validCharityID && validCharityDescription && validCharityName){
       
         client.add({id: charityId, name: name, description: description});
         window.location.reload();
     }
     else{
-        setAlert("Please enter valid data");
+        if (!validCharityID){
+            setAlert("Please enter a valid charity ID");
+        }
+        else if (!validCharityDescription){
+            setAlert("Please enter a valid charity description");
+        }
+        else if (!validCharityName){
+            setAlert("Please enter a valid charity name");
+        }
     }
 
   }
