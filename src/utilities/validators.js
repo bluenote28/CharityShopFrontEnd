@@ -24,7 +24,7 @@ export function isValidCharityId(id){
 
 export function isValidCharityDescription(description){
 
-        if (description.length > MAX_CHARITY_DESCRIPTION_LENGTH){
+        if (description.length > MAX_CHARITY_DESCRIPTION_LENGTH || description.length == 0){
             return false;
         }
         else if(hasInvalidCharacters(description, REGEX_TYPES.DESCRIPTION)){
@@ -37,7 +37,7 @@ export function isValidCharityDescription(description){
 
 export function isValidCharityName(name){
 
-        if (name.length > MAX_CHARITY_NAME_LENGTH){
+        if (name.length > MAX_CHARITY_NAME_LENGTH || name.length == 0){
             return false;
         }
         else if(hasInvalidCharacters(name, REGEX_TYPES.NAME)){
