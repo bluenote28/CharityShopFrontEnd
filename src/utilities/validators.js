@@ -1,7 +1,8 @@
 const VALID_CHARITY_ID_SIZE = 9;
-const MAX_CHARITY_DESCRIPTION_LENGTH = 50;
+const MAX_CHARITY_DESCRIPTION_LENGTH = 200;
 const MAX_CHARITY_NAME_LENGTH = 50;
-const REGEX = /[^\w\s']/g;
+const CHARITY_NAME_REGEX = /[^\w\s']/g;
+const DESCRIPTION_REGEX =  /^[A-Za-z\s.':,\-]+$/
 const MIN_PASSWORD_LENGTH = 8
 
 export function isValidCharityId(id){
@@ -22,7 +23,7 @@ export function isValidCharityDescription(description){
         if (description.length > MAX_CHARITY_DESCRIPTION_LENGTH){
             return false;
         }
-        else if(hasInvalidCharacters(description)){
+        else if(hasInvalidCharacters(description, "description")){
             return false;
         }
         else{
@@ -35,7 +36,7 @@ export function isValidCharityName(name){
         if (name.length > MAX_CHARITY_NAME_LENGTH){
             return false;
         }
-        else if(hasInvalidCharacters(name)){
+        else if(hasInvalidCharacters(name, "name")){
             return false;
         }
         else{
@@ -57,8 +58,19 @@ export function isValidPassword(password){
 
 }
 
-function hasInvalidCharacters(inputString) {
-   
+function hasInvalidCharacters(inputString, type) {
+    
+    switch(type){
+        case "name":
+            var REGEX = CHARITY_NAME_REGEX;
+            break;
+        case "description":
+            var REGEX = DESCRIPTION_REGEX;
+            break;
+        default:
+            return false;
+    }
+    
     if (inputString.search(REGEX) != -1){
         return true
     }
