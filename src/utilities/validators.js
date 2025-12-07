@@ -27,7 +27,7 @@ export function isValidCharityDescription(description){
         if (description.length > MAX_CHARITY_DESCRIPTION_LENGTH){
             return false;
         }
-        else if(hasInvalidCharacters(description, TYPES.DESCRIPTION)){
+        else if(hasInvalidCharacters(description, REGEX_TYPES.DESCRIPTION)){
             return false;
         }
         else{
