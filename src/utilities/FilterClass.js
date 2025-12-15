@@ -57,8 +57,6 @@ export default class ListingFilter{
 
         filterByAll(){
 
-            console.log(this.charity, this.category, this.search)
-
             if (this.search == null && this.category == "All Categories" && this.charity == null){
                 return
             }
