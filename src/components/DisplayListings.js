@@ -7,6 +7,7 @@ import Row from 'react-bootstrap/esm/Row';
 import ListingFilter from '../utilities/FilterClass';
 import formatItemsIntoRows from '../utilities/ItemsGridFormatter';
 import NormalSpinner from './Spinner';
+import Pagination from 'react-bootstrap/Pagination';
 
 function DisplayListings(props) {
 
@@ -15,6 +16,9 @@ function DisplayListings(props) {
   const { error, loading, items } = itemListing
   const [ filteredItems, setFilteredItems ] = useState([])
   const [filteringItems, setFilteringItems ] = useState(true)
+  const [page, setPage ] = useState(1)
+  let paginationItems = [];
+  const ITEMS_PER_PAGE = 48;
 
   useEffect(() => {
     dispatch(getItems())
@@ -31,6 +35,7 @@ function DisplayListings(props) {
       const filter = new ListingFilter(items, props.charityId, props.category, props.search);
       filter.filterByAll();
       setFilteredItems(formatItemsIntoRows(filter.getItems()));
+      setPage(1);
       setTimeout(()=> setFilteringItems(false), 1);     
     
     }, [items, props.charityId, props.category, props.search, loading])
@@ -44,11 +49,23 @@ function DisplayListings(props) {
   }
   
   else{
+
+      const totalPages = Math.ceil(filteredItems[0].length / ITEMS_PER_PAGE);
+
+      for (let number = 1; number <= totalPages; number++) {
+          paginationItems.push(<Pagination.Item key={number} active={number === page} onClick={() => setPage(number)}>{number}</Pagination.Item>);
+      }
+
+      const paginationItemsEnding = ITEMS_PER_PAGE * page;
+      const paginationItemsBeginning = paginationItemsEnding - ITEMS_PER_PAGE;
+      const paginatedItems = formatItemsIntoRows(filteredItems[0].slice(paginationItemsBeginning, paginationItemsEnding));
   
       return (
         <>
+
+        <Pagination>{paginationItems}</Pagination>
             {   
-                filteredItems.map((item, index) => { 
+                paginatedItems.map((item, index) => { 
                     
                     return (
                     <div key={index}>        
@@ -60,7 +77,7 @@ function DisplayListings(props) {
                                           (item, index) => {
                                               return (
                                                   <Col key={index} className='mb-4'>
-                                                      <ListingCard title={item.name} image={item.img_url} url={item.web_url}/>
+                                                      <ListingCard title={item.name} image={item.img_url} url={item.web_url} id={item.ebay_id} type={'normal'}/>
                                                   </Col>
                                               )
                                           }
@@ -70,7 +87,10 @@ function DisplayListings(props) {
                     </div>
                     )
                 })
-            }      
+            }
+
+        <Pagination>{paginationItems}</Pagination>
+            
         </>  
         )
   }
