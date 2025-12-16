@@ -22,6 +22,8 @@ function DisplayListings(props) {
   const [filteringItems, setFilteringItems ] = useState(true)
   const [page, setPage ] = useState(1)
   const ITEMS_PER_PAGE = 48;
+  const user = useSelector((state) => state.userLogin);
+  const { userInfo } = user
 
   useEffect(() => {
     dispatch(getItems())
@@ -44,7 +46,7 @@ function DisplayListings(props) {
     
     }, [items, props.charityId, props.category, props.search, loading])
 
-  if (loading || filteringItems || !favorites){
+  if (loading || filteringItems || (!favorites && userInfo != null)){
     return <NormalSpinner />
   }
 
@@ -99,7 +101,11 @@ function DisplayListings(props) {
                                           (item, index) => {
                                               return (
                                                   <Col key={index} className='mb-4'>
-                                                      <ListingCard title={item.name} image={item.img_url} url={item.web_url} id={item.ebay_id} favorites={favorites.items} />
+
+                                                    {favorites ?
+                                                      <ListingCard title={item.name} image={item.img_url} url={item.web_url} id={item.ebay_id} favorites={favorites.items} /> :
+                                                      <ListingCard title={item.name} image={item.img_url} url={item.web_url} id={item.ebay_id} />
+                                                    }
                                                   </Col>
                                               )
                                           }
