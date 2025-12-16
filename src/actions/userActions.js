@@ -9,7 +9,15 @@ import { USER_LOGIN_FAIL,
         USER_UPDATE_FAIL,
         USER_UPDATE_REQUEST,
         USER_UPDATE_SUCCESS,
-        USER_UPDATE_PROFILE_RESET } from "../constants/reducerConstants";
+        GET_FAVORITES_ERROR,
+        GET_FAVORITES_REQUEST,
+        GET_FAVORITES_SUCCESS,
+        ADD_FAVORITE_ERROR,
+        ADD_FAVORITE_REQUEST,
+        ADD_FAVORITE_SUCCESS,
+        REMOVE_FAVORITE_ERROR,
+        REMOVE_FAVORITE_REQUEST,
+        REMOVE_FAVORITE_SUCCESS  } from "../constants/reducerConstants";
 import { BACKEND_API_BASE_URL } from "../constants/apiContants";
 export const login = (email, password) => async (dispatch) => {
         try{
@@ -85,4 +93,81 @@ export const updateUserProfile = (user) => async (dispatch, getState) => {
             dispatch({type: USER_UPDATE_FAIL, payload: error.response && error.response.data.message ? error.response.data.message : error.message})
     
         }
+}
+
+export const getUserFavorites = () => async (dispatch, getState) => {
+    try{
+        dispatch({type: GET_FAVORITES_REQUEST})
+        
+        const { userLogin: { userInfo } } = getState()
+        
+        const config = {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${userInfo.token}`
+            }
+        }
+        const response = await fetch(BACKEND_API_BASE_URL + 'favorites/', config)
+        const data = await response.json()
+        
+        dispatch({type: GET_FAVORITES_SUCCESS, payload: data})
+    }catch(error){
+        dispatch({type: GET_FAVORITES_ERROR, payload: error.response && error.response.data.message ? error.response.data.message : error.message})
+
+    }
+}
+
+export const addFavorite = (item="", charity="") => async (dispatch, getState) => {
+    try{
+        dispatch({type: ADD_FAVORITE_REQUEST})
+        
+        const { userLogin: { userInfo } } = getState()
+        
+        const config = {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${userInfo.token}`
+            },
+            body: JSON.stringify({'item': item, 'charity': charity})
+        }
+        const response = await fetch(BACKEND_API_BASE_URL + 'favorites/', config)
+        const data = await response.json()
+        console.log(data)
+        
+        dispatch({type: ADD_FAVORITE_SUCCESS, payload: data})
+    }catch(error){
+        dispatch({type: ADD_FAVORITE_ERROR, payload: error.response && error.response.data.message ? error.response.data.message : error.message})
+
+    }
+}
+
+export const removeFavorite = (item, charity) => async (dispatch, getState) => {
+    try{
+        dispatch({type: REMOVE_FAVORITE_REQUEST})
+        
+        const { userLogin: { userInfo } } = getState()
+        
+        const config = {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${userInfo.token}`
+            },
+            body: JSON.stringify({'item': item, 'charity': charity})
+        }
+        const response = await fetch(BACKEND_API_BASE_URL + 'favorites/', config)
+        const data = await response.json()
+        
+        if (response.ok) {
+            dispatch({type: REMOVE_FAVORITE_SUCCESS, payload: data})
+        } else {
+            const data = await response.json()
+            throw new Error(data.detail || 'Failed to remove favorite')
+        }
+    }catch(error){
+        dispatch({type: REMOVE_FAVORITE_ERROR, payload: error.response && error.response.data.message ? error.response.data.message : error.message})
+
+    }
 }
