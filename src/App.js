@@ -6,6 +6,7 @@ import LoginPage from './pages/Login';
 import RegisterPage from './pages/RegisterPage';
 import ProfilePage from './pages/ProfilePage';
 import HomePage from './pages/HomePage';
+import FavoritesPage from './pages/FavoritesPage';
 import Footer from './components/Footer';
 import './App.css'
 
@@ -21,6 +22,7 @@ function App() {
             <Route path='/login' Component={LoginPage} exact />
             <Route path='/register' Component={RegisterPage} exact />
             <Route path='/profile' Component={ProfilePage} exact />
+            <Route path='/favorites' Component={FavoritesPage} exact />
       </Routes>
 
       <Footer />
