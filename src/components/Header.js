@@ -34,11 +34,13 @@ function Header() {
                   
                   <NavDropdown title={userInfo.name} id="basic-nav-dropdown">
                     <NavDropdown.Item href="/profile">Profile</NavDropdown.Item>
+                    <NavDropdown.Item href="/favorites">Favorites</NavDropdown.Item>
                     <NavDropdown.Item onClick={logoutHandler}>Logout</NavDropdown.Item>
                   </NavDropdown>
                 :
                   <NavDropdown title={"Welcome"} id="basic-nav-dropdown">
                     <NavDropdown.Item href="/profile">Profile</NavDropdown.Item>
+                    <NavDropdown.Item href="/favorites">Favorites</NavDropdown.Item>
                     <NavDropdown.Item onClick={logoutHandler}>Logout</NavDropdown.Item>
                   </NavDropdown>
                 }
