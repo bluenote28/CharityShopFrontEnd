@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getItems } from '../actions/itemActions';
+import { getUserFavorites } from '../actions/userActions';
 import ListingCard from './ListingCard';
 import Col from 'react-bootstrap/esm/Col';
 import Row from 'react-bootstrap/esm/Row';
@@ -14,6 +15,8 @@ function DisplayListings(props) {
 
   const dispatch = useDispatch();
   const itemListing = useSelector((state) => state.items);
+  const favoritesData = useSelector((state) => state.favorites);
+  const { favoritesError, favoritesLoading, favorites } = favoritesData
   const { error, loading, items } = itemListing
   const [ filteredItems, setFilteredItems ] = useState([])
   const [filteringItems, setFilteringItems ] = useState(true)
@@ -22,6 +25,7 @@ function DisplayListings(props) {
 
   useEffect(() => {
     dispatch(getItems())
+    dispatch(getUserFavorites())
   }, [dispatch])
 
   useEffect(() => {
@@ -40,7 +44,7 @@ function DisplayListings(props) {
     
     }, [items, props.charityId, props.category, props.search, loading])
 
-  if (loading || filteringItems){
+  if (loading || filteringItems || !favorites){
     return <NormalSpinner />
   }
 
@@ -95,7 +99,7 @@ function DisplayListings(props) {
                                           (item, index) => {
                                               return (
                                                   <Col key={index} className='mb-4'>
-                                                      <ListingCard title={item.name} image={item.img_url} url={item.web_url} id={item.ebay_id} type={'normal'}/>
+                                                      <ListingCard title={item.name} image={item.img_url} url={item.web_url} id={item.ebay_id} favorites={favorites.items} />
                                                   </Col>
                                               )
                                           }
