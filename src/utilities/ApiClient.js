@@ -39,7 +39,8 @@ class Api{
                 const response = fetch(link, {
                     method: method,
                     headers: {
-                        'Content-Type': 'application/json'
+                        'Content-Type': 'application/json',
+                        Authorization: `Bearer ${this.token}`
                     },
                     body: JSON.stringify(this.data)})
                     .then(response => response.json())
@@ -53,43 +54,41 @@ class Api{
                 return response;
 
             }
-            else {
+            else if (method === "GET"){
 
-                if(this.token == null){
+                const response = fetch(link, {
+                    method: method,
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },})
+                    .then(response => response.json())
+                    .then(data => {
+                        return data;
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                    });
 
-                        const response = fetch(link, {
-                            method: method,
-                            headers: {
-                                'Content-Type': 'application/json'
-                            },})
-                            .then(response => response.json())
-                            .then(data => {
-                                return data;
-                            })
-                            .catch(error => {
-                                console.error('Error:', error);
-                            });
+                    return response;
 
-                            return response;
-                }
-                else{
-                        const response = fetch(link, {
-                        method: method,
-                        headers: {
-                            'Content-Type': 'application/json',
-                            Authorization: `Bearer ${this.token}`
-                        },})
-                        .then(response => response.json())
-                        .then(data => {
-                            return data;
-                        })
-                        .catch(error => {
-                            console.error('Error:', error);
-                        });
+            }
+            else{
+                    const response = fetch(link, {
+                    method: method,
+                    headers: {
+                        'Content-Type': 'application/json',
+                        Authorization: `Bearer ${this.token}`
+                    },})
+                    .then(response => response.json())
+                    .then(data => {
+                        return data;
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                    });
 
-                        return response;
-                }
-             }   
+                    return response;
+            }
         }
 }
 
@@ -162,5 +161,17 @@ export class ReportApi extends Api{
 
      async getAllData(){
         return await this.makeApiCall("GET", this.link + 'report'); 
+    }
+}
+
+export class DatabaseRefreshApi extends Api{
+
+     constructor(token){
+        super(BACKEND_API_BASE_URL + 'refresh_items/', token);
+    }
+
+    async update(data){
+        this.data = data;
+        return await this.makeApiCall("POST", this.link)
     }
 }
