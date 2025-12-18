@@ -1,7 +1,7 @@
 import Container from 'react-bootstrap/Container'
 import Image from 'react-bootstrap/Image';
 import CharityShopLogo from '../images/charityShopLogo.png'
-import Row from 'react-bootstrap/Row'
+import { Col, Row } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import CategoryIcon from '../components/CategoryIcon';
@@ -33,18 +33,11 @@ function HomePage() {
         <>
             <Container>
                 <Row>
-        
-                        <Container className='d-flex justify-content-center'>
-                            <Image src={CharityShopLogo} fluid />
-                    
-                            <Container className='align-self-center mx-5 mb-5'>
-                            <h4 style={{textAlign:'center'}}>About Us</h4>
-                            <p>The Charity Shop is a site that filters listings on Ebay that benefits charity. Every item you see on this site benefits charity anywhere from 10 to 100%</p>
-                            </Container>
-                        </Container>
-                
+                    <Container className='d-flex justify-content-center'>
+                        <Image src={CharityShopLogo} fluid/>
+                    </Container>
+
                 </Row>
-           
             </Container>        
 
             <Container>
@@ -55,7 +48,7 @@ function HomePage() {
                     loadIcons().map((item, index) => { 
                             
                             return (
-                                    <Row key={index} sm={3} className='mb-3'>
+                                    <Row key={index} className='mb-3'>
                                         {item.map((item) => { return item }
                                             )}
                                     </Row>
