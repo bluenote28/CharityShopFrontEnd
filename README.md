@@ -39,6 +39,7 @@ Things I am currently working on or plan to work on:
  - A filter to see items only benefiting a user's favorite charities
  - The ability to host a fundraiser for a particular charity
  - The ability for a user to track how much their purchases have benefited charity
+ - A recommmendation system based on the user's purchases and favorites
 
 
 
