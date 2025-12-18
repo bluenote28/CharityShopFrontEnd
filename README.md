@@ -36,7 +36,7 @@ Things I am currently working on or plan to work on:
 
  - Integrate the application with Ebay's buy api so items can be purchased directly from the site.
  - Be able to save a user's favorite charitites.
- - A filter to see items only benefiting a users favorite charities
+ - A filter to see items only benefiting a user's favorite charities
  - The ability to host a fundraiser for a particular charity
  - The ability for a user to track how much their purchases have benefited charity
 
