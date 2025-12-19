@@ -60,13 +60,8 @@ function SearchPage() {
         </Col>
       </Row>
 
-      <Row>
-        <Col>
-            <Container>
-                      <DisplayListings charityId={charity} category={category} search={searchText}/>  
-            </Container> 
-        </Col>
-      </Row>
+      <DisplayListings charityId={charity} category={category} search={searchText}/>
+       
       </> 
   )
 }

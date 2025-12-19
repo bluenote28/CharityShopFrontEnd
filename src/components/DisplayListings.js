@@ -59,7 +59,7 @@ function DisplayListings(props) {
       const totalPages = Math.ceil(filteredItems[0].length / ITEMS_PER_PAGE);
       const paginationItemsEnding = ITEMS_PER_PAGE * page;
       const paginationItemsBeginning = paginationItemsEnding - ITEMS_PER_PAGE;
-      const paginatedItems = formatItemsIntoRows(filteredItems[0].slice(paginationItemsBeginning, paginationItemsEnding));
+      const paginatedItems = formatItemsIntoRows(filteredItems[0].slice(paginationItemsBeginning, paginationItemsEnding), 4);
       const prevPaginationItems = [<Pagination.First onClick={() => setPage(1)} />, <Pagination.Prev onClick={()=>{
 
         if(page == 1){
@@ -101,10 +101,12 @@ function DisplayListings(props) {
                                           (item, index) => {
                                               return (
                                                   <Col key={index} className='mb-4'>
-
+ 
                                                     {favorites ?
-                                                      <ListingCard title={item.name} image={item.img_url} url={item.web_url} id={item.ebay_id} favorites={favorites.items} /> :
-                                                      <ListingCard title={item.name} image={item.img_url} url={item.web_url} id={item.ebay_id} />
+                                                   
+                                                        <ListingCard title={item.name} image={item.img_url} url={item.web_url} id={item.ebay_id} favorites={favorites.items} /> :      
+                                                        <ListingCard title={item.name} image={item.img_url} url={item.web_url} id={item.ebay_id} />
+                                                       
                                                     }
                                                   </Col>
                                               )
