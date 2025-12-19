@@ -98,7 +98,7 @@ function DisplayListings(props) {
                     <div key={index}>        
                         {error ? <p>{error}</p>:
                         
-                              <Row key={index} xs={2} lg={3} xl={4}>
+                              <Row key={index} xs={2} lg={4}>
 
                                       {item.map(
                                           (item, index) => {
