@@ -22,6 +22,7 @@ function DisplayListings(props) {
   const [filteringItems, setFilteringItems ] = useState(true)
   const [page, setPage ] = useState(1)
   const ITEMS_PER_PAGE = 48;
+  const ITEMS_PER_ROW = 4; 
   const user = useSelector((state) => state.userLogin);
   const { userInfo } = user
 
@@ -59,7 +60,7 @@ function DisplayListings(props) {
       const totalPages = Math.ceil(filteredItems[0].length / ITEMS_PER_PAGE);
       const paginationItemsEnding = ITEMS_PER_PAGE * page;
       const paginationItemsBeginning = paginationItemsEnding - ITEMS_PER_PAGE;
-      const paginatedItems = formatItemsIntoRows(filteredItems[0].slice(paginationItemsBeginning, paginationItemsEnding), 4);
+      const paginatedItems = formatItemsIntoRows(filteredItems[0].slice(paginationItemsBeginning, paginationItemsEnding), ITEMS_PER_ROW);
       const prevPaginationItems = [<Pagination.First onClick={() => setPage(1)} />, <Pagination.Prev onClick={()=>{
 
         if(page == 1){
@@ -88,6 +89,8 @@ function DisplayListings(props) {
         <Container className='d-flex justify-content-center'>
             <Pagination>{prevPaginationItems}<Pagination.Item>{page}</Pagination.Item><Pagination.Item>of</Pagination.Item><Pagination.Item>{totalPages}</Pagination.Item>{nextPaginationItems}</Pagination>
         </Container>
+          
+        <Container>
             {   
                 paginatedItems.map((item, index) => { 
                     
@@ -118,7 +121,8 @@ function DisplayListings(props) {
                     )
                 })
             }
-
+        </Container>
+        
         <Container className='d-flex justify-content-center'>
             <Pagination>{prevPaginationItems}<Pagination.Item>{page}</Pagination.Item><Pagination.Item>of</Pagination.Item><Pagination.Item>{totalPages}</Pagination.Item>{nextPaginationItems}</Pagination>
         </Container>
