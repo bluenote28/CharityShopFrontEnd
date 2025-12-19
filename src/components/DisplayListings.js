@@ -98,7 +98,7 @@ function DisplayListings(props) {
                     <div key={index}>        
                         {error ? <p>{error}</p>:
                         
-                              <Row key={index}>
+                              <Row key={index} xs={2} lg={3} xl={4}>
 
                                       {item.map(
                                           (item, index) => {
@@ -122,7 +122,7 @@ function DisplayListings(props) {
                 })
             }
         </Container>
-        
+
         <Container className='d-flex justify-content-center'>
             <Pagination>{prevPaginationItems}<Pagination.Item>{page}</Pagination.Item><Pagination.Item>of</Pagination.Item><Pagination.Item>{totalPages}</Pagination.Item>{nextPaginationItems}</Pagination>
         </Container>
