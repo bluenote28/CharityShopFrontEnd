@@ -2,14 +2,13 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getItems } from '../actions/itemActions';
 import { getUserFavorites } from '../actions/userActions';
-import ListingCard from './ListingCard';
-import Col from 'react-bootstrap/esm/Col';
 import Row from 'react-bootstrap/esm/Row';
 import ListingFilter from '../utilities/FilterClass';
-import formatItemsIntoRows from '../utilities/ItemsGridFormatter';
 import NormalSpinner from './Spinner';
 import Pagination from 'react-bootstrap/Pagination';
 import { Container } from 'react-bootstrap';
+import ItemListing from './ItemListing';
+import { getCharities } from '../actions/charityActions';
 
 function DisplayListings(props) {
 
@@ -22,13 +21,13 @@ function DisplayListings(props) {
   const [filteringItems, setFilteringItems ] = useState(true)
   const [page, setPage ] = useState(1)
   const ITEMS_PER_PAGE = 48;
-  const ITEMS_PER_ROW = 4; 
   const user = useSelector((state) => state.userLogin);
-  const { userInfo } = user
+  const { userInfo } = user;
 
   useEffect(() => {
     dispatch(getItems())
     dispatch(getUserFavorites())
+    dispatch(getCharities())
   }, [dispatch])
 
   useEffect(() => {
@@ -41,7 +40,7 @@ function DisplayListings(props) {
       if (!Array.isArray(items)) return;
       const filter = new ListingFilter(items, props.charityId, props.category, props.search);
       filter.filterByAll();
-      setFilteredItems(formatItemsIntoRows(filter.getItems()));
+      setFilteredItems(filter.getItems());
       setPage(1);
       setTimeout(()=> setFilteringItems(false), 1);     
     
@@ -57,10 +56,10 @@ function DisplayListings(props) {
   
   else{
 
-      const totalPages = Math.ceil(filteredItems[0].length / ITEMS_PER_PAGE);
+      const totalPages = Math.ceil(filteredItems.length / ITEMS_PER_PAGE);
       const paginationItemsEnding = ITEMS_PER_PAGE * page;
       const paginationItemsBeginning = paginationItemsEnding - ITEMS_PER_PAGE;
-      const paginatedItems = formatItemsIntoRows(filteredItems[0].slice(paginationItemsBeginning, paginationItemsEnding), ITEMS_PER_ROW);
+      const paginatedItems = filteredItems.slice(paginationItemsBeginning, paginationItemsEnding);
       const prevPaginationItems = [<Pagination.First onClick={() => setPage(1)} />, <Pagination.Prev onClick={()=>{
 
         if(page == 1){
@@ -93,28 +92,15 @@ function DisplayListings(props) {
         <Container>
             {   
                 paginatedItems.map((item, index) => { 
-                    
+
                     return (
                     <div key={index}>        
                         {error ? <p>{error}</p>:
-                        
-                              <Row key={index} xs={2} lg={4}>
-
-                                      {item.map(
-                                          (item, index) => {
-                                              return (
-                                                  <Col key={index} className='mb-4'>
- 
-                                                    {favorites ?
-                                                   
-                                                        <ListingCard title={item.name} image={item.img_url} url={item.web_url} id={item.ebay_id} favorites={favorites.items} /> :      
-                                                        <ListingCard title={item.name} image={item.img_url} url={item.web_url} id={item.ebay_id} />
-                                                       
-                                                    }
-                                                  </Col>
-                                              )
-                                          }
-                                      )}
+                              <Row key={index} className='mb-3'>
+                                {favorites ?
+                                    <ItemListing title={item.name} image={item.img_url} url={item.web_url} id={item.ebay_id} price={item.price} favorites={favorites.items} charity={item.charity} /> :      
+                                    <ItemListing title={item.name} image={item.img_url} url={item.web_url} id={item.ebay_id} price={item.price} charity={item.charity} />
+                                }
                               </Row>
                          }
                     </div>
