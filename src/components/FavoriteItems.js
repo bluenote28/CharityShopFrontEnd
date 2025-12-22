@@ -2,63 +2,49 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getUserFavorites } from '../actions/userActions';
 import NormalSpinner from './Spinner';
-import formatItemsIntoRows from '../utilities/ItemsGridFormatter'; 
 import Row from 'react-bootstrap/esm/Row';
-import Col from 'react-bootstrap/esm/Col';
-import ListingCard from './ListingCard';
+import ItemListing from './ItemListing';
+import { getCharities } from '../actions/charityActions';
 
 function FavoriteItems() {
+  const dispatch = useDispatch();
+  const favoritesData = useSelector((state) => state.favorites);
+  const { error, loading, favorites } = favoritesData;
 
-const dispatch = useDispatch();
-const favoritesData = useSelector((state) => state.favorites);
-const { error, loading, favorites } = favoritesData
+  useEffect(() => {
+    dispatch(getUserFavorites());
+    dispatch(getCharities());
+  }, [dispatch]);
 
-useEffect(() => {
-dispatch(getUserFavorites())
-}, [dispatch])
+  if (loading) {
+    return <NormalSpinner />;
+  }
 
-if (loading){
-    return <NormalSpinner />
-}
+  if (error) {
+    return <h3>{error}</h3>;
+  }
 
-else if (error){    
-    return <h3>{error}</h3>
-}
-else{   
-        if (favorites){
+  if (!favorites?.items || favorites.items.length === 0) {
+    return <p>No favorites yet.</p>;
+  }
 
-        const formattedFavorites = formatItemsIntoRows(favorites.items, 4);
-
-        return (
-            <>
-            {formattedFavorites.map((item, index) => { 
-                    
-            return (
-                    <div key={index}>        
-                        {error ? <p>{error}</p>:
-                        
-                                <Row key={index}>
-
-                                        {item.map(
-                                            (item, index) => {
-                                                return (
-                                                    <Col key={index} className='mb-4'>
-                                                        <ListingCard title={item.name} image={item.img_url} url={item.web_url} id={item.ebay_id} favorites={favorites.items} />
-                                                    </Col>
-                                                )
-                                            }
-                                        )}
-                                </Row>
-                            }
-                    </div>
-                    )
-            })}
-         </>
-        )
-
-    }
-}
-
+  return (
+    <>
+      {favorites.items.map((item) => (
+        <Row key={item.ebay_id} className="mb-3">
+          <ItemListing
+            title={item.name}
+            image={item.img_url}
+            url={item.web_url}
+            id={item.ebay_id}
+            favorites={favorites.items}
+            charity={item.charity}
+            price={item.price}
+          />
+        </Row>
+      ))}
+    </>
+  );
 }
 
 export default FavoriteItems;
