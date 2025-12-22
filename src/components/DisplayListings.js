@@ -8,7 +8,6 @@ import NormalSpinner from './Spinner';
 import Pagination from 'react-bootstrap/Pagination';
 import { Container } from 'react-bootstrap';
 import ItemListing from './ItemListing';
-import { getCharities } from '../actions/charityActions';
 
 function DisplayListings(props) {
 
@@ -27,7 +26,6 @@ function DisplayListings(props) {
   useEffect(() => {
     dispatch(getItems())
     dispatch(getUserFavorites())
-    dispatch(getCharities())
   }, [dispatch])
 
   useEffect(() => {
