@@ -7,6 +7,7 @@ import StarUnchecked from '../images/starunchecked.png'
 import StarChecked from '../images/starchecked.png'
 import {Row, Col} from 'react-bootstrap'
 import { convertIdToCharityName } from '../utilities/Converters';
+import NormalSpinner from './Spinner';
 
 const imageStyle = {
   width: '100%',
@@ -75,7 +76,14 @@ function ItemListing(props){
 
   }
 
-if (props.favorites){
+if (errorCharities){
+    console.log(errorCharities)
+}  
+
+else if (loadingCharities){
+    return <NormalSpinner />
+} 
+else if (props.favorites){
     
       return (
       <Container style={bodyStyle}>
