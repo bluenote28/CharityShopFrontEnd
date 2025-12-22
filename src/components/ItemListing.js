@@ -17,7 +17,7 @@ const imageStyle = {
 const bodyStyle = {
   height: '20rem',
   padding: '0',
-  backgroundColor: '#ef3491ff',
+  backgroundColor: '#dd1f7eff',
   border: 'solid'
 }
 
@@ -103,11 +103,20 @@ if (props.favorites){
 else{
       return (
        
-            <Container className='d-flex flex-column justify-content-around h-100'>
-              <Container className='d-flex justify-content-center'>
-                  <Button className='' onClick={(e) => handleClick(e,props.url)}>Go to Item</Button> 
-              </Container>
-            </Container>
+        <Container style={bodyStyle}>
+         <Row>   
+            <Col>     
+                <Image src={props.image} style={imageStyle}/>
+            </Col>    
+        
+            <Col>      
+                <Row style={titleStyling}><Col>{props.title}</Col></Row>
+                <Row style={priceStyling}><Col>Price: ${props.price}</Col></Row>
+                <Row style={priceStyling}><Col>Benefits: {convertIdToCharityName(charities, props.charity)}</Col></Row>
+                <Row><Col><Button onClick={(e) => handleClick(e,props.url)}>Go to Item</Button></Col></Row>
+            </Col>   
+        </Row>
+      </Container>
       );
     }
 }
