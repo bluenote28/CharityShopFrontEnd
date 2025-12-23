@@ -59,7 +59,8 @@ class Api{
                 const response = fetch(link, {
                     method: method,
                     headers: {
-                        'Content-Type': 'application/json'
+                        'Content-Type': 'application/json',
+                        Authorization: `Bearer ${this.token}`
                     },})
                     .then(response => response.json())
                     .then(data => {
@@ -121,36 +122,6 @@ export class CharityApi extends Api{
         return await this.makeApiCall("DELETE", this.link + 'deleteCharity/' + id)
     }
         
-}
-
-
-export class ItemsApi extends Api{
-
-     constructor(){
-        super(BACKEND_API_BASE_URL + 'items/');
-    }
-
-    async getAllData(){
-        return await this.makeApiCall("GET", this.link + 'ebaycharityitems'); 
-    }
-
-    async getDataById(id){
-        return await this.makeApiCall("GET", this.link + id)
-    }
-
-    async add(data){
-        this.data = data
-        return await this.makeApiCall("POST", this.link)
-    }
-
-    async update(id, data){
-        this.data = data
-        return await this.makeApiCall("PUT", this.link + id)
-    }
-
-    async delete(id){
-        return await this.makeApiCall("DELETE", this.link + id)
-    }
 }
 
 export class ReportApi extends Api{
