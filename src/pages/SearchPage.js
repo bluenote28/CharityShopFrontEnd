@@ -4,11 +4,12 @@ import DisplayListings from '../components/DisplayListings'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import Container from 'react-bootstrap/Container'
-import { CharityApi } from '../utilities/ApiClient'
+import { useDispatch, useSelector } from 'react-redux';
 import AlertBox from '../components/Alert'
 import { useSearchParams } from 'react-router-dom';
 import { CATEGORY_OPTIONS } from '../constants/categoryFilterOptions'
 import { Form } from 'react-bootstrap'
+import { getCharities } from '../actions/charityActions';
 
 function SearchPage() {
 
@@ -18,29 +19,29 @@ function SearchPage() {
   const [searchParams, setSearchParams] = useSearchParams();
   const [searchText, setSearchText] = useState(searchParams.get('search')) 
   const [category, setCategory] = useState(searchParams.get('category'))
-  const client = new CharityApi();
+  const dispatch = useDispatch();
+  const charitiesState = useSelector((state) => state.charities);
+  const { error, loading, charities} = charitiesState;
 
   useEffect(() => {
-  
-          client.getAllData().then((data) => {
+      dispatch(getCharities());
+  }, [dispatch])
 
-          if (data){
+  useEffect(() => {
+    
+          if (charities){
                   
               let select_options = [{value: null, label: "All Charities"}];
 
-              for (let i = 0; i < data.length; i++) {
-                select_options.push({ value: data[i].id, label: data[i].name })
-              }
-              
+              for (let i = 0; i < charities.length; i++) {
+                select_options.push({ value: charities[i].id, label: charities[i].name })
+              }              
               setAllCharitites(select_options);
             }
             else{
-
               setErrorMessage("Error retrieving charities from server")
-
             }
-          })
-  }, [])
+  }, [charities])
 
   return (
     <>
