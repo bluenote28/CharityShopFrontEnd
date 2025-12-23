@@ -33,12 +33,6 @@ const priceStyling = {
     fontSize: 'x-large'
 }
 
-const starStyle = {
-
-    marginRight: '400px',
-    marginBottom: '500px'
-}
-
 function ItemListing(props){
 
   const dispatch = useDispatch()
@@ -70,11 +64,11 @@ function ItemListing(props){
 
    function handleClick(e, url){
 
-    e.preventDefault()
+        e.preventDefault()
 
-    window.open(url, "_blank")
+        window.open(url, "_blank")
 
-  }
+    }
 
 if (errorCharities){
     console.log(errorCharities)
@@ -96,12 +90,14 @@ else if (props.favorites){
                 <Row style={titleStyling}><Col>{props.title}</Col></Row>
                 <Row style={priceStyling}><Col>Price: ${props.price}</Col></Row>
                 <Row style={priceStyling}><Col>Benefits: {convertIdToCharityName(charities, props.charity)}</Col></Row>
-                <Row><Col><Button onClick={(e) => handleClick(e,props.url)}>Go to Item</Button></Col></Row>
                 {
-                    isItemInFavorites(props.id) ? <Row><Col style={starStyle}><Image src={StarChecked} onClick={() => {onCheckedImageClick(props.id)}}/></Col></Row>
-                    : <Row><Col style={starStyle}><Image src={StarUnchecked} onClick={() => {onImageClick(props.id)}}/></Col></Row>
+                    isItemInFavorites(props.id) ? 
+                    <Row className='mt-5'><Col><Button onClick={(e) => handleClick(e,props.url)}>Go to Item</Button></Col>
+                                                                       <Col><Image src={StarChecked} onClick={() => {onCheckedImageClick(props.id)}}/></Col><Col></Col><Col></Col><Col></Col></Row>
+                    : 
+                    <Row className='mt-5'><Col><Button onClick={(e) => handleClick(e,props.url)}>Go to Item</Button></Col>
+                                                                       <Col><Image src={StarUnchecked} onClick={() => {onImageClick(props.id)}}/></Col><Col></Col><Col></Col><Col></Col></Row>           
                 }
-
             </Col>   
         </Row>
       </Container>
