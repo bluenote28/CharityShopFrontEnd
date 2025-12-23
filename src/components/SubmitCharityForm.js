@@ -1,9 +1,10 @@
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import { useState } from 'react';
-import { CharityApi } from '../utilities/ApiClient'
 import { isValidCharityId, isValidCharityDescription, isValidCharityName } from '../utilities/validators';
 import AlertBox from './Alert';
+import { addCharity } from '../actions/charityActions';
+import { useDispatch } from 'react-redux';
 
 function SubmitCharityForm() {
 
@@ -11,7 +12,7 @@ function SubmitCharityForm() {
  const [description, setDescription] = useState('');
  const [name, setName] = useState('');
  const [alert, setAlert] = useState(null);
- const client = new CharityApi();
+ const dispatch = useDispatch()
 
  const handleSubmit = (e) => {
 
@@ -19,7 +20,7 @@ function SubmitCharityForm() {
 
     if (validateCharityInput()){
       
-        client.add({id: charityId, name: name, description: description});
+        dispatch(addCharity({id: charityId, name: name, description: description}));
         window.location.reload();
     }
   }
@@ -28,7 +29,7 @@ function SubmitCharityForm() {
 
    if (validateCharityInput()){
 
-        client.update({id: charityId, name: name, description: description});
+        //client.update({id: charityId, name: name, description: description});
         window.location.reload();
      }
   }
