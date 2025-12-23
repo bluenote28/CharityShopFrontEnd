@@ -117,10 +117,6 @@ export class CharityApi extends Api{
         this.data = data
         return await this.makeApiCall("PUT", this.link + 'updateCharity/' + id)
     }
-
-    async delete(id){
-        return await this.makeApiCall("DELETE", this.link + 'deleteCharity/' + id)
-    }
         
 }
 
