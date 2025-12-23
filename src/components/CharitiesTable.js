@@ -2,8 +2,9 @@ import Table from 'react-bootstrap/Table';
 import Form from 'react-bootstrap/Form';
 import { useState, useEffect } from 'react';
 import Button from 'react-bootstrap/Button';
-import { CharityApi, DatabaseRefreshApi} from '../utilities/ApiClient'
-import { useSelector } from 'react-redux';
+import { DatabaseRefreshApi} from '../utilities/ApiClient'
+import { useSelector, useDispatch } from 'react-redux';
+import { deleteCharity } from '../actions/charityActions';
 
 function CharitiesTable(props) {
 
@@ -11,6 +12,7 @@ function CharitiesTable(props) {
  const [filteredData, setFilteredData] = useState(allData)
  const user = useSelector((state) => state.userLogin);
  const { userInfo } = user
+ const dispatch = useDispatch()
 
  useEffect(() => {
     setFilteredData(allData);
@@ -25,11 +27,10 @@ function CharitiesTable(props) {
     }));
  }
 
- function deleteCharity(id) {
-    const client = new CharityApi();
-    client.delete(id).then((data) => {
-        console.log(data);
-    });
+ function deleteButtonClick(id) {
+    
+    dispatch(deleteCharity(id))
+  
     window.location.reload();
  }
 
@@ -68,7 +69,7 @@ function CharitiesTable(props) {
                         <td>{item.description}</td>
                         <td>{item.created_at}</td>
                         <td>{item.updated_at}</td>
-                        <td><Button variant="primary" onClick={() => deleteCharity(item.id)}>Delete</Button></td>
+                        <td><Button variant="primary" onClick={() => deleteButtonClick(item.id)}>Delete</Button></td>
                         <td><Button variant="primary" onClick={() => updateCharityItemsInDB(item.id, item.name,item.description)}>Refresh Items</Button></td>
                     </tr>
                     )
