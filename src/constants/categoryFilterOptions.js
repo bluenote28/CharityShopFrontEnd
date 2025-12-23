@@ -8,7 +8,7 @@ export const CATEGORY_OPTIONS = [
         {value: "toys", label: "Toys & Hobbies"},
         {value: "videoGames", label: "Video Games & Consoles"},
         {value: "jewelry", label: "Jewelry & Watches"},
-        //{value: "Crafts", label: "Crafts"},
+        {value: "crafts", label: "Crafts"},
         {value: "sportingGoods", label: "Sporting Goods"},
         //{value: "Home & Garden", label: "Home & Garden"},
         //{value: "Art", label: "Art"},
