@@ -109,16 +109,15 @@ else{
        
         <Container style={bodyStyle}>
          <Row>   
-            <Col>     
+            <Col xs={4}>     
                 <Image src={props.image} style={imageStyle}/>
-            </Col>    
-        
-            <Col>      
+            </Col>
+            <Col xs={8}>      
                 <Row style={titleStyling}><Col>{props.title}</Col></Row>
                 <Row style={priceStyling}><Col>Price: ${props.price}</Col></Row>
                 <Row style={priceStyling}><Col>Benefits: {convertIdToCharityName(charities, props.charity)}</Col></Row>
                 <Row><Col><Button onClick={(e) => handleClick(e,props.url)}>Go to Item</Button></Col></Row>
-            </Col>   
+            </Col>
         </Row>
       </Container>
       );
