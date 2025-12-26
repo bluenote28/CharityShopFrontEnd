@@ -22,17 +22,6 @@ const bodyStyle = {
   border: 'solid'
 }
 
-const titleStyling = {
-    color: 'white',
-    fontSize: 'xx-large',
-    paddingRight: '20px'
-}
-
-const priceStyling = {
-    color: 'white',
-    fontSize: 'x-large'
-}
-
 function ItemListing(props){
 
   const dispatch = useDispatch()
@@ -82,14 +71,13 @@ else if (props.favorites){
       return (
       <Container style={bodyStyle}>
          <Row>   
-            <Col>     
+            <Col xs={4}>     
                 <Image src={props.image} style={imageStyle}/>
-            </Col>    
-        
-            <Col>      
-                <Row style={titleStyling}><Col>{props.title}</Col></Row>
-                <Row style={priceStyling}><Col>Price: ${props.price}</Col></Row>
-                <Row style={priceStyling}><Col>Benefits: {convertIdToCharityName(charities, props.charity)}</Col></Row>
+            </Col>         
+            <Col xs={8}>      
+                <Row className="fs-4 text-white fw-bold"><Col>{props.title}</Col></Row>
+                <Row className="fs-3 text-white"><Col>Price: ${props.price}</Col></Row>
+                <Row className="fs-3 text-white"><Col>Benefits: {convertIdToCharityName(charities, props.charity)}</Col></Row>
                 {
                     isItemInFavorites(props.id) ? 
                     <Row className='mt-5'><Col><Button onClick={(e) => handleClick(e,props.url)}>Go to Item</Button></Col>
@@ -113,9 +101,9 @@ else{
                 <Image src={props.image} style={imageStyle}/>
             </Col>
             <Col xs={8}>      
-                <Row style={titleStyling}><Col>{props.title}</Col></Row>
-                <Row style={priceStyling}><Col>Price: ${props.price}</Col></Row>
-                <Row style={priceStyling}><Col>Benefits: {convertIdToCharityName(charities, props.charity)}</Col></Row>
+                <Row className="fs-4 text-white fw-bold"><Col>{props.title}</Col></Row>
+                <Row className="fs-3 text-white"><Col>Price: ${props.price}</Col></Row>
+                <Row className="fs-3 text-white"><Col>Benefits: {convertIdToCharityName(charities, props.charity)}</Col></Row>
                 <Row><Col><Button onClick={(e) => handleClick(e,props.url)}>Go to Item</Button></Col></Row>
             </Col>
         </Row>
