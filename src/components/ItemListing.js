@@ -80,10 +80,10 @@ else if (props.favorites){
                 <Row className="fs-3 text-white"><Col>Benefits: {convertIdToCharityName(charities, props.charity)}</Col></Row>
                 {
                     isItemInFavorites(props.id) ? 
-                    <Row className='mt-5'><Col><Button onClick={(e) => handleClick(e,props.url)}>Go to Item</Button></Col>
+                    <Row className='mt-3'><Col><Button onClick={(e) => handleClick(e,props.url)}>Go to Item</Button></Col>
                                                                        <Col><Image src={StarChecked} onClick={() => {onCheckedImageClick(props.id)}}/></Col><Col></Col><Col></Col><Col></Col></Row>
                     : 
-                    <Row className='mt-5'><Col><Button onClick={(e) => handleClick(e,props.url)}>Go to Item</Button></Col>
+                    <Row className='mt-3'><Col><Button onClick={(e) => handleClick(e,props.url)}>Go to Item</Button></Col>
                                                                        <Col><Image src={StarUnchecked} onClick={() => {onImageClick(props.id)}}/></Col><Col></Col><Col></Col><Col></Col></Row>           
                 }
             </Col>   
