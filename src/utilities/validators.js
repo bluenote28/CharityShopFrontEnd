@@ -2,7 +2,7 @@ const VALID_CHARITY_ID_SIZE = 9;
 const MAX_CHARITY_DESCRIPTION_LENGTH = 700;
 const MAX_CHARITY_NAME_LENGTH = 50;
 const CHARITY_NAME_REGEX = /[^\w\s']/g;
-const DESCRIPTION_REGEX =  /[^A-Za-z\s.':,\-]/g;
+const DESCRIPTION_REGEX =  /[^A-Za-z0-9\s.':,\-]/g;
 const MIN_PASSWORD_LENGTH = 8
 const REGEX_TYPES = Object.freeze({ 
     DESCRIPTION: "description",
