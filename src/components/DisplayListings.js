@@ -25,8 +25,13 @@ function DisplayListings(props) {
   const { userInfo } = user;
 
   useEffect(() => {
-    dispatch(getItems())
-    dispatch(getUserFavorites())
+
+    if (!items || items.length === 0){
+      dispatch(getItems())
+    }
+    if (userInfo != null && (!favorites || favorites.length === 0)){
+      dispatch(getUserFavorites())
+    }
     dispatch(getCharities());
   }, [dispatch])
 
