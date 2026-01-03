@@ -8,6 +8,7 @@ import StarChecked from '../images/starchecked.png'
 import {Row, Col} from 'react-bootstrap'
 import { convertIdToCharityName } from '../utilities/Converters';
 import NormalSpinner from './Spinner';
+import { useNavigate } from "react-router-dom";
 
 const imageStyle = {
   width: '100%',
@@ -27,6 +28,7 @@ function ItemListing(props){
   const dispatch = useDispatch()
   const charitiesState = useSelector((state) => state.charities);
   const { errorCharities, loadingCharities, charities} = charitiesState;
+  const navigate = useNavigate()
 
   function onImageClick(id){
 
@@ -51,11 +53,11 @@ function ItemListing(props){
         return false;
     }
 
-   function handleClick(e, url){
+   function handleClick(e, id){
 
         e.preventDefault()
 
-        window.open(url, "_blank")
+        navigate("/item/" + id)
 
     }
 
@@ -80,10 +82,10 @@ else if (props.favorites){
                 <Row className="fs-3 text-white"><Col>Benefits: {convertIdToCharityName(charities, props.charity)}</Col></Row>
                 {
                     isItemInFavorites(props.id) ? 
-                    <Row className='mt-3'><Col><Button onClick={(e) => handleClick(e,props.url)}>Go to Item</Button></Col>
+                    <Row className='mt-3'><Col><Button onClick={(e) => handleClick(e,props.id)}>Go to Item</Button></Col>
                                                                        <Col><Image src={StarChecked} onClick={() => {onCheckedImageClick(props.id)}}/></Col><Col></Col><Col></Col><Col></Col></Row>
                     : 
-                    <Row className='mt-3'><Col><Button onClick={(e) => handleClick(e,props.url)}>Go to Item</Button></Col>
+                    <Row className='mt-3'><Col><Button onClick={(e) => handleClick(e,props.id)}>Go to Item</Button></Col>
                                                                        <Col><Image src={StarUnchecked} onClick={() => {onImageClick(props.id)}}/></Col><Col></Col><Col></Col><Col></Col></Row>           
                 }
             </Col>   
@@ -104,7 +106,7 @@ else{
                 <Row className="fs-4 text-white fw-bold"><Col>{props.title}</Col></Row>
                 <Row className="fs-3 text-white"><Col>Price: ${props.price}</Col></Row>
                 <Row className="fs-3 text-white"><Col>Benefits: {convertIdToCharityName(charities, props.charity)}</Col></Row>
-                <Row><Col><Button onClick={(e) => handleClick(e,props.url)}>Go to Item</Button></Col></Row>
+                <Row><Col><Button onClick={(e) => handleClick(e,props.id)}>Go to Item</Button></Col></Row>
             </Col>
         </Row>
       </Container>
