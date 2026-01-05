@@ -18,17 +18,14 @@ function SearchBar() {
             }
          }
 
-        return (
-            <Container className='mt-1 mb-3' fluid>
+        return (          
                 <Form className="d-flex" role="search" onSubmit={searchHandler}>
                     <Form.Control className="form-control" type="search" placeholder="Search all items" aria-label="Search" onChange={(e) => setSearch(e.target.value)}
                         onSubmit={(e) => {searchHandler(e)}}  
                     />
                     <Button className='mx-1' variant='primary' type="submit">Search</Button>
                 </Form>
-            </Container>
         )
-
 
 }
 
