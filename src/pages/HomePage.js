@@ -7,7 +7,6 @@ import { useState } from 'react';
 import CategoryIcon from '../components/CategoryIcon';
 import { CATEGORY_OPTIONS } from "../constants/categoryFilterOptions";
 import formatItemsIntoRows from '../utilities/ItemsGridFormatter';
-import SearchBar from '../components/SearchBar';
 
 function HomePage() {
 
@@ -42,19 +41,16 @@ function HomePage() {
             </Container>        
 
             <Container>
-                <Row className='mb-3'>
-                    <SearchBar />
-                </Row>
                 {   
                     loadIcons().map((item, index) => { 
                             
-                            return (
-                                    <Row key={index} className='mb-3'>
-                                        {item.map((item) => { return item }
-                                            )}
-                                    </Row>
-                                )}
-                            )      
+                    return (
+                            <Row key={index} className='mb-3'>
+                                {item.map((item) => { return item }
+                                    )}
+                            </Row>
+                        )}
+                    )      
                 } 
             </Container>
         
