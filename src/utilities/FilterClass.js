@@ -2,11 +2,12 @@ import { CATEGORY_OPTIONS } from "../constants/categoryFilterOptions";
 
 export default class ListingFilter{
 
-        constructor(data, charity, category){
+        constructor(data, charity, category, subCategory){
 
             this.data = data
             this.charity = charity
             this.category = this.convertCategory(category)
+            this.subCategory = subCategory
       
         }
 
@@ -39,10 +40,6 @@ export default class ListingFilter{
         }
 
         filterByAll(){
-
-            if (this.category == "All Categories" && this.charity == null){
-                return
-            }
     
             const filteredItems = []
 
@@ -54,6 +51,9 @@ export default class ListingFilter{
                     continue
                   }
                   if (this.category != "All Categories" && this.category != item.category){
+                     continue
+                  }
+                  if (this.subCategory != null && !this.inSubCategoryList(item.category_list)){
                      continue
                   }
 
@@ -80,5 +80,18 @@ export default class ListingFilter{
             }
 
             return category
+        }
+
+        inSubCategoryList(category_list){
+
+            for (let i = 0; i < category_list.length; i++){
+
+                if (this.subCategory == category_list[i].categoryName){
+
+                    return true;
+                }
+            }
+
+            return false;
         }
 }

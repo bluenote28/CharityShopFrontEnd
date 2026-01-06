@@ -45,19 +45,19 @@ function DisplayListings(props) {
 
   useEffect(() => {
       setFilteringItems(true)
-    }, [props.charityId, props.category]);
+    }, [props.charityId, props.category, props.subCategory]);
 
   useEffect(() => {
 
       if (loading || !items) return;
       if (!Array.isArray(items)) return;
-      const filter = new ListingFilter(items, props.charityId, props.category);
+      const filter = new ListingFilter(items, props.charityId, props.category, props.subCategory);
       filter.filterByAll();
       setFilteredItems(filter.getItems());
       setPage(1);
       setTimeout(()=> setFilteringItems(false), 1);     
     
-    }, [items, props.charityId, props.category, loading])
+    }, [items, props.charityId, props.category,props.subCategory, loading])
 
   if (loading || filteringItems || (!favorites && userInfo != null)){
     return <NormalSpinner />
@@ -68,7 +68,7 @@ function DisplayListings(props) {
   }
   
   else{
-
+    
       const totalPages = Math.ceil(filteredItems.length / ITEMS_PER_PAGE);
       const paginationItemsEnding = ITEMS_PER_PAGE * page;
       const paginationItemsBeginning = paginationItemsEnding - ITEMS_PER_PAGE;
