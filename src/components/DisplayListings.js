@@ -25,31 +25,39 @@ function DisplayListings(props) {
   const { userInfo } = user;
 
   useEffect(() => {
-
-    if (!items || items.length === 0){
-      dispatch(getItems())
+   
+    if (props.search == null){
+      console.log(props.category)
+      dispatch(getItems(null, null, props.category))
     }
+
+    if (props.category == null){
+      dispatch(getItems(null, props.search, null))
+    }
+
     if (userInfo != null && (!favorites || favorites.length === 0)){
       dispatch(getUserFavorites())
     }
+
     dispatch(getCharities());
-  }, [dispatch])
+   
+  }, [dispatch]);
 
   useEffect(() => {
       setFilteringItems(true)
-    }, [props.charityId, props.category, props.search]);
+    }, [props.charityId, props.category]);
 
   useEffect(() => {
 
       if (loading || !items) return;
       if (!Array.isArray(items)) return;
-      const filter = new ListingFilter(items, props.charityId, props.category, props.search);
+      const filter = new ListingFilter(items, props.charityId, props.category);
       filter.filterByAll();
       setFilteredItems(filter.getItems());
       setPage(1);
       setTimeout(()=> setFilteringItems(false), 1);     
     
-    }, [items, props.charityId, props.category, props.search, loading])
+    }, [items, props.charityId, props.category, loading])
 
   if (loading || filteringItems || (!favorites && userInfo != null)){
     return <NormalSpinner />
