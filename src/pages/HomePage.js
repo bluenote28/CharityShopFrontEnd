@@ -1,7 +1,7 @@
 import Container from 'react-bootstrap/Container'
 import Image from 'react-bootstrap/Image';
 import CharityShopLogo from '../images/charityShopLogo.png'
-import { Col, Row } from 'react-bootstrap';
+import { Row } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import CategoryIcon from '../components/CategoryIcon';
@@ -16,13 +16,14 @@ function HomePage() {
     const icons = []
 
     if (category) {
-        navigate(`/search?category=${category}`)
-    }  
+        console.log(category)
+        navigate(`/category?category=${encodeURIComponent(category)}`)
+    } 
      
     function loadIcons(){
 
         for (let i = 1; i < CATEGORY_OPTIONS.length; i++) {
-            icons.push(<CategoryIcon src={'icons/' + CATEGORY_OPTIONS[i].value + '.png'} onclick={() => setCategory(CATEGORY_OPTIONS[i].value)} />)
+            icons.push(<CategoryIcon src={'icons/' + CATEGORY_OPTIONS[i].value + '.png'} onclick={() => setCategory(CATEGORY_OPTIONS[i].label)} />)
         }
 
         return formatItemsIntoRows(icons, 3);
@@ -41,7 +42,7 @@ function HomePage() {
             </Container>        
 
             <Container>
-                <Row>
+                <Row className='mb-3'>
                     <SearchBar />
                 </Row>
                 {   
