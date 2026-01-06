@@ -37,7 +37,6 @@ export const getItems = (item_id=null, search_text=null, category_id=null) => as
             data = await apiCall(url)
         }
         else if (category_id){
-            console.log(category_id)
             var url = BACKEND_API_BASE_URL + 'items/ebaycharityitems/category/' + category_id
             data = await apiCall(url)
         }
