@@ -2,12 +2,11 @@ import { CATEGORY_OPTIONS } from "../constants/categoryFilterOptions";
 
 export default class ListingFilter{
 
-        constructor(data, charity, category, search){
+        constructor(data, charity, category){
 
             this.data = data
             this.charity = charity
             this.category = this.convertCategory(category)
-            this.search = search
       
         }
 
@@ -39,25 +38,9 @@ export default class ListingFilter{
             this.data = filterByCategory
         }
 
-        filterBySearch(){
-
-            const filterBySearch = [];
-
-            for (let i = 0; i < this.data.length; i++){
-
-                if(this.data[i].name.toLowerCase().includes(this.search.toLowerCase())){
-
-                    filterBySearch.push(this.data[i]);
-
-                }
-            }
-
-            this.data = filterBySearch
-        }
-
         filterByAll(){
 
-            if (this.search == null && this.category == "All Categories" && this.charity == null){
+            if (this.category == "All Categories" && this.charity == null){
                 return
             }
     
@@ -73,9 +56,6 @@ export default class ListingFilter{
                   if (this.category != "All Categories" && this.category != item.category){
                      continue
                   }
-                  if(this.search != null && !this.data[i].name.toLowerCase().includes(this.search.toLowerCase())){
-                    continue
-                 }
 
                  filteredItems.push(item)
             }
@@ -101,6 +81,4 @@ export default class ListingFilter{
 
             return category
         }
-
-
 }
