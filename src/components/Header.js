@@ -5,6 +5,7 @@ import { NavDropdown } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { logout } from '../actions/userActions';
+import SearchBar from './SearchBar';
 
 function Header() {
 
@@ -44,12 +45,21 @@ function Header() {
                     <NavDropdown.Item onClick={logoutHandler}>Logout</NavDropdown.Item>
                   </NavDropdown>
                 }
+
+                <Container style={{ width: '600px' }}>
+                  <SearchBar />
+                </Container>
                 </>
                 
 
              ) : (
 
+              <>
                 <Nav.Link as={Link} to="/login">Login</Nav.Link>
+                 <Container style={{ width: '600px' }}>
+                  <SearchBar />
+                </Container>
+              </>
 
              )}
           </Nav>
