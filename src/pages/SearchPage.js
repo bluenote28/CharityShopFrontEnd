@@ -8,8 +8,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import AlertBox from '../components/Alert'
 import { useSearchParams } from 'react-router-dom';
 import { CATEGORY_OPTIONS } from '../constants/categoryFilterOptions'
-import { Form } from 'react-bootstrap'
 import { getCharities } from '../actions/charityActions';
+import SearchBar from '../components/SearchBar';
 
 function SearchPage() {
 
@@ -24,7 +24,9 @@ function SearchPage() {
   const { error, loading, charities} = charitiesState;
 
   useEffect(() => {
+    if (!charities || charities.length === 0){
       dispatch(getCharities());
+    }
   }, [dispatch])
 
   useEffect(() => {
@@ -49,13 +51,15 @@ function SearchPage() {
   
       <Row>
         <Col>
-            <Container className='d-flex justify-content-start mb-3 mt-3'>
+            <Container className='mt-4 mb-1'>
+                <SearchBar />
+            </Container>
+            
+            <Container className='d-flex justify-content-start mb-3 mt-1'>
                     
-                        <Select className="mx-1 w-25" options={allCharitites} onChange={(e) => setCharity(e.value)} defaultValue={{value: null, label: "All Charities"}} /> 
-        
-                        <Select className="w-25" options={CATEGORY_OPTIONS} onChange={(e) => setCategory(e.value)} defaultValue={{value: category, label: 'Select Category'}} /> 
+              <Select className="mx-1 w-25" options={allCharitites} onChange={(e) => setCharity(e.value)} defaultValue={{value: null, label: "All Charities"}} /> 
 
-                        <Form.Control className='w-25 me-3 ms-1' type="search" placeholder="Search Items" onChange={(e) => setSearchText(e.target.value)}/>
+              <Select className="w-25" options={CATEGORY_OPTIONS} onChange={(e) => setCategory(e.value)} defaultValue={{value: category, label: 'Select Category'}} /> 
                      
             </Container>
         </Col>
