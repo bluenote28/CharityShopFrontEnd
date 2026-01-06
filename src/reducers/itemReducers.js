@@ -12,5 +12,4 @@ export const itemsReducer = (state = {items:[]}, action) => {
             default:
                 return state
         }
-
 }
