@@ -20,3 +20,18 @@ export const CATEGORY_OPTIONS = [
         {value: "books", label: "Books & Magazines"}
 
 ]
+
+export const SUB_CATEGORY_OPTIONS = {
+        "Collectibles": [{value: "Trading Card Singles", label: "Trading Card Singles"},
+                        { value: "Postcards", label: "Postcards"},
+                        { value: "Coins & Paper Money", label: "Coins & Paper Money"},
+                        { value: "Stamps", label: "Stamps"},
+                        { value: "Sports Mem, Cards & Fan Shop", label: "Sports Mem, Cards & Fan Shop"}, 
+                        {value: "Antiques", label: 'Antiques'},
+                        { value: "Advertising", label: "Advertising"}],
+        "Clothing, Shoes & Accessories": [{value: null, label: "All Clothing"},       
+                                         {value: "Women's Clothing", label: "Womens's Clothing"},
+                                         {value: "Girls", label: "Girls"}, 
+                                         {value: "Boys", label: "Boys"},
+                                         {value:"Men's Clothing", label: "Men's Clothing"}]
+}
