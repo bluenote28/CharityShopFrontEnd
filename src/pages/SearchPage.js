@@ -51,11 +51,8 @@ function SearchPage() {
   
       <Row>
         <Col>
-            <Container className='mt-4 mb-1'>
-                <SearchBar />
-            </Container>
             
-            <Container className='d-flex justify-content-start mb-3 mt-1'>
+            <Container className='d-flex justify-content-start mb-3 mt-3'>
                     
               <Select className="mx-1 w-25" options={allCharitites} onChange={(e) => setCharity(e.value)} defaultValue={{value: null, label: "All Charities"}} /> 
 
