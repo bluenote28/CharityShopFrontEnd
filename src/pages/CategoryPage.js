@@ -9,6 +9,8 @@ import AlertBox from '../components/Alert'
 import { useSearchParams } from 'react-router-dom';
 import { getCharities } from '../actions/charityActions';
 import { SUB_CATEGORY_OPTIONS } from '../constants/categoryFilterOptions'
+import ButtonGroup from 'react-bootstrap/ButtonGroup';
+import Button from 'react-bootstrap/Button';
 
 function CategoryPage() {
 
@@ -44,7 +46,6 @@ function CategoryPage() {
       }
   }, [charities])
 
-
   return (
     <>
     {errorMessage && <AlertBox message={errorMessage}/>}.             
@@ -57,14 +58,20 @@ function CategoryPage() {
         </Row>
       </Container>
 
-      <Container className='d-flex justify-content-center mb-3 mt-1'>
-        <Row>
-            <Col>            
-            <Select className="mx-1 w-100" options={allCharitites} onChange={(e) => setCharity(e.value)} defaultValue={{value: null, label: "All Charities"}} /> 
-            </Col> 
-            <Col>
-            <Select className="mx-1 w-100" options={SUB_CATEGORY_OPTIONS[category]} onChange={(e) => setSubCategory(e.value)} defaultValue={{value: null, label: "All Categories"}} />
-            </Col>           
+      <Container className='mb-3 mt-1'>
+        <Row>     
+        <Select className="mx-1 w-100" options={allCharitites} onChange={(e) => setCharity(e.value)} defaultValue={{value: null, label: "All Charities"}} /> 
+        </Row>        
+        <Row className='mt-2'>   
+            <ButtonGroup size='sm'>
+                {
+                  SUB_CATEGORY_OPTIONS[category]?.map((item, index) => {
+                      return (
+                          <Button key={index} variant="primary" onClick={() => setSubCategory(item.value)}>{item.label}</Button>
+                      )          
+                  })
+                }
+            </ButtonGroup>
         </Row>
       </Container>
       
