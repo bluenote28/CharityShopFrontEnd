@@ -94,4 +94,18 @@ export default class ListingFilter{
 
             return false;
         }
+
+        getAllSubCategories(){
+            let categories = new Set()
+
+            for (let i = 0; i < this.data.length; i++)
+            {
+                for (let x = 0; x < this.data[i]["category_list"].length; x++){
+                    categories.add(this.data[i]["category_list"][x].categoryName)
+                }
+            }
+
+            return categories;
+
+        }
 }
