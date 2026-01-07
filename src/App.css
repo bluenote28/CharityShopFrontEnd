@@ -1,8 +1,21 @@
 body {
-    background-color: rgb(19, 6, 212);
+    background-color: rgb(255, 255, 255);
 }
 
-h1, h4, p, .nav-link, .form-label, a {
-    color: rgb(255, 255, 255);
+h1, h4, p,.form-label, a {
+    color: rgb(11, 11, 11);
 }
 
+.nav-link{
+    color: white;
+}
+
+#root {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+main {
+  flex: 1;
+}
