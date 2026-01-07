@@ -31,6 +31,10 @@ function Header() {
                   {userInfo.isAdmin && (
                     <Nav.Link as={Link} to="/admin">Admin</Nav.Link>
                   )}
+
+                  <Container style={{ width: SEARCH_BAR_WIDTH }}>
+                    <SearchBar />
+                  </Container>
                   
                   {userInfo.name != " " ?
                   
@@ -46,20 +50,18 @@ function Header() {
                     <NavDropdown.Item onClick={logoutHandler}>Logout</NavDropdown.Item>
                   </NavDropdown>
                 }
-
-                <Container style={{ width: SEARCH_BAR_WIDTH }}>
-                  <SearchBar />
-                </Container>
                 </>
                 
 
              ) : (
 
               <>
-                <Nav.Link as={Link} to="/login">Login</Nav.Link>
-                 <Container style={{ width: SEARCH_BAR_WIDTH }}>
+
+                <Container style={{ width: SEARCH_BAR_WIDTH }}>
                   <SearchBar />
                 </Container>
+
+                <Nav.Link as={Link} to="/login">Login</Nav.Link>
               </>
 
              )}
