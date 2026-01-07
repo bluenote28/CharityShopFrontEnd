@@ -19,7 +19,7 @@ const imageStyle = {
 const bodyStyle = {
   height: '20rem',
   padding: '0',
-  backgroundColor: '#dd1f7eff',
+  backgroundColor: '#ffffffff',
   border: 'solid'
 }
 
@@ -77,9 +77,9 @@ else if (props.favorites){
                 <Image src={props.image} style={imageStyle}/>
             </Col>         
             <Col xs={8}>      
-                <Row className="fs-4 text-white fw-bold"><Col>{props.title}</Col></Row>
-                <Row className="fs-3 text-white"><Col>Price: ${props.price}</Col></Row>
-                <Row className="fs-3 text-white"><Col>Benefits: {convertIdToCharityName(charities, props.charity)}</Col></Row>
+                <Row className="fs-4 fw-bold"><Col>{props.title}</Col></Row>
+                <Row className="fs-3"><Col>Price: ${props.price}</Col></Row>
+                <Row className="fs-3"><Col>Benefits: {convertIdToCharityName(charities, props.charity)}</Col></Row>
                 {
                     isItemInFavorites(props.id) ? 
                     <Row className='mt-3'><Col><Button onClick={(e) => handleClick(e,props.id)}>Go to Item</Button></Col>
@@ -103,9 +103,9 @@ else{
                 <Image src={props.image} style={imageStyle}/>
             </Col>
             <Col xs={8}>      
-                <Row className="fs-4 text-white fw-bold"><Col>{props.title}</Col></Row>
-                <Row className="fs-3 text-white"><Col>Price: ${props.price}</Col></Row>
-                <Row className="fs-3 text-white"><Col>Benefits: {convertIdToCharityName(charities, props.charity)}</Col></Row>
+                <Row className="fs-4 fw-bold"><Col>{props.title}</Col></Row>
+                <Row className="fs-3"><Col>Price: ${props.price}</Col></Row>
+                <Row className="fs-3"><Col>Benefits: {convertIdToCharityName(charities, props.charity)}</Col></Row>
                 <Row><Col><Button onClick={(e) => handleClick(e,props.id)}>Go to Item</Button></Col></Row>
             </Col>
         </Row>
