@@ -19,7 +19,7 @@ const imageStyle = {
 const bodyStyle = {
   height: '20rem',
   padding: '0',
-  backgroundColor: '#ffffffff',
+  backgroundColor: '#eaeaeaff',
   border: 'solid'
 }
 
