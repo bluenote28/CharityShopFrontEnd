@@ -18,7 +18,7 @@ function Header() {
   }
 
   return (  
-    <Navbar>
+    <Navbar expand="lg" style={{backgroundColor: "#1406d4"}}>
       <Container>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
