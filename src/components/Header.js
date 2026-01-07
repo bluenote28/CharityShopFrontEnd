@@ -12,6 +12,7 @@ function Header() {
   const user = useSelector((state) => state.userLogin);
   const { userInfo } = user
   const dispatch = useDispatch();
+  const SEARCH_BAR_WIDTH= "500px"
 
   const logoutHandler = () => {
     dispatch(logout());
@@ -22,7 +23,7 @@ function Header() {
       <Container>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
-          <Nav>
+          <Nav className='mx-auto'>
              <Nav.Link as={Link} to="/">Home</Nav.Link>
            
              {userInfo ? (
@@ -46,7 +47,7 @@ function Header() {
                   </NavDropdown>
                 }
 
-                <Container style={{ width: '600px' }}>
+                <Container style={{ width: SEARCH_BAR_WIDTH }}>
                   <SearchBar />
                 </Container>
                 </>
@@ -56,7 +57,7 @@ function Header() {
 
               <>
                 <Nav.Link as={Link} to="/login">Login</Nav.Link>
-                 <Container style={{ width: '600px' }}>
+                 <Container style={{ width: SEARCH_BAR_WIDTH }}>
                   <SearchBar />
                 </Container>
               </>
