@@ -9,6 +9,7 @@ import ItemPage from './pages/ItemPage';
 import HomePage from './pages/HomePage';
 import FavoritesPage from './pages/FavoritesPage';
 import CategoryPage from './pages/CategoryPage';
+import AboutPage from './pages/About';
 import Footer from './components/Footer';
 import './App.css'
 
@@ -27,6 +28,7 @@ function App() {
             <Route path='/favorites' Component={FavoritesPage} exact />
             <Route path='/item/:item_id' Component={ItemPage} exact />
             <Route path='/category' Component={CategoryPage} exact />
+            <Route path='/about' Component={AboutPage} exact />
       </Routes>
 
       <Footer />    
