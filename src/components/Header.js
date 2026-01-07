@@ -37,18 +37,23 @@ function Header() {
                   </Container>
                   
                   {userInfo.name != " " ?
-                  
+                  <>
                   <NavDropdown title={userInfo.name} id="basic-nav-dropdown">
                     <NavDropdown.Item href="/profile">Profile</NavDropdown.Item>
                     <NavDropdown.Item href="/favorites">Favorites</NavDropdown.Item>
                     <NavDropdown.Item onClick={logoutHandler}>Logout</NavDropdown.Item>
                   </NavDropdown>
+                  <Nav.Link as={Link} to="/about">About</Nav.Link>
+                  </>
                 :
+                  <>
                   <NavDropdown title={"Welcome"} id="basic-nav-dropdown">
                     <NavDropdown.Item href="/profile">Profile</NavDropdown.Item>
                     <NavDropdown.Item href="/favorites">Favorites</NavDropdown.Item>
                     <NavDropdown.Item onClick={logoutHandler}>Logout</NavDropdown.Item>
                   </NavDropdown>
+                  <Nav.Link as={Link} to="/about">About</Nav.Link>
+                  </>
                 }
                 </>
                 
@@ -62,6 +67,7 @@ function Header() {
                 </Container>
 
                 <Nav.Link as={Link} to="/login">Login</Nav.Link>
+                <Nav.Link as={Link} to="/about">About</Nav.Link>
               </>
 
              )}
