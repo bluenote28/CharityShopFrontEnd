@@ -73,16 +73,17 @@ function DisplayListings(props) {
       const paginationItemsEnding = ITEMS_PER_PAGE * page;
       const paginationItemsBeginning = paginationItemsEnding - ITEMS_PER_PAGE;
       const paginatedItems = filteredItems.slice(paginationItemsBeginning, paginationItemsEnding);
-      const prevPaginationItems = [<Pagination.First onClick={() => setPage(1)} />, <Pagination.Prev onClick={()=>{
-
+      const prevPaginationItems = [<Pagination.First onClick={() => {setPage(1); window.scrollTo({ top: 0, behavior: 'instant' });}} />, 
+      <Pagination.Prev onClick={()=>{
         if(page == 1){
           return;
         }
         else{
           setPage(page - 1);
         }
-
+        window.scrollTo({ top: 0, behavior: 'instant' });
       }
+      
       } />];
       const nextPaginationItems = [<Pagination.Next onClick={()=>{
 
@@ -92,16 +93,12 @@ function DisplayListings(props) {
         else{
           setPage(page + 1);
         }
-
+        window.scrollTo({ top: 0, behavior: 'instant' });
       }
-      }  />, <Pagination.Last onClick={() => setPage(totalPages)} />];
+      }  />, <Pagination.Last onClick={() => {setPage(totalPages); window.scrollTo({ top: 0, behavior: 'instant' });}} />];
   
       return (
-        <>
-        <Container className='d-flex justify-content-center'>
-            <Pagination>{prevPaginationItems}<Pagination.Item>{page}</Pagination.Item><Pagination.Item>of</Pagination.Item><Pagination.Item>{totalPages}</Pagination.Item>{nextPaginationItems}</Pagination>
-        </Container>
-          
+        <>          
         <Container>
             {   
                 paginatedItems.map((item, index) => { 
