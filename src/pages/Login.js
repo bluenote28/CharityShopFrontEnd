@@ -43,12 +43,12 @@ function LoginPage() {
                 <Form onSubmit={submithandler}>
                     <Form.Group controlId='email' className='mb-2'>
                         <Form.Label>Email Address</Form.Label>
-                        <Form.Control type='email' placeholder='Enter email' value={email} onChange={(e) => setEmail(e.target.value)}></Form.Control>
+                        <Form.Control className="border-black" type='email' placeholder='Enter email' value={email} onChange={(e) => setEmail(e.target.value)}></Form.Control>
                     </Form.Group>
 
                     <Form.Group controlId='password'>
                         <Form.Label>Password</Form.Label>
-                        <Form.Control type='password' placeholder='Enter password' value={password} onChange={(e) => setPassword(e.target.value)}></Form.Control>
+                        <Form.Control className="border-black" type='password' placeholder='Enter password' value={password} onChange={(e) => setPassword(e.target.value)}></Form.Control>
                     </Form.Group>
 
                     <Button type='submit' variant='primary'className='mt-2'>

@@ -60,24 +60,24 @@ function RegisterPage() {
                     <Form onSubmit={submithandler}>
                         <Form.Group controlId='firstName' className='mb-2'>
                             <Form.Label>First Name</Form.Label>
-                            <Form.Control required type='firstName' placeholder='Enter first name' value={firstName} onChange={(e) => setFirstName(e.target.value)}></Form.Control>
+                            <Form.Control className="border-black" required type='firstName' placeholder='Enter first name' value={firstName} onChange={(e) => setFirstName(e.target.value)}></Form.Control>
                         </Form.Group>
                         <Form.Group controlId='lastName' className='mb-2'>
                             <Form.Label>Last Name</Form.Label>
-                            <Form.Control required type='lastName' placeholder='Enter last name' value={lastName} onChange={(e) => setLastName(e.target.value)}></Form.Control>
+                            <Form.Control className="border-black" required type='lastName' placeholder='Enter last name' value={lastName} onChange={(e) => setLastName(e.target.value)}></Form.Control>
                         </Form.Group>
                         <Form.Group controlId='email' className='mb-2'>
                             <Form.Label>Email Address</Form.Label>
-                            <Form.Control required type='email' placeholder='Enter email' value={email} onChange={(e) => setEmail(e.target.value)}></Form.Control>
+                            <Form.Control className="border-black" required type='email' placeholder='Enter email' value={email} onChange={(e) => setEmail(e.target.value)}></Form.Control>
                         </Form.Group>
 
                         <Form.Group controlId='password' className='mb-2'>
                             <Form.Label>Password</Form.Label>
-                            <Form.Control required type='password' placeholder='Enter password' value={password} onChange={(e) => setPassword(e.target.value)}></Form.Control>
+                            <Form.Control className="border-black" required type='password' placeholder='Enter password' value={password} onChange={(e) => setPassword(e.target.value)}></Form.Control>
                         </Form.Group>
                         <Form.Group controlId='cofirmPassword' className='mb-2'>
                             <Form.Label>Confirm Password</Form.Label>
-                            <Form.Control required type='password' placeholder='confirm password' value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)}></Form.Control>
+                            <Form.Control className="border-black" required type='password' placeholder='confirm password' value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)}></Form.Control>
                         </Form.Group>
 
                         <div className='mt-2'>
