@@ -61,7 +61,7 @@ function CategoryPage() {
         </Row>
       </Container>
 
-      <Container className='mb-3 mt-1 p-2 border rounded-3' style={{backgroundColor: "rgba(213, 231, 252, 1)"}}>
+      <Container className='mb-3 mt-1 p-2 border rounded-3'>
         <Row>     
         <Select className="mx-1 w-100" options={allCharitites} onChange={(e) => setCharity(e.value)} defaultValue={{value: null, label: "All Charities"}} /> 
         </Row>        
@@ -72,7 +72,7 @@ function CategoryPage() {
                   {
                     subCategoryOptions[index]?.map((item, index) => {
                         return (
-                            <Button style={{margin: "1px"}} key={index} variant="primary" onClick={() => setSubCategory(item.value)}>{item.label}</Button>
+                            <Button style={{margin: "1px"}} key={index} variant="outline-secondary" onClick={() => setSubCategory(item.value)}>{item.label}</Button>
                         )          
                     })
                   }
