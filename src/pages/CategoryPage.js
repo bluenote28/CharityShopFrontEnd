@@ -52,14 +52,6 @@ function CategoryPage() {
   return (
     <>
     {errorMessage && <AlertBox message={errorMessage}/>}.             
-    
-      <Container>
-        <Row>
-            <Col>
-                <h1 style={{textAlign:"center"}}>{category}</h1>
-            </Col>
-        </Row>
-      </Container>
 
       <Container className='mb-3 mt-1 p-2 border rounded-3'>
         <Row>     
