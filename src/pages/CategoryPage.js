@@ -11,6 +11,7 @@ import { getCharities } from '../actions/charityActions';
 import { SUB_CATEGORY_OPTIONS } from '../constants/categoryFilterOptions'
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import Button from 'react-bootstrap/Button';
+import formatItemsIntoRows from '../utilities/ItemsGridFormatter'
 
 function CategoryPage() {
 
@@ -23,6 +24,8 @@ function CategoryPage() {
   const dispatch = useDispatch();
   const charitiesState = useSelector((state) => state.charities);
   const { error, loading, charities} = charitiesState;
+  const CATEGORY_BUTTON_GROUP_PER_ROW = 5;
+  const subCategoryOptions = formatItemsIntoRows(SUB_CATEGORY_OPTIONS[category], CATEGORY_BUTTON_GROUP_PER_ROW)
 
   useEffect(() => {
     if (!charities || charities.length === 0){
@@ -62,16 +65,19 @@ function CategoryPage() {
         <Row>     
         <Select className="mx-1 w-100" options={allCharitites} onChange={(e) => setCharity(e.value)} defaultValue={{value: null, label: "All Charities"}} /> 
         </Row>        
-        <Row className='mt-2'>   
-            <ButtonGroup size='sm'>
-                {
-                  SUB_CATEGORY_OPTIONS[category]?.map((item, index) => {
-                      return (
-                          <Button key={index} variant="primary" onClick={() => setSubCategory(item.value)}>{item.label}</Button>
-                      )          
-                  })
-                }
-            </ButtonGroup>
+        <Row className='mt-2'> 
+        {      
+          subCategoryOptions.map((item, index) => {
+          return (<ButtonGroup size='sm' key={index + 1}>
+                  {
+                    subCategoryOptions[index]?.map((item, index) => {
+                        return (
+                            <Button style={{margin: "1px"}} key={index} variant="primary" onClick={() => setSubCategory(item.value)}>{item.label}</Button>
+                        )          
+                    })
+                  }
+                  </ButtonGroup>
+          )})}
         </Row>
       </Container>
       
