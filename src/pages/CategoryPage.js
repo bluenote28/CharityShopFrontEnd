@@ -61,7 +61,7 @@ function CategoryPage() {
         </Row>
       </Container>
 
-      <Container className='mb-3 mt-1'>
+      <Container className='mb-3 mt-1 p-2 border rounded-3' style={{backgroundColor: "rgba(213, 231, 252, 1)"}}>
         <Row>     
         <Select className="mx-1 w-100" options={allCharitites} onChange={(e) => setCharity(e.value)} defaultValue={{value: null, label: "All Charities"}} /> 
         </Row>        
