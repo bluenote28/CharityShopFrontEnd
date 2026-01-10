@@ -4,7 +4,7 @@ import { useParams } from 'react-router-dom'
 import NormalSpinner from '../components/Spinner';
 import Image from 'react-bootstrap/Image';
 import { Container, Row, Col, Button } from 'react-bootstrap';
-import { convertIdToCharityName } from '../utilities/Converters';
+import { convertIdToCharityName, covertUrlToAffiliateLink } from '../utilities/Converters';
 import { useSelector, useDispatch } from "react-redux";
 import { getCharities } from '../actions/charityActions';
 
@@ -41,6 +41,8 @@ function ItemPage() {
     function handleClick(e, url){
 
         e.preventDefault()
+
+        url = covertUrlToAffiliateLink(url);
 
         window.open(url, '_blank');
     }
