@@ -27,7 +27,6 @@ function DisplayListings(props) {
   useEffect(() => {
    
     if (props.search == null){
-      console.log(props.category)
       dispatch(getItems(null, null, props.category))
     }
 
@@ -41,7 +40,7 @@ function DisplayListings(props) {
 
     dispatch(getCharities());
    
-  }, [dispatch]);
+  }, [dispatch, props.search]);
 
   useEffect(() => {
       setFilteringItems(true)
