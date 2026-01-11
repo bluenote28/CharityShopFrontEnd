@@ -134,7 +134,6 @@ export const addFavorite = (item="", charity="") => async (dispatch, getState) =
         }
         const response = await fetch(BACKEND_API_BASE_URL + 'favorites/', config)
         const data = await response.json()
-        console.log(data)
         
         dispatch({type: ADD_FAVORITE_SUCCESS, payload: data})
     }catch(error){
