@@ -9,15 +9,14 @@ import AlertBox from '../components/Alert'
 import { useSearchParams } from 'react-router-dom';
 import { CATEGORY_OPTIONS } from '../constants/categoryFilterOptions'
 import { getCharities } from '../actions/charityActions';
-import SearchBar from '../components/SearchBar';
 
 function SearchPage() {
 
   const [charity, setCharity] = useState(null)
   const [allCharitites, setAllCharitites] = useState([])
   const [errorMessage, setErrorMessage ] = useState(null)
-  const [searchParams, setSearchParams] = useSearchParams();
-  const [searchText, setSearchText] = useState(searchParams.get('search')) 
+  const [searchParams] = useSearchParams();
+  const searchText = searchParams.get('search')
   const [category, setCategory] = useState(searchParams.get('category'))
   const dispatch = useDispatch();
   const charitiesState = useSelector((state) => state.charities);
