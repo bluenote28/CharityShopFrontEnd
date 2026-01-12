@@ -49,18 +49,10 @@ function CategoryPage() {
       }
   }, [charities])
 
-  return (
-    <>
-    {errorMessage && <AlertBox message={errorMessage}/>}.             
+  function subCategoryBar(){
 
-      <Container className='mb-3 mt-1 p-2 border rounded-3'>
-        <Row>     
-        <Select className="mx-1 w-100" options={allCharitites} onChange={(e) => setCharity(e.value)} defaultValue={{value: null, label: "All Charities"}} /> 
-        </Row>        
-        <Row className='mt-2'> 
-        {      
-          subCategoryOptions.map((item, index) => {
-          return (<ButtonGroup size='sm' key={index + 1}>
+    return subCategoryOptions.map((item, index) =>{
+      return (<ButtonGroup size='sm' key={index + 1}>
                   {
                     subCategoryOptions[index]?.map((item, index) => {
                         return (
@@ -68,8 +60,20 @@ function CategoryPage() {
                         )          
                     })
                   }
-                  </ButtonGroup>
-          )})}
+              </ButtonGroup>
+          )})
+  }
+
+  return (
+    <>
+    {errorMessage && <AlertBox message={errorMessage}/>}.             
+
+      <Container className='mb-3 mt-1 p-2 border rounded-3' style={{backgroundColor: "#fbf9f9ff"}}>
+        <Row>     
+        <Select className="mx-1 w-100" options={allCharitites} onChange={(e) => setCharity(e.value)} defaultValue={{value: null, label: "All Charities"}} /> 
+        </Row>        
+        <Row className='mt-2'> 
+          {subCategoryBar()}
         </Row>
       </Container>
       
