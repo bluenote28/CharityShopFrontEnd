@@ -12,8 +12,19 @@ import CategoryPage from './pages/CategoryPage';
 import AboutPage from './pages/About';
 import Footer from './components/Footer';
 import './App.css'
+import { useEffect } from 'react';
+import { useDispatch } from "react-redux";
+import { getUserFavorites } from './actions/userActions';
 
 function App() {
+
+  const dispatch = useDispatch()
+
+  useEffect(()=> {
+      dispatch(getUserFavorites())
+  }, [dispatch])
+
+
   return (
     <Router>
       <Header />
