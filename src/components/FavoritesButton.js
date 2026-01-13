@@ -31,9 +31,8 @@ function FavoritesButton(props) {
   variant="primary"
   onClick={() => {setPending(true); setTimeout(() => handleClick(props.id), 300)}}
   disabled={pending}
-  style={{ width: 55, height: 40 }}
 >
-  {pending ? <NormalSpinner /> : <Image src={isFavorite ? StarChecked : StarUnchecked} fluid />}
+  {pending ? <NormalSpinner /> : <Image src={isFavorite ? StarChecked : StarUnchecked} />}
      </Button>
   );
 }
