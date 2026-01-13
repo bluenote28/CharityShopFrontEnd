@@ -1,14 +1,11 @@
 import Button from 'react-bootstrap/Button';
-import { Container } from 'react-bootstrap';
-import { useDispatch, useSelector} from "react-redux"
-import { addFavorite, removeFavorite } from '../actions/userActions';
+import { Container, Row, Col } from 'react-bootstrap';
+import { useSelector} from "react-redux"
 import Image from 'react-bootstrap/Image';
-import StarUnchecked from '../images/starunchecked.png'
-import StarChecked from '../images/starchecked.png'
-import {Row, Col} from 'react-bootstrap'
 import { convertIdToCharityName } from '../utilities/Converters';
 import NormalSpinner from './Spinner';
 import { useNavigate } from "react-router-dom";
+import FavoritesButton from './FavoritesButton';
 
 const imageStyle = {
   width: '100%',
@@ -25,50 +22,24 @@ const bodyStyle = {
 
 function ItemListing(props){
 
-  const dispatch = useDispatch()
   const charitiesState = useSelector((state) => state.charities);
   const { errorCharities, loadingCharities, charities} = charitiesState;
+  const favoritesData = useSelector((state) => state.favorites);
   const navigate = useNavigate()
 
-  function onImageClick(id){
-
-        dispatch(addFavorite(id))
+  function handleClick(e, id){
+        e.preventDefault()
+        navigate("/item/" + id)
   }
 
-  function onCheckedImageClick(id){
-
-    dispatch(removeFavorite(id))
-
-  }   
-
-  function isItemInFavorites(id){
-    
-    for (let i = 0; i < props.favorites.length; i++){
-
-        if (props.favorites[i].ebay_id === id){
-                return true
-            }
-        }
-
-        return false;
-    }
-
-   function handleClick(e, id){
-
-        e.preventDefault()
-
-        navigate("/item/" + id)
-
-    }
-
 if (errorCharities){
-    console.log(errorCharities)
+  console.log(errorCharities)
 }  
 
 else if (loadingCharities){
     return <NormalSpinner />
 } 
-else if (props.favorites){
+else if (favoritesData){
     
       return (
       <Container style={bodyStyle}>
@@ -79,15 +50,9 @@ else if (props.favorites){
             <Col xs={8}>      
                 <Row className="fs-4 fw-bold"><Col>{props.title}</Col></Row>
                 <Row className="fs-3"><Col>Price: ${props.price}</Col></Row>
-                <Row className="fs-3"><Col>Benefits: {convertIdToCharityName(charities, props.charity)}</Col></Row>
-                {
-                    isItemInFavorites(props.id) ? 
-                    <Row className='mt-3'><Col><Button onClick={(e) => handleClick(e,props.id)}>Go to Item</Button></Col>
-                                                                       <Col><Image src={StarChecked} onClick={() => {onCheckedImageClick(props.id)}}/></Col><Col></Col><Col></Col><Col></Col></Row>
-                    : 
-                    <Row className='mt-3'><Col><Button onClick={(e) => handleClick(e,props.id)}>Go to Item</Button></Col>
-                                                                       <Col><Image src={StarUnchecked} onClick={() => {onImageClick(props.id)}}/></Col><Col></Col><Col></Col><Col></Col></Row>           
-                }
+                <Row className="fs-3"><Col>Benefits: {convertIdToCharityName(charities, props.charity)}</Col></Row>  
+                <Row className='mt-3'><Col><Button onClick={(e) => handleClick(e,props.id)}>Go to Item</Button></Col>
+                    <Col><FavoritesButton id={props.id}/></Col><Col></Col><Col></Col><Col></Col></Row>             
             </Col>   
         </Row>
       </Container>
