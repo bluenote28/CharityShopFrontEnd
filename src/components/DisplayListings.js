@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getItems } from '../actions/itemActions';
-import { getUserFavorites } from '../actions/userActions';
 import Row from 'react-bootstrap/esm/Row';
 import ListingFilter from '../utilities/FilterClass';
 import NormalSpinner from './Spinner';
@@ -14,8 +13,6 @@ function DisplayListings(props) {
 
   const dispatch = useDispatch();
   const itemListing = useSelector((state) => state.items);
-  const favoritesData = useSelector((state) => state.favorites);
-  const { favoritesError, favoritesLoading, favorites } = favoritesData
   const { error, loading, items } = itemListing
   const [ filteredItems, setFilteredItems ] = useState([])
   const [filteringItems, setFilteringItems ] = useState(true)
@@ -32,10 +29,6 @@ function DisplayListings(props) {
 
     if (props.category == null){
       dispatch(getItems(null, props.search, null))
-    }
-
-    if (userInfo != null && (!favorites || favorites.length === 0)){
-      dispatch(getUserFavorites())
     }
 
     dispatch(getCharities());
@@ -58,7 +51,7 @@ function DisplayListings(props) {
     
     }, [items, props.charityId, props.category,props.subCategory, loading])
 
-  if (loading || filteringItems || (!favorites && userInfo != null)){
+  if (loading || filteringItems){
     return <NormalSpinner />
   }
 
@@ -105,12 +98,9 @@ function DisplayListings(props) {
                     return (
                     <div key={index}>        
                         {error ? <p>{error}</p>:
-                              <Row key={index} className='mb-3'>
-                                {favorites ?
-                                    <ItemListing title={item.name} image={item.img_url} url={item.web_url} id={item.ebay_id} price={item.price} favorites={favorites.items} charity={item.charity} /> :      
-                                    <ItemListing title={item.name} image={item.img_url} url={item.web_url} id={item.ebay_id} price={item.price} charity={item.charity} />
-                                }
-                              </Row>
+                          <Row key={index} className='mb-3'>
+                                <ItemListing title={item.name} image={item.img_url} url={item.web_url} id={item.ebay_id} price={item.price} charity={item.charity} />
+                          </Row>
                          }
                     </div>
                     )
