@@ -141,4 +141,8 @@ export class DatabaseRefreshApi extends Api{
         this.data = data;
         return await this.makeApiCall("POST", this.link)
     }
+
+    async deleteItems(){
+        return await this.makeApiCall("GET", this.link)
+    }
 }
