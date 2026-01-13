@@ -1,16 +1,12 @@
 import { useState, useEffect } from 'react'
 import Select from 'react-select'
 import DisplayListings from '../components/DisplayListings'
-import Row from 'react-bootstrap/Row'
-import Col from 'react-bootstrap/Col'
-import Container from 'react-bootstrap/Container'
+import { Row, Col, Container, Button, ButtonGroup } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import AlertBox from '../components/Alert'
 import { useSearchParams } from 'react-router-dom';
 import { getCharities } from '../actions/charityActions';
 import { SUB_CATEGORY_OPTIONS } from '../constants/categoryFilterOptions'
-import ButtonGroup from 'react-bootstrap/ButtonGroup';
-import Button from 'react-bootstrap/Button';
 import formatItemsIntoRows from '../utilities/ItemsGridFormatter'
 
 function CategoryPage() {
@@ -18,7 +14,7 @@ function CategoryPage() {
   const [charity, setCharity] = useState(null)
   const [allCharitites, setAllCharitites] = useState([])
   const [errorMessage, setErrorMessage ] = useState(null)
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams] = useSearchParams();
   const category = searchParams.get('category')
   const [subCategory, setSubCategory] = useState(null)
   const dispatch = useDispatch();
