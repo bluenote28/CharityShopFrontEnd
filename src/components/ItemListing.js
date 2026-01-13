@@ -1,5 +1,4 @@
-import Button from 'react-bootstrap/Button';
-import { Container, Row, Col } from 'react-bootstrap';
+import { Container, Row, Col, Button, ButtonGroup } from 'react-bootstrap';
 import { useSelector} from "react-redux"
 import Image from 'react-bootstrap/Image';
 import { convertIdToCharityName } from '../utilities/Converters';
@@ -51,8 +50,12 @@ else if (favoritesData){
                 <Row className="fs-4 fw-bold"><Col>{props.title}</Col></Row>
                 <Row className="fs-3"><Col>Price: ${props.price}</Col></Row>
                 <Row className="fs-3"><Col>Benefits: {convertIdToCharityName(charities, props.charity)}</Col></Row>  
-                <Row className='mt-3'><Col><Button onClick={(e) => handleClick(e,props.id)}>Go to Item</Button></Col>
-                    <Col><FavoritesButton id={props.id}/></Col><Col></Col><Col></Col><Col></Col></Row>             
+                <Row className='mt-3'>
+                  <ButtonGroup className='w-25' size='sm'>
+                    <Button style={{marginRight: '10px'}} onClick={(e) => handleClick(e,props.id)}>Go to Item</Button>
+                    <FavoritesButton id={props.id}/>
+                  </ButtonGroup>
+                </Row>             
             </Col>   
         </Row>
       </Container>
