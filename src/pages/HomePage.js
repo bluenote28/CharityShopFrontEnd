@@ -15,7 +15,6 @@ function HomePage() {
     const icons = []
 
     if (category) {
-        console.log(category)
         navigate(`/category?category=${encodeURIComponent(category)}`)
     } 
      
