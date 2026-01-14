@@ -7,18 +7,18 @@ export const CATEGORY_OPTIONS = [
         {value: "tvAndMovies", label: "Movies & TV"},
         {value: "toys", label: "Toys & Hobbies"},
         {value: "videoGames", label: "Video Games & Consoles"},
+        {value: "computer", label: "Computers/Tablets & Networking"},
         {value: "jewelry", label: "Jewelry & Watches"},
+        {value: "books", label: "Books & Magazines"},
         {value: "crafts", label: "Crafts"},
         {value: "sportingGoods", label: "Sporting Goods"},
-        //{value: "Home & Garden", label: "Home & Garden"},
-        //{value: "Art", label: "Art"},
+        {value: "homeGarden", label: "Home & Garden"},
+        {value: "art", label: "Art"},
         //{value: "Pottery & Glass", label: "Pottery & Glass"},
         //{value: "Home Décor", label: "Home Décor"},
         //{value: "Business & Industrial", label: "Business & Industrial"},
         //{value: "eBay Motors", label: "eBay Motors"},
         //{value: "Music Memorabilia", label: "Music Memorabilia"},
-        {value: "books", label: "Books & Magazines"}
-
 ]
 
 export const SUB_CATEGORY_OPTIONS = {
@@ -30,7 +30,6 @@ export const SUB_CATEGORY_OPTIONS = {
                         { value: "Coca-Cola", label: "Coca-Cola"},
                         { value: "Disney", label: "Disney"},
                         { value: "Postcards", label: "Postcards"},
-                        { value: "Coins & Paper Money", label: "Coins & Paper Money"},
                         { value: "Stamps", label: "Stamps"},
                         { value: "Sports Mem, Cards & Fan Shop", label: "Sports Mem, Cards & Fan Shop"}, 
                         { value: "Antique (Pre-1900)", label: 'Antique (Pre-1900)'},
@@ -113,7 +112,53 @@ export const SUB_CATEGORY_OPTIONS = {
                            {value: "Fishing", label: "Fishing"},
                            {value: "Hunting", label: "Hunting"},
                            {value: "Ice Skating", label: 'Ice Skating'}
-        ]
-        
-        
+        ],
+
+        "Computers/Tablets & Networking": [{value: null, label: "All Computers/Tablets & Networking"},
+                                           {value: "Desktops & All-In-Ones", label: "Desktops & All-In-Ones"},
+                                           {value: "PC Laptops & Netbooks", label: "PC Laptops & Netbooks"},
+                                           {value: "Tablets & eBook Readers", label: "Tablets & eBook Readers"},
+                                           {value: "Apple Laptops", label: "Apple Laptops"},
+                                           {value: "Apple Desktops & All-In-Ones", label: "Apple Desktops & All-In-Ones"},
+                                           {value: "Monitors", label: "Monitors"},
+                                           {value: "Printers", label: "Printers"},
+                                           {value: "Laptop Replacement Parts", label: "Laptop Replacement Parts"},
+                                           {value: "Graphics/Video Cards", label: "Graphics/Video Cards"},
+                                           {value: "Enterprise Networking, Servers", label: "Enterprise Networking, Servers"},                    
+        ],
+
+        "Home & Garden": [{value: null, label: "All Home & Garden"},
+                          {value: "Candles & Home Fragrance", label: "Candles & Home Fragrance"},
+                          {value: "Glassware & Drinkware", label: "Glassware & Drinkware"},
+                          {value: "Flatware, Knives & Cutlery", label: "Flatware, Knives & Cutlery"},
+                          {value: "Dinnerware & Serveware", label: "Dinnerware & Serveware"},
+                          {value: "Kitchen Tools & Gadgets", label: "Kitchen Tools & Gadgets"},
+                          {value: "Coffee, Tea & Espresso Makers", label: "Coffee, Tea & Espresso Makers"},
+                          {value: "Bakeware", label: "Bakeware"},
+                          {value: "Cookware", label: "Cookware"},
+                          {value: "Grills & Griddles", label: "Grills & Griddles"},
+                          {value: "Wall Décor", label: "Wall Décor"},
+                          {value: "Furniture", label: "Furniture"},
+                          {value: "Bedding", label: "Bedding"},
+                          {value: "Kitchen, Dining & Bar", label: "Kitchen, Dining & Bar"},
+                          {value: "Small Kitchen Appliances", label: "Small Kitchen Appliances"},
+                          {value: "Patio & Garden Furniture", label: "Patio & Garden Furniture"},
+                          {value: "Garden Hand Tools & Equipment", label: "Garden Hand Tools & Equipment"},
+                          {value: "Plants, Seeds & Bulbs", label: "Plants, Seeds & Bulbs"},
+                          {value: "Plant Care, Soil & Accessories", label: "Plant Care, Soil & Accessories"},
+                          {value: "Herbs, Spices & Seasonings", label: "Herbs, Spices & Seasonings"},
+        ],
+
+        "Art": [{value: null, label: "All Art"},
+                {value: "Art Prints", label: "Art Prints"},
+                {value: "Paintings", label: "Paintings"},
+                {value: "Art Sculptures", label: "Art Sculptures"},
+                {value: "Art Posters", label: "Art Posters"},
+                {value: "Mixed Media Art & Collage Art", label: "Mixed Media Art & Collage Art"},
+                {value: "Other Art", label: "Other Art"},
+                {value: "Art Photographs", label: "Art Photographs"},
+                {value: "Art Drawings", label: "Art Drawings"},
+                {value: "Art NFTs", label: "Art NFTs"},
+                {value: "Textile Art & Fiber Art", label: "Textile Art & Fiber Art"}
+        ]     
 }
