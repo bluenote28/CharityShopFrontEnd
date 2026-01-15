@@ -16,6 +16,9 @@ function AdminPage() {
    const { error, loading, charities} = charitiesState;
    const user = useSelector((state) => state.userLogin);
    const { userInfo } = user
+   const STYLE = {
+        backgroundColor: "#f9f9f9ff"
+   }
 
     useEffect(() => {
         dispatch(getCharities());
@@ -37,23 +40,23 @@ function AdminPage() {
   else {
     return (
         <Col>
-                <Row className='mt-3 border rounded-3 mx-5 px-3'>
+                <Row className='mt-3 border rounded-3 mx-5 px-3' style={STYLE}>
                         <h4 className='mt-2' style={{textAlign: 'center'}}> Charities Database</h4>
                         <CharitiesTable data={charities} />     
                 </Row>
 
-                <Row className='w-50 mt-3 m-auto border rounded-3 px-3'>
+                <Row className='w-50 mt-3 m-auto border rounded-3 px-3' style={STYLE}>
                         <h4 className='mt-2' style={{textAlign: 'center'}}>Enter or Update a Charity</h4>
                         <SubmitCharityForm />
                 </Row>
 
-                <Row className='w-50 mt-3 m-auto border rounded-3 px-3'>
+                <Row className='w-50 mt-3 m-auto border rounded-3 px-3' style={STYLE}>
                         <h4 className='mt-2' style={{textAlign: 'center'}}>Database Actions</h4>
                         <Button onClick={deleteItemsFromDB}>Run Delete Items Job</Button>
                         
                 </Row>
 
-                <Row className='w-50 mt-3 mb-5 m-auto border rounded-3 px-3'>
+                <Row className='w-50 mt-3 mb-5 m-auto border rounded-3 px-3' style={STYLE}>
                         <h4 className='mt-2' style={{textAlign: 'center'}}>Database Report</h4>
                         <AdminReport />
                 </Row>
