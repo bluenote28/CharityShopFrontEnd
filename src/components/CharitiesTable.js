@@ -70,7 +70,7 @@ function CharitiesTable(props) {
                         <td>{item.created_at}</td>
                         <td>{item.updated_at}</td>
                         <td><Button variant="primary" onClick={() => deleteButtonClick(item.id)}>Delete</Button></td>
-                        <td><Button variant="primary" onClick={() => updateCharityItemsInDB(item.id, item.name,item.description)}>Refresh Items</Button></td>
+                        <td><Button variant="primary" onClick={() => updateCharityItemsInDB(item.id, item.name,item.description)}>Refresh</Button></td>
                     </tr>
                     )
                 }
