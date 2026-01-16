@@ -10,25 +10,27 @@ The backend code is written in Python using the Django Framework. The repo for t
 
 The site has an administration page that can only be viewed by users with an adminstrator account. From this page, you can see which charities are already in the database, add a new charity to the database, and view statistics of what is in the database.
 
-<img width="1570" height="904" alt="image" src="https://github.com/user-attachments/assets/646b9a30-cb41-4f12-b2bd-bdc63a251406" />
+<img width="1885" height="888" alt="image" src="https://github.com/user-attachments/assets/bdc19a8c-a3da-44ea-8c90-2a28cd60ee62" />
 
-<img width="1059" height="878" alt="image" src="https://github.com/user-attachments/assets/78be9c5c-ffd0-4c8c-9744-38275d7f37e2" />
+<img width="1879" height="884" alt="image" src="https://github.com/user-attachments/assets/141378a5-8d33-4ddd-9c81-26ba0d3cccc4" />
 
 Once a new charity is entered in the form pictured above, the backend will automatically load items from ebay into the database.
 
 A user can search for all items in the database, filtering items by the charity the item supports, the item category, and a general word search.
 The application paginates the results.
 
-<img width="1565" height="848" alt="image" src="https://github.com/user-attachments/assets/5da6c364-ba02-4b31-b078-bb349db70fe9" />
+<img width="1867" height="838" alt="image" src="https://github.com/user-attachments/assets/daaf64d4-b5ad-4b78-bd33-f31b406ccf25" />
 
 A user can save items in a favorites list by clicking the star on the item listing:
 
-<img width="347" height="402" alt="image" src="https://github.com/user-attachments/assets/1f364d67-1ddc-495c-8621-d5efa5628aea" />
-<img width="329" height="395" alt="image" src="https://github.com/user-attachments/assets/30ba601f-3d2f-44bd-9843-4c7245edbf18" />
+<img width="1592" height="346" alt="image" src="https://github.com/user-attachments/assets/dc3c1f74-0244-48c7-bc3a-7678c871efcb" />
+
+<img width="1775" height="378" alt="image" src="https://github.com/user-attachments/assets/b9551b74-25e8-4b76-8fba-40b91aff7ed8" />
 
 All saved listings can be viewed in the users favorite page: 
 
-<img width="1741" height="835" alt="image" src="https://github.com/user-attachments/assets/7bac741e-7848-4ece-94c6-b31177de092b" />
+<img width="1911" height="880" alt="image" src="https://github.com/user-attachments/assets/4e4ca3b2-65c0-4134-827c-d8fceec27ec7" />
+
 
 # Roadmap
 
