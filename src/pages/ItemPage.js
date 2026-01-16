@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
 import { BACKEND_API_BASE_URL } from '../constants/apiContants';
-import { useParams } from 'react-router-dom'
+import { useParams, useNavigate, Link } from 'react-router-dom'
 import NormalSpinner from '../components/Spinner';
-import { Container, Row, Col, Button } from 'react-bootstrap';
+import { Container, Row, Col, Button, ButtonGroup } from 'react-bootstrap';
 import { convertIdToCharityName, covertUrlToAffiliateLink } from '../utilities/Converters';
 import { useSelector, useDispatch } from "react-redux";
 import { getCharities } from '../actions/charityActions';
@@ -17,6 +17,7 @@ function ItemPage() {
     const dispatch = useDispatch();
     const [mainImage, setMainImage] = useState(null)
     const [altImages, setAltImages ] = useState(null)
+    const navigate = useNavigate()
 
     useEffect(() => {
         if (!charities || charities.length === 0){
@@ -62,8 +63,16 @@ function ItemPage() {
     return (
         <>
         <Container className='mt-3'>
-            <Row><h2>{itemData.name}</h2></Row>
             <Row>
+                <h2 style={{textAlign: "center"}}>{itemData.name}</h2>
+            </Row>
+            <Row>
+              <Container className='d-flex justify-content-around mt-3'>
+                <Link onClick={() => navigate(-1)}>Go back to search results</Link>
+                <Link onClick={(e) => handleClick(e,itemData.web_url)}>Go to item on Ebay</Link>
+              </Container>
+            </Row>
+            <Row className='mt-4'>
                 <Col className='d-flex flex-column align-items-center'>
                    <Row><ImageCarousel mainImage={mainImage} altImages={altImages} /></Row>
                 </Col>
@@ -77,7 +86,6 @@ function ItemPage() {
                         <Row><h4>Total Seller Feedback: {itemData.seller.feedbackScore}</h4></Row>
                         <Row><h4>Seller Positive Feeback: {itemData.seller.feedbackPercentage}%</h4></Row>
                         <Row><h4>Benefits: {convertIdToCharityName(charities, itemData.charity)}</h4></Row>
-                        <Row><Button onClick={(e) => handleClick(e,itemData.web_url)}>Go to item on Ebay</Button></Row>
                     </Container>
                 </Col>
             </Row>
