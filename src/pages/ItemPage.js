@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
 import { BACKEND_API_BASE_URL } from '../constants/apiContants';
-import { useParams, useNavigate, Link } from 'react-router-dom'
+import { useParams, useNavigate } from 'react-router-dom'
 import NormalSpinner from '../components/Spinner';
-import { Container, Row, Col, Image } from 'react-bootstrap';
+import { Container, Row, Col, Image, Button, ButtonGroup} from 'react-bootstrap';
 import { convertIdToCharityName, covertUrlToAffiliateLink } from '../utilities/Converters';
 import { useSelector, useDispatch } from "react-redux";
 import { getCharities } from '../actions/charityActions';
@@ -87,8 +87,10 @@ function ItemPage() {
             </Row>
             <Row>
               <Container className='d-flex justify-content-around mt-3'>
-                <Link onClick={() => navigate(-1)}>Go back to search results</Link>
-                <Link onClick={(e) => handleClick(e,itemData.web_url)}>Go to item on Ebay</Link>
+                <ButtonGroup>
+                    <Button variant="outline-dark" onClick={() => navigate(-1)}>Go back to search results</Button>
+                    <Button variant="outline-dark" onClick={(e) => handleClick(e,itemData.web_url)}>Go to item on Ebay</Button>
+                </ButtonGroup>
               </Container>
             </Row>
 
