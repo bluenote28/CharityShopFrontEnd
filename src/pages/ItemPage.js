@@ -3,7 +3,7 @@ import { BACKEND_API_BASE_URL } from '../constants/apiContants';
 import { useParams, useNavigate } from 'react-router-dom'
 import NormalSpinner from '../components/Spinner';
 import { Container, Row, Col, Image, Button, ButtonGroup} from 'react-bootstrap';
-import { convertIdToCharityName, covertUrlToAffiliateLink } from '../utilities/Converters';
+import { convertIdToCharityName, covertUrlToAffiliateLink, convertItemPageImageUrl } from '../utilities/Converters';
 import { useSelector, useDispatch } from "react-redux";
 import { getCharities } from '../actions/charityActions';
 
@@ -19,8 +19,8 @@ function ItemPage() {
     const [mainImageUrl, setMainImageUrl] = useState(null); 
     const MAIN_IMAGE_STYLE = {
          maxWidth: '100%',
-         height: '100%',
-         objectFit: 'cover'
+         height: 'auto',
+         objectFit: 'contain'
     }
 
     const MAIN_IMAGE_CONTAINER_STYLE = {
@@ -35,8 +35,8 @@ function ItemPage() {
     }
 
     const SMALL_IMAGE_STYLE = {
-        width: "100px",
-        height: "100px",
+        width: "80px",
+        height: "80px",
         cursor: 'pointer' 
     }
 
@@ -97,7 +97,7 @@ function ItemPage() {
             <Row className='mt-4'>
                 <Col>
                   <Container style={MAIN_IMAGE_CONTAINER_STYLE}>
-                  <Image src={mainImageUrl} style={MAIN_IMAGE_STYLE} fluid />
+                  <Image src={convertItemPageImageUrl(mainImageUrl)} style={MAIN_IMAGE_STYLE} fluid />
                   </Container>
                 </Col>
                 <Col className='d-flex flex-column align-items-center'>
@@ -116,8 +116,8 @@ function ItemPage() {
             <Row className='mt-2'>
                 <Container>
                   {allImages ? allImages.map((item,index) => {
-                    return <Image key={index} style={SMALL_IMAGE_STYLE} src={item.imageUrl} thumbnail onClick={() => {
-                        setMainImageUrl(item.imageUrl)
+                    return <Image key={index} style={SMALL_IMAGE_STYLE} src={convertItemPageImageUrl(item.imageUrl)} thumbnail onClick={() => {
+                        setMainImageUrl(convertItemPageImageUrl(item.imageUrl))
                     }} />}) : <></>
                   }
                 </Container>
