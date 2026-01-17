@@ -19,7 +19,7 @@ function ItemPage() {
     const [mainImageUrl, setMainImageUrl] = useState(null); 
     const MAIN_IMAGE_STYLE = {
          maxWidth: '100%',
-         height: 'auto',
+         height: '500px',
          objectFit: 'contain'
     }
 
@@ -97,7 +97,7 @@ function ItemPage() {
             <Row className='mt-4'>
                 <Col>
                   <Container style={MAIN_IMAGE_CONTAINER_STYLE}>
-                  <Image src={convertItemPageImageUrl(mainImageUrl)} style={MAIN_IMAGE_STYLE} fluid />
+                  <Image src={mainImageUrl} style={MAIN_IMAGE_STYLE} fluid />
                   </Container>
                 </Col>
                 <Col className='d-flex flex-column align-items-center'>
