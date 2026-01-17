@@ -2,28 +2,49 @@ import { useEffect, useState } from 'react';
 import { BACKEND_API_BASE_URL } from '../constants/apiContants';
 import { useParams, useNavigate, Link } from 'react-router-dom'
 import NormalSpinner from '../components/Spinner';
-import { Container, Row, Col, Button, ButtonGroup } from 'react-bootstrap';
+import { Container, Row, Col, Image } from 'react-bootstrap';
 import { convertIdToCharityName, covertUrlToAffiliateLink } from '../utilities/Converters';
 import { useSelector, useDispatch } from "react-redux";
 import { getCharities } from '../actions/charityActions';
-import ImageCarousel from '../components/ImageCarousel';
 
 function ItemPage() {
 
     const { item_id } = useParams()
     const [itemData, setItemData] = useState(null)
     const charitiesState = useSelector((state) => state.charities);
-    const { errorCharities, loadingCharities, charities} = charitiesState;
+    const { errorCharities, loading, charities} = charitiesState;
     const dispatch = useDispatch();
-    const [mainImage, setMainImage] = useState(null)
-    const [altImages, setAltImages ] = useState(null)
+    const [allImages, setAllImages ] = useState(null)
     const navigate = useNavigate()
+    const [mainImageUrl, setMainImageUrl] = useState(null); 
+    const MAIN_IMAGE_STYLE = {
+         maxWidth: '100%',
+         height: '100%',
+         objectFit: 'cover'
+    }
+
+    const MAIN_IMAGE_CONTAINER_STYLE = {
+        maxWidth: '100%',
+        height: '500px',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: '#f8f9fa',
+        borderRadius: '8px',
+        overflow: "hidden"
+    }
+
+    const SMALL_IMAGE_STYLE = {
+        width: "100px",
+        height: "100px",
+        cursor: 'pointer' 
+    }
 
     useEffect(() => {
-        if (!charities || charities.length === 0){
+        if (!loading && (!charities || charities.length === 0)){
             dispatch(getCharities());
         }
-    }, [dispatch, charities]);
+    }, [dispatch, charities, loading]);
     
     useEffect(() => {
         const fetchItem = async () => {
@@ -43,8 +64,8 @@ function ItemPage() {
         }
 
         if (itemData){
-            setMainImage(itemData.img_url)
-            setAltImages(itemData.additional_images.additionalImages)
+            setAllImages([{"imageUrl": itemData.img_url}].concat(itemData.additional_images?.additionalImages || []))
+            setMainImageUrl(itemData.img_url)
         }
     }, [item_id, itemData])
 
@@ -54,11 +75,9 @@ function ItemPage() {
         window.open(url, '_blank');
     }
 
-    if (itemData == null){
+    if (itemData == null || loading || !charities){
         return <NormalSpinner />
     }
-
-    console.log(itemData)
 
     return (
         <>
@@ -72,22 +91,34 @@ function ItemPage() {
                 <Link onClick={(e) => handleClick(e,itemData.web_url)}>Go to item on Ebay</Link>
               </Container>
             </Row>
+
             <Row className='mt-4'>
-                <Col className='d-flex flex-column align-items-center'>
-                   <Row><ImageCarousel mainImage={mainImage} altImages={altImages} /></Row>
+                <Col>
+                  <Container style={MAIN_IMAGE_CONTAINER_STYLE}>
+                  <Image src={mainImageUrl} style={MAIN_IMAGE_STYLE} fluid />
+                  </Container>
                 </Col>
                 <Col className='d-flex flex-column align-items-center'>
-                    <Container className="border rounded-2 mt-2 p-5" style={{backgroundColor: "#f8f9fa"}}>
-                        <Row><h2 style={{textAlign:"center"}}>Item Details</h2></Row>
-                        <Row><h4>Price: ${itemData.price}</h4></Row>
-                        {itemData.shipping_price ? <Row><h4>Shipping: ${itemData.shipping_price}</h4></Row> : <></>}
-                        {itemData.condition ? <Row><h4>Condition: {itemData.condition}</h4></Row> : <></>}
-                        <Row><h4>Seller: {itemData.seller.username}</h4></Row>
-                        <Row><h4>Total Seller Feedback: {itemData.seller.feedbackScore}</h4></Row>
-                        <Row><h4>Seller Positive Feeback: {itemData.seller.feedbackPercentage}%</h4></Row>
-                        <Row><h4>Benefits: {convertIdToCharityName(charities, itemData.charity)}</h4></Row>
-                    </Container>
+                <Container className="border rounded-2 mt-2 p-5" style={{backgroundColor: "#f8f9fa"}}>
+                    <Row><h2 style={{textAlign:"center"}}>Item Details</h2></Row>
+                    <Row><h4>Price: ${itemData.price}</h4></Row>
+                    {itemData.shipping_price ? <Row><h4>Shipping: ${itemData.shipping_price}</h4></Row> : <></>}
+                    {itemData.condition ? <Row><h4>Condition: {itemData.condition}</h4></Row> : <></>}
+                    <Row><h4>Seller: {itemData.seller.username}</h4></Row>
+                    <Row><h4>Total Seller Feedback: {itemData.seller.feedbackScore}</h4></Row>
+                    <Row><h4>Seller Positive Feeback: {itemData.seller.feedbackPercentage}%</h4></Row>
+                    <Row><h4>Benefits: {convertIdToCharityName(charities, itemData.charity)}</h4></Row>
+                </Container>
                 </Col>
+            </Row>
+            <Row className='mt-2'>
+                <Container>
+                  {allImages ? allImages.map((item,index) => {
+                    return <Image key={index} style={SMALL_IMAGE_STYLE} src={item.imageUrl} thumbnail onClick={() => {
+                        setMainImageUrl(item.imageUrl)
+                    }} />}) : <></>
+                  }
+                </Container>
             </Row>
         </Container>
         </>
