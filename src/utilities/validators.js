@@ -2,7 +2,7 @@ const VALID_CHARITY_ID_SIZE = 9;
 const MAX_CHARITY_DESCRIPTION_LENGTH = 700;
 const MAX_CHARITY_NAME_LENGTH = 50;
 const CHARITY_NAME_REGEX = /[^\w\s'\-.]/g;
-const DESCRIPTION_REGEX =  /[^A-Za-z0-9\s.':,\-]/g;
+const DESCRIPTION_REGEX =  /[^A-Za-z0-9\s.':,\-\u2018\u2019\u201C\u201D]/g;
 const MIN_PASSWORD_LENGTH = 8
 const REGEX_TYPES = Object.freeze({ 
     DESCRIPTION: "description",
@@ -70,6 +70,7 @@ function hasInvalidCharacters(inputString, type) {
             break;
         case REGEX_TYPES.DESCRIPTION:
             var REGEX = DESCRIPTION_REGEX;
+            console.log(inputString.match(DESCRIPTION_REGEX))
             break;
         default:
             return false;
