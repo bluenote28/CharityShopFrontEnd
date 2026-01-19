@@ -24,20 +24,20 @@ function DisplayListings(props) {
   useEffect(() => {
    
     if (props.search == null){
-      dispatch(getItems(null, null, props.category))
+      dispatch(getItems(null, null, props.subCategory))
     }
 
-    if (props.category == null){
+    if (props.subCategory == null){
       dispatch(getItems(null, props.search, null))
     }
 
     dispatch(getCharities());
    
-  }, [dispatch, props.search]);
+  }, [dispatch, props.search, props.subCategory]);
 
   useEffect(() => {
       setFilteringItems(true)
-    }, [props.charityId, props.category, props.subCategory]);
+    }, [props.charityId, props.subCategory]);
 
   useEffect(() => {
 
