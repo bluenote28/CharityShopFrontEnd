@@ -22,7 +22,7 @@ export const CATEGORY_OPTIONS = [
 ]
 
 export const SUB_CATEGORY_OPTIONS = {
-        "Collectibles": [{ value: null, label: "All Collectibles"},
+        "Collectibles": [
                         { value: "Trading Card Singles", label: "Trading Card Singles"},
                         { value: "Trading Card Lots", label: "Trading Card Lots"},
                         { value: "Comics", label: "Comics"},
@@ -38,7 +38,7 @@ export const SUB_CATEGORY_OPTIONS = {
                         { value: "Records", label: "Records"},
                         { value: "Star Wars Collectibles", label: "Star Wars Collectibles"},
                         { value: "Patches, Pins & Buttons", label: "Patches, Pins & Buttons"}],
-        "Clothing, Shoes & Accessories": [{value: null, label: "All Clothing"},       
+        "Clothing, Shoes & Accessories": [    
                                          {value: "Women's Clothing", label: "Womens's Clothing"},
                                          {value: "Women's Bags & Handbags", label: "Women's Bags & Handbags"},
                                          {value: "Girls", label: "Girls"}, 
@@ -47,7 +47,7 @@ export const SUB_CATEGORY_OPTIONS = {
                                          {value:"Men's Clothing", label: "Men's Clothing"},
                                         {value: "Baby & Toddler Clothing", label:"Baby & Toddler Clothing"}],
 
-        "Books & Magazines": [{value: null, label: "All Books & Magazines"},
+        "Books & Magazines": [
                               {value: "Textbooks", label: "Textbooks"},
                               {value: "Magazines", label: "Magazines"},
                               {value: "Books", label: "Books"},
@@ -56,7 +56,7 @@ export const SUB_CATEGORY_OPTIONS = {
                               {value: "Study Guides & Test Prep", label: "Study Guides & Test Prep"},
                               {value: "Dictionaries & Reference", label: "Dictionaries & Reference"}],
 
-        "Video Games & Consoles": [{value: null, label: "All Video Games & Consoles"},
+        "Video Games & Consoles": [
                                     {value: "Video Game Consoles", label: "Video Game Consoles"},
                                     {value: "Video Games", label: "Video Games"},
                                     {value: "Controllers & Attachments", label: "Controllers & Attachments"},
@@ -64,21 +64,21 @@ export const SUB_CATEGORY_OPTIONS = {
                                     {value: "Headsets", label: "Headsets"},
                                     {value: "Original Game Cases & Boxes", label: "Original Game Cases & Boxes"}],
 
-        "Jewelry & Watches": [{value: null, label: "All Jewelery & Watches"},
+        "Jewelry & Watches": [
                                 {value: "Rings", label: "Rings"},
                                 {value: "Watches", label: "Watches"},
                                 {value: "Earrings", label: "Earrings"},
                                 {value: "Bracelets & Charms", label: "Bracelets & Charms"}
         ],
 
-        "Movies & TV": [{value: null, label: "All Movies & TV"},
+        "Movies & TV": [
                         { value: "DVDs & Blu-ray Discs", label: "DVDs & Blu-ray Discs" },
                         { value: "VHS Tapes", label: "VHS Tapes"},
                         { value: "Film Stock", label: "Film Stock"},
                         { value: "Other Formats", label: "Other Formats"}
         ],
 
-        "Toys & Hobbies": [{value: null, label: "All Toys & Hobbies"},
+        "Toys & Hobbies": [
                          {value: "Action Figures", label: "Action Figures"},
                          {value: "Fisher Price", label: "Fisher Price"},
                          {value: "Disney", label: "Disney"},
@@ -92,7 +92,7 @@ export const SUB_CATEGORY_OPTIONS = {
                          {value: "Star Wars", label: "Star Wars"}
         ],
 
-        "Crafts": [{value: null, label: "All Crafts"},
+        "Crafts": [
                    {value: "Sewing", label: "Sewing"},
                    {value: "Quilting", label: "Quilting"},
                    {value: "Embroidery & Cross Stitch", label: "Embroidery & Cross Stitch"},
@@ -100,7 +100,7 @@ export const SUB_CATEGORY_OPTIONS = {
                    {value: "Craft Kits", label: "Craft Kits"}
         ],
 
-        "Sporting Goods": [{value: null, label: "All Sporting Goods"},
+        "Sporting Goods": [
                            {value: "Football", label: "Football"},
                            {value: "Basketball", label: "Basketball"},
                            {value: "Baseball", label: "Baseball"},
@@ -114,7 +114,7 @@ export const SUB_CATEGORY_OPTIONS = {
                            {value: "Ice Skating", label: 'Ice Skating'}
         ],
 
-        "Computers/Tablets & Networking": [{value: null, label: "All Computers/Tablets & Networking"},
+        "Computers/Tablets & Networking": [
                                            {value: "Desktops & All-In-Ones", label: "Desktops & All-In-Ones"},
                                            {value: "PC Laptops & Netbooks", label: "PC Laptops & Netbooks"},
                                            {value: "Tablets & eBook Readers", label: "Tablets & eBook Readers"},
@@ -127,7 +127,7 @@ export const SUB_CATEGORY_OPTIONS = {
                                            {value: "Enterprise Networking, Servers", label: "Enterprise Networking, Servers"},                    
         ],
 
-        "Home & Garden": [{value: null, label: "All Home & Garden"},
+        "Home & Garden": [
                           {value: "Candles & Home Fragrance", label: "Candles & Home Fragrance"},
                           {value: "Glassware & Drinkware", label: "Glassware & Drinkware"},
                           {value: "Flatware, Knives & Cutlery", label: "Flatware, Knives & Cutlery"},
@@ -149,7 +149,7 @@ export const SUB_CATEGORY_OPTIONS = {
                           {value: "Herbs, Spices & Seasonings", label: "Herbs, Spices & Seasonings"},
         ],
 
-        "Art": [{value: null, label: "All Art"},
+        "Art": [
                 {value: "Art Prints", label: "Art Prints"},
                 {value: "Paintings", label: "Paintings"},
                 {value: "Art Sculptures", label: "Art Sculptures"},
