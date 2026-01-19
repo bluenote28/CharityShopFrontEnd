@@ -22,6 +22,7 @@ function CategoryPage() {
   const { error, loading, charities} = charitiesState;
   const CATEGORY_BUTTON_GROUP_PER_ROW = 5;
   const subCategoryOptions = formatItemsIntoRows(SUB_CATEGORY_OPTIONS[category], CATEGORY_BUTTON_GROUP_PER_ROW)
+  const [categorySelected, setCategorySelected] = useState(false)
 
   useEffect(() => {
     if (!charities || charities.length === 0){
@@ -52,7 +53,8 @@ function CategoryPage() {
                   {
                     subCategoryOptions[index]?.map((item, index) => {
                         return (
-                            <Button style={{margin: "1px"}} key={index} variant="outline-secondary" onClick={() => setSubCategory(item.value)}>{item.label}</Button>
+                            <Button style={{margin: "1px"}} key={index} variant="outline-secondary" onClick={
+                              () => {setSubCategory(item.value); setCategorySelected(true)}}>{item.label}</Button>
                         )          
                     })
                   }
@@ -75,7 +77,11 @@ function CategoryPage() {
       
       <Container>
         <Row>
-            <Col><DisplayListings charityId={charity} category={category} subCategory={subCategory} /></Col>
+
+            {
+              categorySelected ? <Col><DisplayListings charityId={charity} subCategory={subCategory} /></Col>
+              : <p style={{textAlign: "center"}}>Please Select a Category</p>
+            }
         </Row>
       </Container>
        
