@@ -23,15 +23,20 @@ export const CATEGORY_OPTIONS = [
 
 export const SUB_CATEGORY_OPTIONS = {
         "Collectibles": [
-                        { value: "Trading Card Singles", label: "Trading Card Singles"},
+                        { value: "Sports Trading Cards", label: "Sports Trading Cards"},
+                        { value: "Non-Sport Trading Cards", label: "Non-Sport Trading Cards"},
                         { value: "Trading Card Lots", label: "Trading Card Lots"},
                         { value: "Comics", label: "Comics"},
+                        { value: "Coins", label: "Coins"},
                         { value: "Collectible Figures & Bobbleheads", label: "Collectible Figures & Bobbleheads"},
                         { value: "Coca-Cola", label: "Coca-Cola"},
                         { value: "Disney", label: "Disney"},
                         { value: "Postcards", label: "Postcards"},
                         { value: "Stamps", label: "Stamps"},
-                        { value: "Sports Mem, Cards & Fan Shop", label: "Sports Mem, Cards & Fan Shop"}, 
+                        { value: "Baseball-MLB", label: "Baseball-MLB"},
+                        { value: "Football-NFL", label: "Football-NFL"}, 
+                        { value: "Basketball-NBA", label: "Basketball-NBA"}, 
+                        { value: "Hockey-NHL", label: "Hockey-NHL"}, 
                         { value: "Antique (Pre-1900)", label: 'Antique (Pre-1900)'},
                         { value: "Civil War (1861-65)", label: "Civil War (1861-65)"},
                         { value: "Advertising", label: "Advertising"},
