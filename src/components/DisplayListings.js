@@ -1,18 +1,16 @@
 import { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { getItems } from '../actions/itemActions';
+import { useSelector } from 'react-redux';
+import { getItems } from '../utilities/BackEndClient';
 import Row from 'react-bootstrap/esm/Row';
 import ListingFilter from '../utilities/FilterClass';
 import NormalSpinner from './Spinner';
 import Pagination from 'react-bootstrap/Pagination';
 import { Container } from 'react-bootstrap';
 import ItemListing from './ItemListing'
+import { useQuery } from '@tanstack/react-query'
+
 
 function DisplayListings(props) {
-
-  const dispatch = useDispatch();
-  const itemListing = useSelector((state) => state.items);
-  const { error, loading, items } = itemListing
   const [ filteredItems, setFilteredItems ] = useState([])
   const [filteringItems, setFilteringItems ] = useState(true)
   const [page, setPage ] = useState(1)
@@ -20,17 +18,11 @@ function DisplayListings(props) {
   const user = useSelector((state) => state.userLogin);
   const { userInfo } = user;
 
-  useEffect(() => {
-   
-    if (props.search == null){
-      dispatch(getItems(null, null, props.subCategory))
-    }
 
-    if (props.subCategory == null){
-      dispatch(getItems(null, props.search, null))
-    }
-   
-  }, [dispatch, props.search, props.subCategory]);
+ const { isPending, isError, data, error } = useQuery({
+    queryKey: [`${[props.search]}${props.subCategory}`],
+    queryFn: () => getItems(null, props.search, props.subCategory),
+  })
 
   useEffect(() => {
       setFilteringItems(true)
@@ -38,21 +30,21 @@ function DisplayListings(props) {
 
   useEffect(() => {
 
-      if (loading || !items) return;
-      if (!Array.isArray(items)) return;
-      const filter = new ListingFilter(items, props.charityId, props.category, props.subCategory);
+      if (isPending || !data) return;
+      if (!Array.isArray(data)) return;
+      const filter = new ListingFilter(data, props.charityId, props.category, props.subCategory);
       filter.filterByAll();
       setFilteredItems(filter.getItems());
       setPage(1);
       setTimeout(()=> setFilteringItems(false), 1);     
     
-    }, [items, props.charityId, props.category,props.subCategory, loading])
+    }, [data, props.charityId, props.category,props.subCategory, isPending])
 
-  if (loading || filteringItems){
+  if (isPending || filteringItems){
     return <NormalSpinner />
   }
 
-  if (filteredItems.length == 0 && !loading){
+  if (filteredItems.length === 0 && !isPending){
       return <p style={{textAlign: 'center'}}>No items to display</p>
   }
   
@@ -64,7 +56,7 @@ function DisplayListings(props) {
       const paginatedItems = filteredItems.slice(paginationItemsBeginning, paginationItemsEnding);
       const prevPaginationItems = [<Pagination.First onClick={() => {setPage(1); window.scrollTo({ top: 0, behavior: 'instant' });}} />, 
       <Pagination.Prev onClick={()=>{
-        if(page == 1){
+        if(page === 1){
           return;
         }
         else{
@@ -76,7 +68,7 @@ function DisplayListings(props) {
       } />];
       const nextPaginationItems = [<Pagination.Next onClick={()=>{
 
-        if(page == totalPages){
+        if(page === totalPages){
           return;
         }
         else{
