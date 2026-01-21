@@ -107,14 +107,18 @@ function ItemPage() {
                 </Container>
                 </Col>
             </Row>
-            <Row className='mt-2'>
-                <Container>
-                  {allImages ? allImages.map((item,index) => {
+            <Row className='d-flex justify-content-start mt-4'>
+                <Col>
+                  <Container className='border rounded-2 py-2'>
+                   <h5 style={{textAlign:"center"}}>Additional Images</h5>
+                  {allImages && allImages.length > 1 ? allImages.map((item,index) => {
                     return <Image key={index} style={SMALL_IMAGE_STYLE} src={convertItemPageImageUrl(item.imageUrl)} thumbnail onClick={() => {
                         setMainImageUrl(convertItemPageImageUrl(item.imageUrl))
                     }} />}) : <></>
                   }
-                </Container>
+                  </Container>
+                </Col>
+                <Col></Col>
             </Row>
         </Container>
         </>
