@@ -4,11 +4,16 @@ import App from './App.js';
 import reportWebVitals from './reportWebVitals.js';
 import { Provider } from 'react-redux';
 import store from './Store.js';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
+const queryClient = new QueryClient();
+
 root.render(
   <Provider store={store}>
-    <App />
+    <QueryClientProvider client={queryClient}>
+     <App />
+    </QueryClientProvider>
   </Provider>
 );
 
