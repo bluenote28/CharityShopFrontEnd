@@ -3,7 +3,7 @@ import Form from 'react-bootstrap/Form';
 import { useState } from 'react';
 import { isValidCharityId, isValidCharityDescription, isValidCharityName } from '../utilities/validators';
 import AlertBox from './Alert';
-import { addCharity } from '../actions/charityActions';
+import { addCharity, updateCharity } from '../actions/charityActions';
 import { useDispatch } from 'react-redux';
 
 function SubmitCharityForm() {
@@ -11,6 +11,8 @@ function SubmitCharityForm() {
  const [charityId, setCharityId] = useState('');
  const [description, setDescription] = useState('');
  const [name, setName] = useState('');
+ const [imageUrl, setImageUrl ] = useState('');
+ const [donationUrl, setDonationUrl ] = useState('');
  const [alert, setAlert] = useState(null);
  const dispatch = useDispatch()
 
@@ -19,8 +21,7 @@ function SubmitCharityForm() {
     e.preventDefault();
 
     if (validateCharityInput()){
-      
-        dispatch(addCharity({id: charityId, name: name, description: description}));
+        dispatch(addCharity({id: charityId, name: name, description: description, image_url: imageUrl, donation_url: donationUrl}));
         window.location.reload();
     }
   }
@@ -28,12 +29,10 @@ function SubmitCharityForm() {
   const handleUpdate = () => {
 
    if (validateCharityInput()){
-
-        //client.update({id: charityId, name: name, description: description});
-        window.location.reload();
+      dispatch(updateCharity({id: charityId, name: name, description: description, image_url: imageUrl, donation_url: donationUrl}));
+      window.location.reload();
      }
   }
-
 
   const validateCharityInput = () =>{
 
@@ -77,6 +76,17 @@ function SubmitCharityForm() {
                 <Form.Label>Description</Form.Label>
                 <Form.Control type="description" placeholder="description" onChange={(e) => setDescription(e.target.value)} />
               </Form.Group>
+
+               <Form.Group className="mb-3">
+                <Form.Label>Donation URL</Form.Label>
+                <Form.Control type="donationUrl" placeholder="donation url" onChange={(e) => setDonationUrl(e.target.value)} />
+              </Form.Group>
+
+               <Form.Group className="mb-3">
+                <Form.Label>Image URL</Form.Label>
+                <Form.Control type="imageUrl" placeholder="image url" onChange={(e) => setImageUrl(e.target.value)} />
+              </Form.Group>
+
               <div className='d-flex justify-content-between mb-3'>
                   <Button variant="primary" type="submit">
                     Submit
@@ -84,9 +94,8 @@ function SubmitCharityForm() {
                   <Button variant="primary" type="button" onClick={handleUpdate}>
                     Update
                   </Button>
-            </div>
+              </div>
             </Form>
-
         </>
   );
 }
