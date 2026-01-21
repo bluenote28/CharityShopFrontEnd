@@ -21,8 +21,10 @@ function AdminPage() {
    }
 
     useEffect(() => {
-        dispatch(getCharities());
-    }, [dispatch])
+        if (!charities || charities.length === 0){
+           dispatch(getCharities())
+        };
+    }, [dispatch, charities])
       
 
   function deleteItemsFromDB(){
