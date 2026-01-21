@@ -40,3 +40,8 @@ export function getItems(item_id=null, search_text=null, category_id=null){
 
         return data;
 }
+
+export function getSingleItem(item_id){
+   const response = apiCall(BACKEND_API_BASE_URL + 'items/ebaycharityitems/' + item_id)
+   return response;
+}
