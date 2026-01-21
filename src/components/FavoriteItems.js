@@ -10,10 +10,14 @@ function FavoriteItems() {
   const dispatch = useDispatch();
   const favoritesData = useSelector((state) => state.favorites);
   const { error, loading, favorites } = favoritesData;
+  const charitiesState = useSelector((state) => state.charities);
 
   useEffect(() => {
     dispatch(getUserFavorites());
-    dispatch(getCharities());
+
+    if (!charitiesState.charities || charitiesState.charities.length == 0){
+      dispatch(getCharities());
+    }
   }, [dispatch]);
 
   if (loading) {
