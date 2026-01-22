@@ -67,13 +67,12 @@ else{
         <Container style={bodyStyle}>
          <Row>   
             <Col xs={4}>     
-                <Image src={props.image} style={imageStyle}/>
+                <Image src={props.image} style={imageStyle} onClick={(e) => handleClick(e,props.id)}/>
             </Col>
             <Col xs={8}>      
-                <Row className="fs-4 fw-bold"><Col>{props.title}</Col></Row>
+                <Row className="fs-4 fw-bold"><Col style={{cursor: 'pointer'}} onClick={(e) => handleClick(e,props.id)}>{props.title}</Col></Row>
                 <Row className="fs-3"><Col>Price: ${props.price}</Col></Row>
                 <Row className="fs-3"><Col>Benefits: {convertIdToCharityName(charities, props.charity)}</Col></Row>
-                <Row><Col><Button onClick={(e) => handleClick(e,props.id)}>Go to Item</Button></Col></Row>
             </Col>
         </Row>
       </Container>
