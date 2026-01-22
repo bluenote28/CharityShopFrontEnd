@@ -9,13 +9,13 @@ import FavoritesButton from './FavoritesButton';
 const imageStyle = {
   width: '100%',
   object: 'cover',
-  height: '315px'
+  height: '315px',
+  cursor: 'pointer'
 }
 
 const bodyStyle = {
   height: '20rem',
   padding: '0',
-  backgroundColor: '#eaeaeaff',
   border: 'solid'
 }
 
@@ -44,15 +44,14 @@ else if (favoritesData){
       <Container style={bodyStyle}>
          <Row>   
             <Col xs={4}>     
-                <Image src={props.image} style={imageStyle}/>
+                <Image src={props.image} style={imageStyle} onClick={(e) => handleClick(e,props.id)}/>
             </Col>         
             <Col xs={8}>      
-                <Row className="fs-4 fw-bold"><Col>{props.title}</Col></Row>
+                <Row className="fs-4 fw-bold"><Col style={{cursor: 'pointer'}} onClick={(e) => handleClick(e,props.id)}>{props.title}</Col></Row>
                 <Row className="fs-3"><Col>Price: ${props.price}</Col></Row>
                 <Row className="fs-3"><Col>Benefits: {convertIdToCharityName(charities, props.charity)}</Col></Row>  
                 <Row className='mt-3'>
                   <ButtonGroup className='w-25' size='sm'>
-                    <Button style={{marginRight: '10px'}} onClick={(e) => handleClick(e,props.id)}>Go to Item</Button>
                     <FavoritesButton id={props.id}/>
                   </ButtonGroup>
                 </Row>             
