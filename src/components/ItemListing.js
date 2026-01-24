@@ -42,7 +42,7 @@ function ItemListing(props) {
     }
 
     return (
-      <Container className="border" style={{ height: "20rem"}}>
+      <Container className="border" style={{ height: "20rem" }}>
         <Row>
           <Col xs={4}>
             <Image
@@ -54,7 +54,12 @@ function ItemListing(props) {
           <Col>
             <Row className="fs-5 fw-bold">
               <Col className="d-flex justify-content-between">
-                <h5 style={{cursor: "pointer"}} onClick={(e) => handleClick(e, props.id)}>{props.title}</h5>
+                <h5
+                  style={{ cursor: "pointer" }}
+                  onClick={(e) => handleClick(e, props.id)}
+                >
+                  {props.title}
+                </h5>
                 <FavoritesButton id={props.id} />
               </Col>
             </Row>
@@ -63,11 +68,11 @@ function ItemListing(props) {
               <Col className="">
                 <Image
                   src={charity?.image_url}
-                  style={{width: "300px", height: "200px"}}
-                  />
+                  style={{ width: "300px", height: "200px" }}
+                />
               </Col>
             </Row>
-          </Col> 
+          </Col>
         </Row>
       </Container>
     );
@@ -96,16 +101,13 @@ function ItemListing(props) {
                 <h5>{props.title}</h5>
               </Col>
             </Row>
-            <Row className="fs-4 mb-2">
+            <Row className="fs-4 mb-3 mt-3 d-flex justify-content-between">
               <Col>Price: ${props.price}</Col>
-            </Row>
-            <Row>
-              <Col className="d-flex flex-row">
-              <Image
-                src={charity?.image_url}
-                style={{width: "300px", height: "200px"}}
+              <Col className="">
+                <Image
+                  src={charity?.image_url}
+                  style={{ width: "300px", height: "200px" }}
                 />
-                <p className="w-75 text-center mx-5">{charity?.description}</p>
               </Col>
             </Row>
           </Col>
