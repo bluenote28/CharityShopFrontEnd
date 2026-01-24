@@ -28,7 +28,7 @@ function FavoritesButton(props) {
 
   return (
     <Button
-  variant="primary"
+  variant="outline-light"
   onClick={() => {setPending(true); setTimeout(() => handleClick(props.id), 300)}}
   disabled={pending}
 >
