@@ -60,16 +60,17 @@ function ItemListing(props) {
                 >
                   {props.title}
                 </h5>
-                <FavoritesButton id={props.id} />
               </Col>
             </Row>
             <Row className="fs-4 mb-3 d-flex justify-content-between">
               <Col>Price: ${props.price}</Col>
-              <Col className="">
-                <Image
-                  src={charity?.image_url}
-                  style={{ width: "300px", height: "200px" }}
-                />
+            </Row>
+            <Row>
+              <Col>
+                <FavoritesButton id={props.id} />
+              </Col>
+              <Col>
+                <Image src={charity?.image_url} style={{ width: "300px", height: "200px" }} />
               </Col>
             </Row>
           </Col>
