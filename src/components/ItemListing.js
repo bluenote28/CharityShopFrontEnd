@@ -1,4 +1,4 @@
-import { Container, Row, Col, Button, ButtonGroup } from "react-bootstrap";
+import { Container, Row, Col } from "react-bootstrap";
 import { useSelector } from "react-redux";
 import Image from "react-bootstrap/Image";
 import NormalSpinner from "./Spinner";
@@ -12,6 +12,10 @@ const imageStyle = {
   height: "315px",
   cursor: "pointer",
 };
+
+const charityImageStyle = {
+  margin: "auto", width: "300px", height: "200px", objectFit: "contain"
+}
 
 function ItemListing(props) {
   const charitiesState = useSelector((state) => state.charities);
@@ -45,33 +49,30 @@ function ItemListing(props) {
       <Container className="border" style={{ height: "20rem" }}>
         <Row>
           <Col xs={4}>
-            <Image
-              src={props.image}
-              style={imageStyle}
-              onClick={(e) => handleClick(e, props.id)}
-            />
+            <Image src={props.image} style={imageStyle} onClick={(e) => handleClick(e, props.id)}/>
           </Col>
-          <Col>
+          <Col xs={5}>
             <Row className="fs-5 fw-bold">
-              <Col className="d-flex justify-content-between">
-                <h5
-                  style={{ cursor: "pointer" }}
-                  onClick={(e) => handleClick(e, props.id)}
-                >
-                  {props.title}
-                </h5>
+              <Col style={{ cursor: "pointer" }} onClick={(e) => handleClick(e, props.id)}>
+                <h5 className="text-center">{props.title}</h5>
               </Col>
             </Row>
-            <Row className="fs-4 mb-3 d-flex justify-content-between">
-              <Col>Price: ${props.price}</Col>
+            <Row className="fs-4 mb-3 mt-3 d-flex justify-content-between">
+              <Col><p className="text-center">Price: ${props.price}</p></Col>
+            </Row>
+            <Row className="w-50 m-auto">
+              <Col>
+                Add to watchlist: <FavoritesButton className="" id={props.id} />
+              </Col>
+            </Row>
+          </Col>
+          <Col className="bg-light">
+            <Row><h4 className="text-center mt-2">Item Benefits</h4></Row>
+            <Row>
+              <Image src={charity?.image_url} style={charityImageStyle} />
             </Row>
             <Row>
-              <Col>
-                <FavoritesButton id={props.id} />
-              </Col>
-              <Col>
-                <Image src={charity?.image_url} style={{ width: "300px", height: "200px" }} />
-              </Col>
+            <p className="text-center fw-bold">{charity?.name}</p>
             </Row>
           </Col>
         </Row>
@@ -86,30 +87,26 @@ function ItemListing(props) {
     return (
       <Container className="border" style={{ height: "20rem" }}>
         <Row>
-          <Col xs={4}>
-            <Image
-              src={props.image}
-              style={imageStyle}
-              onClick={(e) => handleClick(e, props.id)}
-            />
+          <Col sm={4}>
+            <Image src={props.image} style={imageStyle} onClick={(e) => handleClick(e, props.id)}/>
           </Col>
-          <Col>
+          <Col sm={5}>
             <Row className="fs-5 fw-bold">
-              <Col
-                style={{ cursor: "pointer" }}
-                onClick={(e) => handleClick(e, props.id)}
-              >
-                <h5>{props.title}</h5>
+              <Col style={{ cursor: "pointer" }} onClick={(e) => handleClick(e, props.id)}>
+                <h5 className="text-center">{props.title}</h5>
               </Col>
             </Row>
             <Row className="fs-4 mb-3 mt-3 d-flex justify-content-between">
-              <Col>Price: ${props.price}</Col>
-              <Col className="">
-                <Image
-                  src={charity?.image_url}
-                  style={{ width: "300px", height: "200px" }}
-                />
-              </Col>
+              <Col><p className="text-center">Price: ${props.price}</p></Col>
+            </Row>
+          </Col>
+          <Col className="bg-light">
+            <Row><h4 className="text-center mt-2">Item Benefits</h4></Row>
+            <Row>
+              <Image src={charity?.image_url} style={charityImageStyle} />
+            </Row>
+            <Row>
+            <p className="text-center fw-bold">{charity?.name}</p>
             </Row>
           </Col>
         </Row>
