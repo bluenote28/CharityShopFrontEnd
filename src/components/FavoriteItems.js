@@ -13,15 +13,16 @@ function FavoriteItems() {
   const charitiesState = useSelector((state) => state.charities);
 
   useEffect(() => {
-    
-    if (!favorites){
-       dispatch(getUserFavorites());
+    if (!favorites && !loading) {
+      dispatch(getUserFavorites());
     }
-
-   if (!charitiesState.loading && (!charitiesState.charities || charitiesState.charities.length === 0)){
-      dispatch(getCharities());
-    }
-  }, [dispatch, charitiesState.charities, charitiesState.loading, favorites]);
+  }, [dispatch, favorites, loading]);
+  
+  useEffect(() => {
+     if (!charitiesState.loading && (!charitiesState.charities || charitiesState.charities.length === 0)) {
+       dispatch(getCharities());
+     }
+   }, [dispatch, charitiesState.charities, charitiesState.loading]);
 
   if (loading || !favorites) {
     return <NormalSpinner />;
