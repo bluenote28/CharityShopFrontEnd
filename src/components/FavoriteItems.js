@@ -23,7 +23,7 @@ function FavoriteItems() {
     }
   }, [dispatch, charitiesState.charities, charitiesState.loading, favorites]);
 
-  if (loading) {
+  if (loading || !favorites) {
     return <NormalSpinner />;
   }
 
