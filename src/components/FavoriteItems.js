@@ -28,7 +28,7 @@ function FavoriteItems() {
   }
 
   if (error) {
-    return <h3>{error}</h3>;
+    return <h3>{error?.message || error?.toString() || 'An error occurred'}</h3>;
   }
 
   if (!favorites?.items || favorites.items.length === 0) {
