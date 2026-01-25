@@ -1,10 +1,11 @@
 import { Container, Row, Col } from "react-bootstrap";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import Image from "react-bootstrap/Image";
 import NormalSpinner from "./Spinner";
 import { useNavigate } from "react-router-dom";
 import FavoritesButton from "./FavoritesButton";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { getCharities } from "../actions/charityActions";
 
 const imageStyle = {
   width: "100%",
@@ -19,31 +20,35 @@ const charityImageStyle = {
 
 function ItemListing(props) {
   const charitiesState = useSelector((state) => state.charities);
-  const { errorCharities, loadingCharities, charities } = charitiesState;
+  const { errorCharities, loading, charities } = charitiesState;
   const favoritesData = useSelector((state) => state.favorites);
   const navigate = useNavigate();
-  const [charity, SetCharity] = useState(null);
+  const [charity, setCharity] = useState(null);
+  const dispatch = useDispatch();
+  
+  useEffect(() => {   
+    if(charities.length === 0 && !loading){
+       dispatch(getCharities());
+     }
+  
+    if (charities && props.charity && !charity) {
+       const foundCharity = charities.find((c) => c.id === props.charity);
+       setCharity(foundCharity);
+     }
+  }, [charities, props.charity, charity, dispatch, loading]);
 
   function handleClick(e, id) {
     e.preventDefault();
     navigate("/item/" + id);
   }
 
-  function loadCharity() {
-    const charity = charities.find((charity) => charity.id === props.charity);
-    SetCharity(charity);
-  }
-
   if (errorCharities) {
     console.log(errorCharities);
   }
-  else if (loadingCharities) {
+  else if (loading) {
     return <NormalSpinner />;
   }
   else if (!favoritesData.error) {
-    if (!charity) {
-      loadCharity();
-    }
 
     return (
       <Container className="border" style={{ height: "20rem" }}>
@@ -80,9 +85,6 @@ function ItemListing(props) {
     );
   }
   else {
-    if (!charity) {
-      loadCharity();
-    }
 
     return (
       <Container className="border" style={{ height: "20rem" }}>
