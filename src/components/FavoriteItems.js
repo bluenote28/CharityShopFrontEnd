@@ -4,25 +4,17 @@ import { getUserFavorites } from '../actions/userActions';
 import NormalSpinner from './Spinner';
 import Row from 'react-bootstrap/esm/Row';
 import ItemListing from './ItemListing';
-import { getCharities } from '../actions/charityActions';
 
 function FavoriteItems() {
   const dispatch = useDispatch();
   const favoritesData = useSelector((state) => state.favorites);
   const { error, loading, favorites } = favoritesData;
-  const charitiesState = useSelector((state) => state.charities);
 
   useEffect(() => {
     if (!favorites && !loading) {
       dispatch(getUserFavorites());
     }
   }, [dispatch, favorites, loading]);
-  
-  useEffect(() => {
-     if (!charitiesState.loading && (!charitiesState.charities || charitiesState.charities.length === 0)) {
-       dispatch(getCharities());
-     }
-   }, [dispatch, charitiesState.charities, charitiesState.loading]);
 
   if (loading || !favorites) {
     return <NormalSpinner />;
