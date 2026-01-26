@@ -17,7 +17,9 @@ function ItemPage() {
     const dispatch = useDispatch();
     const [allImages, setAllImages ] = useState(null)
     const navigate = useNavigate()
-    const [mainImageUrl, setMainImageUrl] = useState(null);
+  const [mainImageUrl, setMainImageUrl] = useState(null);
+  const [charity, setCharity] = useState(null);
+
     const MAIN_IMAGE_STYLE = {
          maxWidth: '100%',
          height: '500px',
@@ -56,6 +58,11 @@ function ItemPage() {
       if (data){
           setAllImages([{"imageUrl": data.img_url}].concat(data.additional_images?.additionalImages || []))
           setMainImageUrl(data.img_url)
+      }
+
+      if (!charity) {
+        const foundCharity = charities.find((c) => c.id === data.charity);
+        setCharity(foundCharity);
       }
     }, [data])
 
@@ -124,7 +131,25 @@ function ItemPage() {
                   }
                 </Col>
                 <Col></Col>
-            </Row>
+          </Row>
+
+          <Row>
+            <Col>
+              <Container className='border rounded-3 mt-3 mb-5 p-3'>
+                <Row>
+                  <Col className='d-flex justify-content-end'>
+                    <Image style={{ maxWidth: "100%", height: "auto" }} classNam='mb-1' src={charity?.image_url} />
+                  </Col>
+                  <Col className='d-flex align-items-center'>
+                    <Row><p>{charity?.description}</p></Row>
+                  </Col>
+                  <Col className='d-flex align-items-center justify-content-center'>
+                    <Row><a href={charity?.donation_url}>Support</a></Row>
+                  </Col>
+                </Row>
+              </Container>
+            </Col>
+          </Row>
         </Container>
         </>
     )
