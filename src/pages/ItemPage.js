@@ -17,8 +17,8 @@ function ItemPage() {
     const dispatch = useDispatch();
     const [allImages, setAllImages ] = useState(null)
     const navigate = useNavigate()
-  const [mainImageUrl, setMainImageUrl] = useState(null);
-  const [charity, setCharity] = useState(null);
+    const [mainImageUrl, setMainImageUrl] = useState(null);
+    const [charity, setCharity] = useState(null);
 
     const MAIN_IMAGE_STYLE = {
          maxWidth: '100%',
@@ -60,11 +60,11 @@ function ItemPage() {
           setMainImageUrl(data.img_url)
       }
 
-      if (!charity) {
+      if (!charity && !loading && data) {
         const foundCharity = charities.find((c) => c.id === data.charity);
         setCharity(foundCharity);
       }
-    }, [data])
+    }, [data, charities, charity, loading])
 
     function handleClick(e, url){
         e.preventDefault()
