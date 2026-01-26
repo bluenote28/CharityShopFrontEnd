@@ -17,7 +17,7 @@ function ItemPage() {
     const dispatch = useDispatch();
     const [allImages, setAllImages ] = useState(null)
     const navigate = useNavigate()
-    const [mainImageUrl, setMainImageUrl] = useState(null); 
+    const [mainImageUrl, setMainImageUrl] = useState(null);
     const MAIN_IMAGE_STYLE = {
          maxWidth: '100%',
          height: '500px',
@@ -38,7 +38,7 @@ function ItemPage() {
     const SMALL_IMAGE_STYLE = {
         width: "80px",
         height: "80px",
-        cursor: 'pointer' 
+        cursor: 'pointer'
     }
 
     const { isPending, isError, data, error } = useQuery({
@@ -51,7 +51,7 @@ function ItemPage() {
             dispatch(getCharities());
         }
     }, [dispatch, charities, loading]);
-    
+
     useEffect(() => {
       if (data){
           setAllImages([{"imageUrl": data.img_url}].concat(data.additional_images?.additionalImages || []))
@@ -83,7 +83,6 @@ function ItemPage() {
               <Container className='d-flex justify-content-around mt-3'>
                 <ButtonGroup>
                     <Button variant="outline-dark" onClick={() => navigate(-1)}>Go back to search results</Button>
-                    <Button variant="outline-dark" onClick={(e) => handleClick(e,data.web_url)}>Go to item on Ebay</Button>
                 </ButtonGroup>
               </Container>
             </Row>
@@ -104,14 +103,17 @@ function ItemPage() {
                     <Row><h4>Total Seller Feedback: {data.seller?.feedbackScore}</h4></Row>
                     <Row><h4>Seller Positive Feeback: {data.seller?.feedbackPercentage}%</h4></Row>
                     <Row><h4>Benefits: {convertIdToCharityName(charities, data.charity)}</h4></Row>
-                </Container>
+              </Container>
+              <ButtonGroup className='mt-3 w-100'>
+                <Button variant="primary" onClick={(e) => handleClick(e,data.web_url)}>Go to item on Ebay</Button>
+              </ButtonGroup>
                 </Col>
             </Row>
             <Row className='d-flex justify-content-start mt-4'>
                 <Col>
-                  {allImages && allImages.length > 1 ? 
+                  {allImages && allImages.length > 1 ?
                   <Container className='border rounded-2 py-2'>
-                   <h5 style={{textAlign:"center"}}>Additional Images</h5>
+                   <h5 style={{textAlign:"center"}}>All Images</h5>
                   {allImages ? allImages.map((item,index) => {
                     return <Image key={index} style={SMALL_IMAGE_STYLE} src={convertItemPageImageUrl(item.imageUrl)} thumbnail onClick={() => {
                         setMainImageUrl(convertItemPageImageUrl(item.imageUrl))
@@ -125,7 +127,7 @@ function ItemPage() {
             </Row>
         </Container>
         </>
-    )   
+    )
 }
 
 export default ItemPage
