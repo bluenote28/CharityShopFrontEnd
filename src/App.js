@@ -11,6 +11,7 @@ import FavoritesPage from './pages/FavoritesPage';
 import CategoryPage from './pages/CategoryPage';
 import AboutPage from './pages/About';
 import Footer from './components/Footer';
+import DirectoryPage from './pages/Directory';
 import './App.css'
 import { useEffect } from 'react';
 import { useDispatch } from "react-redux";
@@ -30,19 +31,20 @@ function App() {
       <Header />
 
       <Routes>
-            <Route path='/' Component={HomePage} exact />   
-            <Route path='/search' Component={SearchPage} />
-            <Route path='/admin' Component={AdminPage} exact />
-            <Route path='/login' Component={LoginPage} exact />
-            <Route path='/register' Component={RegisterPage} exact />
-            <Route path='/profile' Component={ProfilePage} exact />
-            <Route path='/favorites' Component={FavoritesPage} exact />
-            <Route path='/item/:item_id' Component={ItemPage} exact />
-            <Route path='/category' Component={CategoryPage} exact />
-            <Route path='/about' Component={AboutPage} exact />
+        <Route path='/' Component={HomePage} exact />
+        <Route path='/search' Component={SearchPage} />
+        <Route path='/admin' Component={AdminPage} exact />
+        <Route path='/login' Component={LoginPage} exact />
+        <Route path='/register' Component={RegisterPage} exact />
+        <Route path='/profile' Component={ProfilePage} exact />
+        <Route path='/favorites' Component={FavoritesPage} exact />
+        <Route path='/item/:item_id' Component={ItemPage} exact />
+        <Route path='/category' Component={CategoryPage} exact />
+        <Route path='/about' Component={AboutPage} exact />
+        <Route path='/directory' Component={DirectoryPage} exact />
       </Routes>
 
-      <Footer />    
+      <Footer />
     </Router>
   );
 }
