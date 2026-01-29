@@ -11,44 +11,24 @@ import { useQuery } from '@tanstack/react-query'
 
 
 function DisplayListings(props) {
-  const [ filteredItems, setFilteredItems ] = useState([])
-  const [filteringItems, setFilteringItems ] = useState(true)
   const [page, setPage ] = useState(1)
   const user = useSelector((state) => state.userLogin);
   const { userInfo } = user;
-
 
  const { isPending, isError, data, error } = useQuery({
     queryKey: [`${[props.search]}${props.subCategory}${page}`],
     queryFn: () => getItems(null, props.search, props.subCategory, page),
   })
 
-  useEffect(() => {
-    setFilteringItems(true)
-    setPage(1)
-  }, [props.charityId, props.subCategory]);
-
-  useEffect(() => {
-
-      if (isPending || !data) return;
-      if (!Array.isArray(data.results)) return;
-      const filter = new ListingFilter(data.results, props.charityId, props.category, props.subCategory);
-      filter.filterByAll();
-      setFilteredItems(filter.getItems());
-      setTimeout(()=> setFilteringItems(false), 1);     
-    
-    }, [data, props.charityId, props.category,props.subCategory, isPending])
-
-  if (isPending || filteringItems){
+  if (isPending){
     return <NormalSpinner />
   }
 
-  if (filteredItems.length === 0 && !isPending){
+  if (data.results.length === 0 && !isPending){
       return <p style={{textAlign: 'center'}}>No items to display</p>
   }
   
   else{
-    
       const prevPaginationItems = [<Pagination.First onClick={() => {setPage(1); window.scrollTo({ top: 0, behavior: 'instant' });}} />, 
       <Pagination.Prev onClick={()=>{
         if(page === 1){
@@ -77,7 +57,7 @@ function DisplayListings(props) {
                         <Row key={index} className='mb-3'>
                           <ItemListing title={item.name} image={item.img_url} url={item.web_url} id={item.ebay_id} price={item.price} charity={item.charity} />
                         </Row>
-                        }
+                      }
                   </div>
                 )
               })
@@ -85,9 +65,9 @@ function DisplayListings(props) {
         </Container>
 
         <Container className='d-flex justify-content-center'>
-            <Pagination>{prevPaginationItems}</Pagination>
-            <div className='d-flex mx-2 mt-1'>Page {page}</div>
-            <Pagination>{nextPaginationItems}</Pagination>
+          <Pagination>{prevPaginationItems}</Pagination>
+          <div className='d-flex mx-2 mt-1'>Page {page}</div>
+          <Pagination>{nextPaginationItems}</Pagination>
         </Container>
             
         </>  
