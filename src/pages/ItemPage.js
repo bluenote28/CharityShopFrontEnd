@@ -8,6 +8,7 @@ import { getCharities } from '../actions/charityActions';
 import { getSingleItem } from '../utilities/BackEndClient';
 import { useQuery } from '@tanstack/react-query'
 import AlertBox from '../components/Alert'
+import CharityDisplay from '../components/CharityDisplay';
 
 function ItemPage() {
 
@@ -135,19 +136,7 @@ function ItemPage() {
 
           <Row>
             <Col>
-              <Container className='border rounded-3 mt-3 mb-5 p-3'>
-                <Row>
-                  <Col className='d-flex justify-content-end'>
-                    <Image style={{ maxWidth: "100%", height: "auto" }} classNam='mb-1' src={charity?.image_url} />
-                  </Col>
-                  <Col className='d-flex align-items-center'>
-                    <Row><p>{charity?.description}</p></Row>
-                  </Col>
-                  <Col className='d-flex align-items-center justify-content-center'>
-                    <Row><a href={charity?.donation_url}>Support</a></Row>
-                  </Col>
-                </Row>
-              </Container>
+              <CharityDisplay image_url={charity?.image_url} description={charity?.description} donation_url={charity?.donation_url} />
             </Col>
           </Row>
         </Container>
