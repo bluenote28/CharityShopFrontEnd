@@ -20,18 +20,18 @@ async function apiCall(url){
 
 }
 
-export function getItems(item_id=null, search_text=null, category_id=null){
+export function getItems(item_id=null, search_text=null, category_id=null, page=1){
 
         var data = [];
         var url = ""
 
         if (item_id){
-            url = BACKEND_API_BASE_URL + 'items/ebaycharityitems/' + item_id
+            url = BACKEND_API_BASE_URL + 'items/ebaycharityitems/' + item_id + "?page=" + page
             data = apiCall(url)
         }
         else if (search_text){
-            url = BACKEND_API_BASE_URL + 'items/ebaycharityitems/search/' + search_text
-            data = apiCall(url)
+          url = BACKEND_API_BASE_URL + 'items/ebaycharityitems/' + item_id + "?page=" + page
+          data = apiCall(url)
         }
         else if (category_id){
             url = BACKEND_API_BASE_URL + 'items/ebaycharityitems/category/' + category_id
