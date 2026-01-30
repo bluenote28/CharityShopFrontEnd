@@ -1,14 +1,12 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { getItems } from '../utilities/BackEndClient';
 import Row from 'react-bootstrap/esm/Row';
-import ListingFilter from '../utilities/FilterClass';
 import NormalSpinner from './Spinner';
 import Pagination from 'react-bootstrap/Pagination';
 import { Container } from 'react-bootstrap';
 import ItemListing from './ItemListing'
 import { useQuery } from '@tanstack/react-query'
-
 
 function DisplayListings(props) {
   const [page, setPage ] = useState(1)
