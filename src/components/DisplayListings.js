@@ -27,6 +27,8 @@ function DisplayListings(props) {
   }
   
   else{
+
+      const numOfPages = Math.ceil(data.count / 50)
       const prevPaginationItems = [<Pagination.First onClick={() => {setPage(1); window.scrollTo({ top: 0, behavior: 'instant' });}} />, 
       <Pagination.Prev onClick={()=>{
         if(page === 1){
@@ -42,7 +44,7 @@ function DisplayListings(props) {
       const nextPaginationItems = [<Pagination.Next onClick={()=>{
         setPage(page + 1);
         window.scrollTo({ top: 0, behavior: 'instant' });
-      }} />];
+      }} />,   <Pagination.Last onClick={()=> setPage(numOfPages)}/>];
   
       return (
         <>          
@@ -63,9 +65,17 @@ function DisplayListings(props) {
         </Container>
 
         <Container className='d-flex justify-content-center'>
-          <Pagination>{prevPaginationItems}</Pagination>
-          <div className='d-flex mx-2 mt-1'>Page {page}</div>
-          <Pagination>{nextPaginationItems}</Pagination>
+           {numOfPages > 1 && (
+            <>
+              {page > 1 && <Pagination>{prevPaginationItems}</Pagination>}
+      
+              <div className='d-flex mx-2 mt-1'>
+                Page {page} of {numOfPages}
+              </div>
+              
+              {page < numOfPages && <Pagination>{nextPaginationItems}</Pagination>}
+            </>
+          )}
         </Container>
             
         </>  
