@@ -21,149 +21,161 @@ export const CATEGORY_OPTIONS = [
         //{value: "Music Memorabilia", label: "Music Memorabilia"},
 ]
 
-export const SUB_CATEGORY_OPTIONS = {
-        "Collectibles": [
-                        { value: "Sports Trading Cards", label: "Sports Trading Cards"},
-                        { value: "Non-Sport Trading Cards", label: "Non-Sport Trading Cards"},
-                        { value: "Trading Card Lots", label: "Trading Card Lots"},
-                        { value: "Comics", label: "Comics"},
-                        { value: "Coins", label: "Coins"},
-                        { value: "Collectible Figures & Bobbleheads", label: "Collectible Figures & Bobbleheads"},
-                        { value: "Coca-Cola", label: "Coca-Cola"},
-                        { value: "Disney", label: "Disney"},
-                        { value: "Postcards", label: "Postcards"},
-                        { value: "Stamps", label: "Stamps"},
-                        { value: "Baseball-MLB", label: "Baseball-MLB"},
-                        { value: "Football-NFL", label: "Football-NFL"}, 
-                        { value: "Basketball-NBA", label: "Basketball-NBA"}, 
-                        { value: "Hockey-NHL", label: "Hockey-NHL"}, 
-                        { value: "Antique (Pre-1900)", label: 'Antique (Pre-1900)'},
-                        { value: "Civil War (1861-65)", label: "Civil War (1861-65)"},
-                        { value: "Advertising", label: "Advertising"},
-                        { value: "Records", label: "Records"},
-                        { value: "Star Wars Collectibles", label: "Star Wars Collectibles"},
-                        { value: "Patches, Pins & Buttons", label: "Patches, Pins & Buttons"}],
-        "Clothing, Shoes & Accessories": [    
-                                         {value: "Women's Clothing", label: "Womens's Clothing"},
-                                         {value: "Women's Bags & Handbags", label: "Women's Bags & Handbags"},
-                                         {value: "Girls", label: "Girls"}, 
-                                         {value: "Boys", label: "Boys"},
-                                         {value: "Men", label: "Men"},
-                                         {value:"Men's Clothing", label: "Men's Clothing"},
-                                        {value: "Baby & Toddler Clothing", label:"Baby & Toddler Clothing"}],
+export const FILTER_OPTIONS = {
 
-        "Books & Magazines": [
-                              {value: "Textbooks", label: "Textbooks"},
-                              {value: "Magazines", label: "Magazines"},
-                              {value: "Books", label: "Books"},
-                              {value: "Antiquarian & Collectible", label: "Antiquarian & Collectible"},
-                              {value: "Audiobooks", label: "Audiobooks"},
-                              {value: "Study Guides & Test Prep", label: "Study Guides & Test Prep"},
-                              {value: "Dictionaries & Reference", label: "Dictionaries & Reference"}],
+        "Movies & TV" : [{label: "DVD", subCategory: "DVDs & Blu-ray Discs", filter: "DVD"}, 
+                        {label: "Blu-ray", subCategory: "DVDs & Blu-ray Discs", filter: "Blu-ray"}, 
+                        {label: "TV Shows",subCategory: "DVDs & Blu-ray Discs", filter: "season"},
+                        {label: "VHS Tapes",subCategory: "VHS Tapes", filter: null},
+                        {label: "Film Stock",subCategory: "Film Stock", filter: null},
+                        {label: "Other Formats",subCategory: "Other Formats", filter: null}
+                ],
 
         "Video Games & Consoles": [
-                                    {value: "Video Game Consoles", label: "Video Game Consoles"},
-                                    {value: "Video Games", label: "Video Games"},
-                                    {value: "Controllers & Attachments", label: "Controllers & Attachments"},
-                                    {value: "Video Game Merchandise", label: "Video Game Merchandise"},
-                                    {value: "Headsets", label: "Headsets"},
-                                    {value: "Original Game Cases & Boxes", label: "Original Game Cases & Boxes"}],
+        {label: "Xbox Games", subCategory: "Video Games", filter: "xbox"},
+        {label: "Nintendo Games", subCategory: "Video Games", filter: "nintendo"},
+        {label: "Playstation Games", subCategory: "Video Games", filter: "playstation"},
+        {label: "Xbox Consoles", subCategory: "Video Game Consoles", filter: "xbox"},
+        {label: "Nintendo Consoles", subCategory: "Video Game Consoles", filter: "nintendo"},
+        {label: "PlayStation Consoles", subCategory: "Video Game Consoles", filter: "playstation"},
+        {label: "Controllers & Attachments", subCategory: "Controllers & Attachments", filter: null},
+        {label: "Video Game Merchandise", subcategory: "Video Game Merchandise", filter: null},
+        {label: "Headsets", subCategory: "Headsets", filter: null},
+        {label: "Original Game Cases & Boxes", subCategory: "Original Game Cases & Boxes", filter: null}
+     ],
 
-        "Jewelry & Watches": [
-                                {value: "Rings", label: "Rings"},
-                                {value: "Watches", label: "Watches"},
-                                {value: "Earrings", label: "Earrings"},
-                                {value: "Bracelets & Charms", label: "Bracelets & Charms"}
+       "Computers/Tablets & Networking": [
+        { label: "Desktops & All-In-Ones", subCategory: "Desktops & All-In-Ones", filter: null},
+        { label: "PC Laptops & Netbooks", subCategory: "PC Laptops & Netbooks", filter: null},
+        { label: "Tablets & eBook Readers", subCategory: "Tablets & eBook Readers", filter: null},
+        { label: "Apple Laptops", subCategory: "Apple Laptops", filter: null},
+        { label: "Apple Desktops & All-In-Ones", subCategory: "Apple Desktops & All-In-Ones", filter: null},
+        { label: "Monitors", subCategory: "Monitors", filter: null},
+        { label: "Printers", subCategory: "Printers", filter: null},
+        { label: "Laptop Replacement Parts", subCategory: "Laptop Replacement Parts", filter: null},
+        { label: "Graphics/Video Cards", subCategory: "Graphics/Video Cards", filter: null},
+        { label: "Enterprise Networking, Servers", subCategory: "Enterprise Networking, Servers", filter: null},                    
         ],
 
-        "Movies & TV": [
-                        { value: "DVDs & Blu-ray Discs", label: "DVDs & Blu-ray Discs" },
-                        { value: "VHS Tapes", label: "VHS Tapes"},
-                        { value: "Film Stock", label: "Film Stock"},
-                        { value: "Other Formats", label: "Other Formats"}
-        ],
-
-        "Toys & Hobbies": [
-                         {value: "Action Figures", label: "Action Figures"},
-                         {value: "Fisher Price", label: "Fisher Price"},
-                         {value: "Disney", label: "Disney"},
-                         {value: "LEGO (R) Complete Sets & Packs", label: "LEGO (R) Complete Sets & Packs"},
-                         {value: "LEGO (R) Building Toys", label: "LEGO (R) Building Toys"},
-                         {value: "LEGO (R) Bricks, Pieces & Parts", label: "LEGO (R) Bricks, Pieces & Parts"},
-                         {value: "Puzzles", label: "Puzzles"},
-                         {value: "Electronic Games", label: "Electronic Games"},
-                         {value: "Models & Kits", label: "Models & Kits"},
-                         {value: "Cars: Racing, NASCAR", label: "Cars: Racing, NASCAR"},
-                         {value: "Star Wars", label: "Star Wars"}
-        ],
+        "Clothing, Shoes & Accessories": [    
+                {label: "Womens's Clothing", subCategory: "Womens's Clothing", filter: null},
+                {label: "Women's Bags & Handbags", subCategory: "Women's Bags & Handbags", filter: null},
+                {label: "Girls", subCategory: "Girls", filter: null}, 
+                {label: "Boys", subCategory: "Boys", filter: null},
+                {label: "Men", subCategory: "Men", filter: null},
+                {label: "Men's Clothing", subCategory: "Men's Clothing", filter: null},
+                {label:"Baby & Toddler Clothing", subCategory: "Baby & Toddler Clothing", filter: null}
+            ],
 
         "Crafts": [
-                   {value: "Sewing", label: "Sewing"},
-                   {value: "Quilting", label: "Quilting"},
-                   {value: "Embroidery & Cross Stitch", label: "Embroidery & Cross Stitch"},
-                   {value: "Kids' Crafts", label: "Kids' Crafts"},
-                   {value: "Craft Kits", label: "Craft Kits"}
+        {label: "Sewing", subCategory: "Sewing", filter: null},
+        {label: "Quilting", subCategory: "Quilting", filter: null},
+        {label: "Embroidery & Cross Stitch", subCategory: "Embroidery & Cross Stitch", filter: null},
+        {label: "Kids' Crafts", subCategory: "Kids' Crafts", filter: null},
+        {label: "Craft Kits", subCategory: "Craft Kits", filter: null}
         ],
 
-        "Sporting Goods": [
-                           {value: "Football", label: "Football"},
-                           {value: "Basketball", label: "Basketball"},
-                           {value: "Baseball", label: "Baseball"},
-                           {value: "Golf", label: "Golf"},
-                           {value: "Soccer", label: "Soccer"},
-                           {value: "Tennis", label: "Tennis"},
-                           {value: "Cycling", label: "Cycling"},
-                           {value: "Skateboarding & Longboarding", label: "Skateboarding & Longboarding"},
-                           {value: "Fishing", label: "Fishing"},
-                           {value: "Hunting", label: "Hunting"},
-                           {value: "Ice Skating", label: 'Ice Skating'}
+        "Jewelry & Watches": [
+        {label: "Rings", subCategory: "Rings", filter: null},
+        {label: "Watches", subCategory: "Rings", fitler: null},
+        {label: "Earrings", subCategory: "Earrings", filter: null},
+        {label: "Bracelets & Charms", subCategory: "Bracelets & Charms", filter: null}
         ],
 
-        "Computers/Tablets & Networking": [
-                                           {value: "Desktops & All-In-Ones", label: "Desktops & All-In-Ones"},
-                                           {value: "PC Laptops & Netbooks", label: "PC Laptops & Netbooks"},
-                                           {value: "Tablets & eBook Readers", label: "Tablets & eBook Readers"},
-                                           {value: "Apple Laptops", label: "Apple Laptops"},
-                                           {value: "Apple Desktops & All-In-Ones", label: "Apple Desktops & All-In-Ones"},
-                                           {value: "Monitors", label: "Monitors"},
-                                           {value: "Printers", label: "Printers"},
-                                           {value: "Laptop Replacement Parts", label: "Laptop Replacement Parts"},
-                                           {value: "Graphics/Video Cards", label: "Graphics/Video Cards"},
-                                           {value: "Enterprise Networking, Servers", label: "Enterprise Networking, Servers"},                    
+        "Books & Magazines": [
+        {label: "Textbooks", subCategory: "Textbooks", filter: null},
+        {label: "Magazines", subCategory: "Magazines", filter: null},
+        {label: "Books", subCategory: "Books", filter: null},
+        {label: "Antiquarian & Collectible", subCategory: "Antiquarian & Collectible", filter: null},
+        {label: "Audiobooks", subCategory: "Audiobooks", filter: null},
+        {label: "Study Guides & Test Prep", subCategory: "Study Guides & Test Prep", filter: null},
+        {label: "Dictionaries & Reference", subCategory: "Dictionaries & Reference", filter: null}],
+
+        "Toys & Hobbies": [
+        {label: "Action Figures", subCategory: "Action Figures", filter: null},
+        {label: "Fisher Price",subCategory: "Fisher Price", filter: null},
+        {label: "Disney", subCategory: "Disney", filter: null},
+        {label: "LEGO (R) Complete Sets & Packs", subCategory: "LEGO (R) Complete Sets & Packs", filter: null},
+        {label: "LEGO (R) Building Toys", subCategory: "LEGO (R) Building Toys", filter: null},
+        {label: "LEGO (R) Bricks, Pieces & Parts", subCategory: "LEGO (R) Bricks, Pieces & Parts", filter: null},
+        {label: "Puzzles", subCategory: "Puzzles", filter: null},
+        {label: "Electronic Games", subCategory: "Electronic Games", filter: null},
+        {label: "Models & Kits", subCategory: "Models & Kits", filter: null},
+        {label: "Cars: Racing, NASCAR", subCategory: "Cars: Racing, NASCAR", filter: null},
+        {label: "Star Wars", subCategory: "Star Wars", filter: null}
+        ],
+
+        "Collectibles": [
+        { label: "Sports Trading Cards", subCategory: "Sports Trading Cards", filter: null},
+        { label: "Non-Sport Trading Cards", subCategory: "Non-Sport Trading Cards", filter: null},
+        { label: "Trading Card Lots", subCategory: "Trading Card Lots", filter: null},
+        { label: "Comics", subCategory: "Comics", filter: null},
+        { label: "Coins", subCategory: "Coins", filter: null},
+        { label: "Collectible Figures & Bobbleheads", subCategory: "Collectible Figures & Bobbleheads", filter: null},
+        { label: "Coca-Cola", subCategory: "Coca-Cola", filter: null},
+        { label: "Disney", subCategory: "Disney", filter: null},
+        { label: "Postcards", subCategory: "Postcards", filter: null},
+        { label: "Stamps", subCategory: "Stamps", filter: null},
+        { label: "Baseball-MLB", subCategory: "Baseball-MLB", filter: null},
+        { label: "Football-NFL", subCategory: "Football-NFL", filter: null}, 
+        { label: "Basketball-NBA", subCategory: "Basketball-NBA", filter: null}, 
+        { label: "Hockey-NHL", subCategory: "Hockey-NHL", filter: null}, 
+        { label: 'Antique (Pre-1900)', subCategory: "Antique (Pre-1900)", filter: null},
+        { label: "Civil War (1861-65)", subCategory: "Civil War (1861-65)", filter: null},
+        { label: "Advertising", subCategory: "Advertising", filter: null},
+        { label: "Records", subCategory: "Records", filter: null},
+        { label: "Star Wars Collectibles", subCategory: "Star Wars Collectibles", filter: null},
+        { label: "Patches, Pins & Buttons", subCategory: "Patches, Pins & Buttons", filter: null}],
+
+         "Sporting Goods": [
+        {label: "Football", subCategory: "Football", filter: null},
+        {label: "Basketball", subCategory: "Basketball", filter: null},
+        {label: "Baseball", subCategory: "Baseball", filter: null},
+        {label: "Golf", subCategory: "Golf", filter: null},
+        {label: "Soccer", subCategory: "Soccer", filter: null},
+        {label: "Tennis", subCategory: "Tennis", filter: null},
+        {label: "Cycling", subCategory: "Cycling", filter: null},
+        {label: "Skateboarding & Longboarding", subCategory: "Skateboarding & Longboarding", filter: null},
+        {label: "Fishing", subCategory: "Fishing", filter: null},
+        {label: "Hunting", subCategory: "Hunting", filter: null},
+        {label: 'Ice Skating', subCategory: "Ice Skating", filter: null}
         ],
 
         "Home & Garden": [
-                          {value: "Candles & Home Fragrance", label: "Candles & Home Fragrance"},
-                          {value: "Glassware & Drinkware", label: "Glassware & Drinkware"},
-                          {value: "Flatware, Knives & Cutlery", label: "Flatware, Knives & Cutlery"},
-                          {value: "Dinnerware & Serveware", label: "Dinnerware & Serveware"},
-                          {value: "Kitchen Tools & Gadgets", label: "Kitchen Tools & Gadgets"},
-                          {value: "Coffee, Tea & Espresso Makers", label: "Coffee, Tea & Espresso Makers"},
-                          {value: "Bakeware", label: "Bakeware"},
-                          {value: "Cookware", label: "Cookware"},
-                          {value: "Grills & Griddles", label: "Grills & Griddles"},
-                          {value: "Wall Décor", label: "Wall Décor"},
-                          {value: "Furniture", label: "Furniture"},
-                          {value: "Bedding", label: "Bedding"},
-                          {value: "Kitchen, Dining & Bar", label: "Kitchen, Dining & Bar"},
-                          {value: "Small Kitchen Appliances", label: "Small Kitchen Appliances"},
-                          {value: "Patio & Garden Furniture", label: "Patio & Garden Furniture"},
-                          {value: "Garden Hand Tools & Equipment", label: "Garden Hand Tools & Equipment"},
-                          {value: "Plants, Seeds & Bulbs", label: "Plants, Seeds & Bulbs"},
-                          {value: "Plant Care, Soil & Accessories", label: "Plant Care, Soil & Accessories"},
-                          {value: "Herbs, Spices & Seasonings", label: "Herbs, Spices & Seasonings"},
+        {label: "Candles & Home Fragrance", subCategory: "Candles & Home Fragrance", filter: null},
+        {label: "Glassware & Drinkware", subCategory: "Glassware & Drinkware", filter: null},
+        {label: "Flatware, Knives & Cutlery", subCategory: "Flatware, Knives & Cutlery", filter: null},
+        {label: "Dinnerware & Serveware", subCategory: "Dinnerware & Serveware", filter: null},
+        {label: "Kitchen Tools & Gadgets", subCategory: "Kitchen Tools & Gadgets", filter: null},
+        {label: "Coffee, Tea & Espresso Makers",subCategory: "Coffee, Tea & Espresso Makers", filter: null},
+        {label: "Bakeware", subCategory: "Bakeware", filter: null},
+        {label: "Cookware", subCategory: "Cookware", filter: null},
+        {label: "Grills & Griddles", subCategory: "Grills & Griddles", filter: null},
+        {label: "Wall Décor", subCategory: "Wall Décor", filter: null},
+        {label: "Furniture", subCategory: "Furniture", filter: null},
+        {label: "Bedding", subCategory: "Bedding", filter: null},
+        {label: "Kitchen, Dining & Bar", subCategory: "Kitchen, Dining & Bar", filter: null},
+        {label: "Small Kitchen Appliances", subCategory: "Small Kitchen Appliances", filter: null},
+        {label: "Patio & Garden Furniture", subCategory: "Patio & Garden Furniture", filter: null},
+        {label: "Garden Hand Tools & Equipment", subCategory: "Garden Hand Tools & Equipment", filter: null},
+        {label: "Plants, Seeds & Bulbs", subCategory: "Plants, Seeds & Bulbs", filter: null},
+        {label: "Plant Care, Soil & Accessories", subCategory: "Plant Care, Soil & Accessories", filter: null},
+        {label: "Herbs, Spices & Seasonings", subCategory: "Herbs, Spices & Seasonings", filter: null},
         ],
 
         "Art": [
-                {value: "Art Prints", label: "Art Prints"},
-                {value: "Paintings", label: "Paintings"},
-                {value: "Art Sculptures", label: "Art Sculptures"},
-                {value: "Art Posters", label: "Art Posters"},
-                {value: "Mixed Media Art & Collage Art", label: "Mixed Media Art & Collage Art"},
-                {value: "Other Art", label: "Other Art"},
-                {value: "Art Photographs", label: "Art Photographs"},
-                {value: "Art Drawings", label: "Art Drawings"},
-                {value: "Art NFTs", label: "Art NFTs"},
-                {value: "Textile Art & Fiber Art", label: "Textile Art & Fiber Art"}
-        ]     
+        {label: "Art Prints", subCategory: "Art Prints", filter: null},
+        {label: "Paintings", subCategory: "Paintings", filter: null},
+        {label: "Art Sculptures", subCategory: "Art Sculptures", filter: null},
+        {label: "Art Posters", subCategory: "Art Posters", filter: null},
+        {label: "Mixed Media Art & Collage Art", subCategory: "Mixed Media Art & Collage Art", filter: null},
+        {label: "Other Art", subCategory: "Other Art", filter: null},
+        {label: "Art Photographs", subCategory: "Art Photographs", filter: null},
+        {label: "Art Drawings", subCategory: "Art Drawings", filter: null},
+        {label: "Art NFTs", subCategory: "Art NFTs", filter: null},
+        {label: "Textile Art & Fiber Art", subCategory: "Textile Art & Fiber Art", filter: null}
+        ]  
+
+
+
 }
