@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { getItems } from '../utilities/BackEndClient';
 import Row from 'react-bootstrap/esm/Row';
@@ -13,7 +13,9 @@ function DisplayListings(props) {
   const user = useSelector((state) => state.userLogin);
   const { userInfo } = user;
 
- const { isPending, isError, data, error } = useQuery({
+  useEffect(()=>{setPage(1)}, [props.subCategory, props.search, props.filter])
+
+  const { isPending, isError, data, error } = useQuery({
     queryKey: [`${[props.search]}${props.subCategory}${props.filter}${page}`],
     queryFn: () => getItems(null, props.search, props.subCategory, props.filter, page),
   })
