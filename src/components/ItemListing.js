@@ -1,7 +1,6 @@
 import { Container, Row, Col } from "react-bootstrap";
 import { useSelector, useDispatch } from "react-redux";
 import Image from "react-bootstrap/Image";
-import NormalSpinner from "./Spinner";
 import { useNavigate } from "react-router-dom";
 import FavoritesButton from "./FavoritesButton";
 import { useState, useEffect } from "react";
@@ -45,9 +44,7 @@ function ItemListing(props) {
   if (errorCharities) {
     console.log(errorCharities);
   }
-  else if (loading) {
-    return <NormalSpinner />;
-  }
+
   else if (!favoritesData.error) {
 
     return (
