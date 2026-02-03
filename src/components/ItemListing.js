@@ -1,10 +1,9 @@
 import { Container, Row, Col } from "react-bootstrap";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import Image from "react-bootstrap/Image";
 import { useNavigate } from "react-router-dom";
 import FavoritesButton from "./FavoritesButton";
 import { useState, useEffect } from "react";
-import { getCharities } from "../actions/charityActions";
 
 const imageStyle = {
   width: "100%",
@@ -23,18 +22,13 @@ function ItemListing(props) {
   const favoritesData = useSelector((state) => state.favorites);
   const navigate = useNavigate();
   const [charity, setCharity] = useState(null);
-  const dispatch = useDispatch();
   
   useEffect(() => {   
-    if(charities.length === 0 && !loading){
-       dispatch(getCharities());
-     }
-  
     if (charities && props.charity && !charity) {
        const foundCharity = charities.find((c) => c.id === props.charity);
        setCharity(foundCharity);
      }
-  }, [charities, props.charity, charity, dispatch, loading]);
+  }, [charities, props.charity, charity, loading]);
 
   function handleClick(e, id) {
     e.preventDefault();
