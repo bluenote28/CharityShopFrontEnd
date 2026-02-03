@@ -14,17 +14,23 @@ import Footer from './components/Footer';
 import DirectoryPage from './pages/Directory';
 import './App.css'
 import { useEffect } from 'react';
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { getUserFavorites } from './actions/userActions';
+import { getCharities } from './actions/charityActions';
 
 function App() {
 
   const dispatch = useDispatch()
+  const charitiesState = useSelector((state) => state.charities);
 
   useEffect(()=> {
-      dispatch(getUserFavorites())
+      
+    dispatch(getUserFavorites())
+      
+    if (charitiesState.charities.length === 0){
+      dispatch(getCharities());
+    }
   }, [dispatch])
-
 
   return (
     <Router>
