@@ -28,11 +28,11 @@ function FavoritesButton(props) {
 
   return (
     <Button
-  variant="outline-light"
-  onClick={() => {setPending(true); setTimeout(() => handleClick(props.id), 300)}}
-  disabled={pending}
->
-  {pending ? <NormalSpinner /> : <Image src={isFavorite ? StarChecked : StarUnchecked} />}
+      variant="outline-light"
+      onClick={() => {setPending(true); setTimeout(() => handleClick(props.id), 300)}}
+      disabled={pending}
+    >
+      {pending || loading ? <NormalSpinner /> : <Image src={isFavorite ? StarChecked : StarUnchecked} />}
      </Button>
   );
 }
