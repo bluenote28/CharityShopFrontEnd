@@ -48,7 +48,7 @@ function ItemListing(props) {
             <Image src={props.image} style={imageStyle} onClick={(e) => handleClick(e, props.id)}/>
           </Col>
           <Col xs={4} sm={5}>
-            <Row sm={1} className="fs-5 fw-bold">
+            <Row sm={1} className="fs-5 fw-bold mt-2">
               <Col style={{ cursor: "pointer" }} onClick={(e) => handleClick(e, props.id)}>
                 <h6 className="text-center">{props.title}</h6>
               </Col>
@@ -84,7 +84,7 @@ function ItemListing(props) {
             <Image src={props.image} style={imageStyle} onClick={(e) => handleClick(e, props.id)}/>
           </Col>
           <Col xs={4} sm={5}>
-            <Row className="fs-5 fw-bold">
+            <Row className="fs-5 fw-bold mt-2">
               <Col style={{ cursor: "pointer" }} onClick={(e) => handleClick(e, props.id)}>
                 <h6 className="text-center">{props.title}</h6>
               </Col>
