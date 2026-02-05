@@ -47,23 +47,23 @@ function ItemListing(props) {
           <Col xs={4}>
             <Image src={props.image} style={imageStyle} onClick={(e) => handleClick(e, props.id)}/>
           </Col>
-          <Col xs={5}>
-            <Row className="fs-5 fw-bold">
+          <Col xs={4} sm={5}>
+            <Row sm={1} className="fs-5 fw-bold">
               <Col style={{ cursor: "pointer" }} onClick={(e) => handleClick(e, props.id)}>
-                <h5 className="text-center">{props.title}</h5>
+                <h6 className="text-center">{props.title}</h6>
               </Col>
             </Row>
             <Row className="fs-4 mb-3 mt-3 d-flex justify-content-between">
-              <Col><p className="text-center">Price: ${props.price}</p></Col>
+              <Col><h6 className="text-center">Price: ${props.price}</h6></Col>
             </Row>
-            <Row className="w-50 m-auto">
+            <Row className="w-25 m-auto">
               <Col>
-                Add to watchlist: <FavoritesButton className="" id={props.id} />
+                <FavoritesButton id={props.id} />
               </Col>
             </Row>
           </Col>
-          <Col className="bg-light">
-            <Row><h4 className="text-center mt-2">Item Benefits</h4></Row>
+          <Col xs={4} sm={3} className="bg-light">
+            <Row><h4 className="text-center mt-2">Benefits</h4></Row>
             <Row>
               <Image src={charity?.image_url} style={charityImageStyle} />
             </Row>
@@ -80,21 +80,21 @@ function ItemListing(props) {
     return (
       <Container className="border" style={{ height: "20rem" }}>
         <Row>
-          <Col sm={4}>
+          <Col xs={4} sm={4}>
             <Image src={props.image} style={imageStyle} onClick={(e) => handleClick(e, props.id)}/>
           </Col>
-          <Col sm={5}>
+          <Col xs={4} sm={5}>
             <Row className="fs-5 fw-bold">
               <Col style={{ cursor: "pointer" }} onClick={(e) => handleClick(e, props.id)}>
-                <h5 className="text-center">{props.title}</h5>
+                <h6 className="text-center">{props.title}</h6>
               </Col>
             </Row>
             <Row className="fs-4 mb-3 mt-3 d-flex justify-content-between">
-              <Col><p className="text-center">Price: ${props.price}</p></Col>
+              <Col><h6 className="text-center">Price: ${props.price}</h6></Col>
             </Row>
           </Col>
-          <Col className="bg-light">
-            <Row><h4 className="text-center mt-2">Item Benefits</h4></Row>
+          <Col xs={4} sm={3} className="bg-light">
+            <Row><h4 className="text-center mt-2">Benefits</h4></Row>
             <Row>
               <Image src={charity?.image_url} style={charityImageStyle} />
             </Row>
