@@ -6,9 +6,8 @@ import { convertIdToCharityName, covertUrlToAffiliateLink, convertItemPageImageU
 import { useSelector, useDispatch } from "react-redux";
 import { getCharities } from '../actions/charityActions';
 import { getSingleItem } from '../utilities/BackEndClient';
-import { useQuery } from '@tanstack/react-query'
-import AlertBox from '../components/Alert'
 import CharityDisplay from '../components/CharityDisplay';
+import { useLocation } from 'react-router-dom';
 
 function ItemPage() {
 
@@ -20,6 +19,9 @@ function ItemPage() {
     const navigate = useNavigate()
     const [mainImageUrl, setMainImageUrl] = useState(null);
     const [charity, setCharity] = useState(null);
+    const location = useLocation();
+    const [itemData, setItemData] = useState(location.state || {});
+    const [loadingItem, setLoadingItem ] = useState(false)
 
     const MAIN_IMAGE_STYLE = {
          maxWidth: '100%',
@@ -44,28 +46,38 @@ function ItemPage() {
         cursor: 'pointer'
     }
 
-    const { isPending, isError, data, error } = useQuery({
-       queryKey: [`${item_id}`],
-       queryFn: () => getSingleItem(item_id),
-    })
+    console.log(itemData)
 
     useEffect(() => {
-        if (!loading && (!charities || charities.length === 0)){
-            dispatch(getCharities());
-        }
+      if (!loading && (!charities || charities.length === 0)){
+          dispatch(getCharities());
+      }
     }, [dispatch, charities, loading]);
 
     useEffect(() => {
-      if (data){
-          setAllImages([{"imageUrl": data.img_url}].concat(data.additional_images?.additionalImages || []))
-          setMainImageUrl(data.img_url)
+      async function fetchItem() {
+          if (!itemData.name) {
+            setLoadingItem(true);
+            const data = await getSingleItem(item_id);
+            setItemData(data);
+            setLoadingItem(false);
+          }
+        }
+      fetchItem();
+    }, [item_id, itemData.name]);
+
+    useEffect(() => {
+
+      if (itemData){
+        setAllImages([{"imageUrl": itemData.img_url}].concat(itemData.additional_images?.additionalImages || []))
+        setMainImageUrl(itemData.img_url)
       }
 
-      if (!charity && !loading && data) {
-        const foundCharity = charities.find((c) => c.id === data.charity);
+      if (!charity && !loading && itemData) {
+        const foundCharity = charities.find((c) => c.id === itemData.charity);
         setCharity(foundCharity);
       }
-    }, [data, charities, charity, loading])
+    }, [itemData, charities, charity, loading])
 
     function handleClick(e, url){
         e.preventDefault()
@@ -73,19 +85,15 @@ function ItemPage() {
         window.open(url, '_blank');
     }
 
-    if (isPending || loading || !charities){
+    if (loading || !charities|| loadingItem){
         return <NormalSpinner />
-    }
-
-    if (isError){
-        return <AlertBox message={error.message} />
     }
 
     return (
         <>
         <Container className='mt-3'>
             <Row>
-                <h2 style={{textAlign: "center"}}>{data.name}</h2>
+                <h2 style={{textAlign: "center"}}>{itemData.name}</h2>
             </Row>
             <Row>
               <Container className='d-flex justify-content-around mt-3'>
@@ -104,16 +112,16 @@ function ItemPage() {
                 <Col className='d-flex flex-column align-items-center'>
                 <Container className="border rounded-2 mt-2 p-5" style={{backgroundColor: "#f8f9fa"}}>
                     <Row><h2 style={{textAlign:"center"}}>Item Details</h2></Row>
-                    <Row><h4>Price: ${data.price}</h4></Row>
-                    {data.shipping_price ? <Row><h4>Shipping: ${data.shipping_price}</h4></Row> : <></>}
-                    {data.condition ? <Row><h4>Condition: {data.condition}</h4></Row> : <></>}
-                    <Row><h4>Seller: {data.seller?.username}</h4></Row>
-                    <Row><h4>Total Seller Feedback: {data.seller?.feedbackScore}</h4></Row>
-                    <Row><h4>Seller Positive Feeback: {data.seller?.feedbackPercentage}%</h4></Row>
-                    <Row><h4>Benefits: {convertIdToCharityName(charities, data.charity)}</h4></Row>
+                    <Row><h4>Price: ${itemData.price}</h4></Row>
+                    {itemData.shipping_price ? <Row><h4>Shipping: ${itemData.shipping_price}</h4></Row> : <></>}
+                    {itemData.condition ? <Row><h4>Condition: {itemData.condition}</h4></Row> : <></>}
+                    <Row><h4>Seller: {itemData.seller?.username}</h4></Row>
+                    <Row><h4>Total Seller Feedback: {itemData.seller?.feedbackScore}</h4></Row>
+                    <Row><h4>Seller Positive Feeback: {itemData.seller?.feedbackPercentage}%</h4></Row>
+                    <Row><h4>Benefits: {convertIdToCharityName(charities, itemData.charity)}</h4></Row>
               </Container>
               <ButtonGroup className='mt-3 w-100'>
-                <Button variant="primary" onClick={(e) => handleClick(e,data.web_url)}>Go to item on Ebay</Button>
+                <Button variant="primary" onClick={(e) => handleClick(e,itemData.web_url)}>Go to item on Ebay</Button>
               </ButtonGroup>
                 </Col>
             </Row>
