@@ -32,7 +32,9 @@ function ItemListing(props) {
 
   function handleClick(e, id) {
     e.preventDefault();
-    navigate("/item/" + id);
+    navigate("/item/" + id, {
+      state: props,
+  });
   }
 
   if (errorCharities) {
@@ -45,12 +47,12 @@ function ItemListing(props) {
       <Container className="border" style={{ height: "20rem" }}>
         <Row>
           <Col xs={4}>
-            <Image src={props.image} style={imageStyle} onClick={(e) => handleClick(e, props.id)}/>
+            <Image src={props.img_url} style={imageStyle} onClick={(e) => handleClick(e, props.id)}/>
           </Col>
           <Col xs={4} sm={5}>
             <Row sm={1} className="fs-5 fw-bold mt-2">
               <Col style={{ cursor: "pointer" }} onClick={(e) => handleClick(e, props.id)}>
-                <h6 className="text-center">{props.title}</h6>
+                <h6 className="text-center">{props.name}</h6>
               </Col>
             </Row>
             <Row className="fs-4 mb-3 mt-3 d-flex justify-content-between">
@@ -81,12 +83,12 @@ function ItemListing(props) {
       <Container className="border" style={{ height: "20rem" }}>
         <Row>
           <Col xs={4} sm={4}>
-            <Image src={props.image} style={imageStyle} onClick={(e) => handleClick(e, props.id)}/>
+            <Image src={props.img_url} style={imageStyle} onClick={(e) => handleClick(e, props.id)}/>
           </Col>
           <Col xs={4} sm={5}>
             <Row className="fs-5 fw-bold mt-2">
               <Col style={{ cursor: "pointer" }} onClick={(e) => handleClick(e, props.id)}>
-                <h6 className="text-center">{props.title}</h6>
+                <h6 className="text-center">{props.name}</h6>
               </Col>
             </Row>
             <Row className="fs-4 mb-3 mt-3 d-flex justify-content-between">
@@ -96,7 +98,7 @@ function ItemListing(props) {
           <Col xs={4} sm={3} className="bg-light">
             <Row><h4 className="text-center mt-2">Benefits</h4></Row>
             <Row>
-              <Image src={charity?.image_url} style={charityImageStyle} />
+              <Image src={charity?.img_url} style={charityImageStyle} />
             </Row>
             <Row>
             <p className="text-center fw-bold">{charity?.name}</p>
