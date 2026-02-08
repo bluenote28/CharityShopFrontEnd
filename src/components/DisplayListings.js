@@ -47,6 +47,8 @@ function DisplayListings(props) {
         setPage(page + 1);
         window.scrollTo({ top: 0, behavior: 'instant' });
       }} />,   <Pagination.Last onClick={()=> setPage(numOfPages)}/>];
+
+      console.log(data.results)
   
       return (
         <>          
@@ -57,7 +59,17 @@ function DisplayListings(props) {
                   <div key={index}>        
                       {error ? <p>{error}</p>:
                         <Row key={index} className='mb-3'>
-                          <ItemListing title={item.name} image={item.img_url} url={item.web_url} id={item.ebay_id} price={item.price} charity={item.charity} />
+                          <ItemListing
+                          name={item.name} 
+                          img_url={item.img_url} 
+                          url={item.web_url} 
+                          id={item.ebay_id} 
+                          price={item.price} 
+                          charity={item.charity}
+                          additional_images={item.additional_images} 
+                          shippingPrice={item.shipping_price}
+                          condition={item.condition}
+                          seller={item.seller} />
                         </Row>
                       }
                   </div>
