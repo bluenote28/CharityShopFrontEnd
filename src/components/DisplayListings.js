@@ -47,8 +47,6 @@ function DisplayListings(props) {
         setPage(page + 1);
         window.scrollTo({ top: 0, behavior: 'instant' });
       }} />,   <Pagination.Last onClick={()=> setPage(numOfPages)}/>];
-
-      console.log(data.results)
   
       return (
         <>          
