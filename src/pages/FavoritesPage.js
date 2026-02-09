@@ -6,7 +6,7 @@ function FavoritesPage() {
     return (
 
         <>
-            <h1 style={{textAlign: 'center'}}>Favorites</h1>
+            <h1 style={{textAlign: 'center'}}>Watch List</h1>
             <Container>
             
                 <FavoriteItems />
