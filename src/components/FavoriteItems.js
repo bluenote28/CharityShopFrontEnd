@@ -25,7 +25,7 @@ function FavoriteItems() {
   }
 
   if (!favorites?.items || favorites.items.length === 0) {
-    return <p>No favorites yet.</p>;
+    return <p>No items saved yet.</p>;
   }
 
   return (
@@ -33,13 +33,17 @@ function FavoriteItems() {
       {favorites.items.map((item) => (
         <Row key={item.ebay_id} className="mb-3">
           <ItemListing
-            title={item.name}
-            image={item.img_url}
+            name={item.name}
+            img_url={item.img_url}
             url={item.web_url}
             id={item.ebay_id}
             favorites={favorites.items}
             charity={item.charity}
             price={item.price}
+            additional_images={item.additional_images} 
+            shippingPrice={item.shipping_price}
+            condition={item.condition}
+            seller={item.seller}
           />
         </Row>
       ))}
