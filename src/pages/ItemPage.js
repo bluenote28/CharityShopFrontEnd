@@ -46,8 +46,6 @@ function ItemPage() {
         cursor: 'pointer'
     }
 
-    console.log(itemData)
-
     useEffect(() => {
       if (!loading && (!charities || charities.length === 0)){
           dispatch(getCharities());
@@ -121,7 +119,7 @@ function ItemPage() {
                     <Row><h4>Benefits: {convertIdToCharityName(charities, itemData.charity)}</h4></Row>
               </Container>
               <ButtonGroup className='mt-3 w-100'>
-                <Button variant="primary" onClick={(e) => handleClick(e,itemData.web_url)}>Go to item on Ebay</Button>
+                <Button variant="primary" onClick={(e) => handleClick(e,itemData.url)}>Go to item on Ebay</Button>
               </ButtonGroup>
                 </Col>
             </Row>
