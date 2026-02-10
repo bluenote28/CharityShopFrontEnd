@@ -22,7 +22,7 @@ function Header() {
   return (  
     <Navbar expand="lg" style={{backgroundColor: "#1406d4"}}>
       <Container>
-        <Navbar.Toggle aria-controls="basic-navbar-nav" />
+        <Navbar.Toggle aria-controls="basic-navbar-nav" style={{backgroundColor: "#ffffff"}}/>
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className='mx-auto'>
              <Nav.Link as={Link} to="/">Home</Nav.Link>
