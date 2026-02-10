@@ -96,27 +96,27 @@ function ItemPage() {
             <Row>
               <Container className='d-flex justify-content-around mt-3'>
                 <ButtonGroup>
-                    <Button variant="outline-dark" onClick={() => navigate(-1)}>Go back to search results</Button>
+                  <Button variant="outline-dark" onClick={() => navigate(-1)}>Go back to search results</Button>
                 </ButtonGroup>
               </Container>
             </Row>
 
             <Row className='mt-4'>
-                <Col>
+                <Col sm={6}>
                   <Container style={MAIN_IMAGE_CONTAINER_STYLE}>
                   <Image src={mainImageUrl} style={MAIN_IMAGE_STYLE} fluid />
                   </Container>
                 </Col>
-                <Col className='d-flex flex-column align-items-center'>
+                <Col sm={6} className='d-flex flex-column align-items-center'>
                 <Container className="border rounded-2 mt-2 p-5" style={{backgroundColor: "#f8f9fa"}}>
-                    <Row><h2 style={{textAlign:"center"}}>Item Details</h2></Row>
-                    <Row><h4>Price: ${itemData.price}</h4></Row>
-                    {itemData.shipping_price ? <Row><h4>Shipping: ${itemData.shipping_price}</h4></Row> : <></>}
-                    {itemData.condition ? <Row><h4>Condition: {itemData.condition}</h4></Row> : <></>}
-                    <Row><h4>Seller: {itemData.seller?.username}</h4></Row>
-                    <Row><h4>Total Seller Feedback: {itemData.seller?.feedbackScore}</h4></Row>
-                    <Row><h4>Seller Positive Feeback: {itemData.seller?.feedbackPercentage}%</h4></Row>
-                    <Row><h4>Benefits: {convertIdToCharityName(charities, itemData.charity)}</h4></Row>
+                  <Row><h2 style={{textAlign:"center"}}>Item Details</h2></Row>
+                  <Row><h4>Price: ${itemData.price}</h4></Row>
+                  {itemData.shipping_price ? <Row><h4>Shipping: ${itemData.shipping_price}</h4></Row> : <></>}
+                  {itemData.condition ? <Row><h4>Condition: {itemData.condition}</h4></Row> : <></>}
+                  <Row><h4>Seller: {itemData.seller?.username}</h4></Row>
+                  <Row><h4>Total Seller Feedback: {itemData.seller?.feedbackScore}</h4></Row>
+                  <Row><h4>Seller Positive Feeback: {itemData.seller?.feedbackPercentage}%</h4></Row>
+                  <Row><h4>Benefits: {convertIdToCharityName(charities, itemData.charity)}</h4></Row>
               </Container>
               <ButtonGroup className='mt-3 w-100'>
                 <Button variant="primary" onClick={(e) => handleClick(e,itemData.url)}>Go to item on Ebay</Button>
@@ -124,7 +124,7 @@ function ItemPage() {
                 </Col>
             </Row>
             <Row className='d-flex justify-content-start mt-4'>
-                <Col>
+                <Col sm={6}>
                   {allImages && allImages.length > 1 ?
                   <Container className='border rounded-2 py-2'>
                    <h5 style={{textAlign:"center"}}>All Images</h5>
