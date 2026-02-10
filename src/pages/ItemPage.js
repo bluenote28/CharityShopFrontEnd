@@ -130,7 +130,7 @@ function ItemPage() {
                    <h5 style={{textAlign:"center"}}>All Images</h5>
                   {allImages ? allImages.map((item,index) => {
                     return <Image key={index} style={SMALL_IMAGE_STYLE} src={convertItemPageImageUrl(item.imageUrl)} thumbnail onClick={() => {
-                        setMainImageUrl(convertItemPageImageUrl(item.imageUrl))
+                        setMainImageUrl(convertItemPageImageUrl(item.imageUrl)); window.scrollTo({ top: 0, behavior: 'instant' });
                     }} />}) : <></>
                   }
                   </Container>
