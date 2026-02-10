@@ -69,9 +69,6 @@ function ItemListing(props) {
             <Row>
               <Image src={charity?.image_url} style={charityImageStyle} />
             </Row>
-            <Row>
-            <p className="text-center fw-bold">{charity?.name}</p>
-            </Row>
           </Col>
         </Row>
       </Container>
@@ -99,9 +96,6 @@ function ItemListing(props) {
             <Row><h4 className="text-center mt-2">Benefits</h4></Row>
             <Row>
               <Image src={charity?.img_url} style={charityImageStyle} />
-            </Row>
-            <Row>
-            <p className="text-center fw-bold">{charity?.name}</p>
             </Row>
           </Col>
         </Row>
