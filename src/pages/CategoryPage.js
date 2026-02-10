@@ -20,7 +20,7 @@ function CategoryPage() {
     return (
       subCategoryOptions?.map((item, index) => {
         return (
-          <ButtonGroup key={index*123}>
+          <ButtonGroup key={index*123} size='sm'>
             {
               item.map((item, index) => {
                 return (
