@@ -39,7 +39,7 @@ export const FILTER_OPTIONS = {
         {label: "Nintendo Consoles", subCategory: "Video Game Consoles", filter: "nintendo"},
         {label: "PlayStation Consoles", subCategory: "Video Game Consoles", filter: "playstation"},
         {label: "Controllers & Attachments", subCategory: "Controllers & Attachments", filter: null},
-        {label: "Video Game Merchandise", subcategory: "Video Game Merchandise", filter: null},
+        {label: "Video Game Merchandise", subCategory: "Video Game Merchandise", filter: null},
         {label: "Headsets", subCategory: "Headsets", filter: null},
         {label: "Original Game Cases & Boxes", subCategory: "Original Game Cases & Boxes", filter: null}
      ],
