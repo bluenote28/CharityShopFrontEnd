@@ -21,7 +21,7 @@ function AdminPage() {
    }
 
     useEffect(() => {
-        if (!loading && (!charities || charities.length === 0)){
+        if (!loading && !charities){
            dispatch(getCharities())
         };
     }, [dispatch, charities])
