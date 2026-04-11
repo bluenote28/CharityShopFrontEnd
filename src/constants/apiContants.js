@@ -1,1 +1,1 @@
-export const BACKEND_API_BASE_URL = "https://thecharityshop-9c7b08c3213c.herokuapp.com/api/"
+export const BACKEND_API_BASE_URL = "https://charity-shop-backend-xm3ai.ondigitalocean.app/api/"
