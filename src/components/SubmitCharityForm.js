@@ -22,7 +22,9 @@ function SubmitCharityForm() {
 
     if (validateCharityInput()){
         dispatch(addCharity({id: charityId, name: name, description: description, image_url: imageUrl, donation_url: donationUrl}));
-        window.location.reload();
+        setTimeout(() => {
+            window.location.reload();
+        }, 1000);
     }
   }
 
