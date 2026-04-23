@@ -8,6 +8,7 @@ import { getCharities } from '../actions/charityActions';
 import { getSingleItem } from '../utilities/BackEndClient';
 import CharityDisplay from '../components/CharityDisplay';
 import { useLocation } from 'react-router-dom';
+import { Chat } from '../components/AIChat';
 
 function ItemPage() {
 
@@ -83,6 +84,10 @@ function ItemPage() {
         window.open(url, '_blank');
     }
 
+    function handleBuyNow(){
+        navigate('/checkout', { state: { itemData } });
+    }
+
     if (loading || !charities|| loadingItem){
         return <NormalSpinner />
     }
@@ -120,6 +125,7 @@ function ItemPage() {
               </Container>
               <ButtonGroup className='mt-3 w-100'>
                 <Button variant="primary" onClick={(e) => handleClick(e,itemData.url)}>Go to item on Ebay</Button>
+                <Button variant="success" onClick={handleBuyNow}>Buy Now</Button>
               </ButtonGroup>
                 </Col>
             </Row>
@@ -138,6 +144,14 @@ function ItemPage() {
                   }
                 </Col>
                 <Col></Col>
+          </Row>
+
+          <Row className='d-flex justify-content-start mt-4'>
+            <Col sm={6}>
+              <Container className='border rounded-2 py-2'>
+              <Chat message={itemData.name} />
+              </Container>
+            </Col>
           </Row>
 
           <Row>
