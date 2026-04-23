@@ -7,6 +7,7 @@ import Pagination from 'react-bootstrap/Pagination';
 import { Container } from 'react-bootstrap';
 import ItemListing from './ItemListing'
 import { useQuery } from '@tanstack/react-query'
+import AlertBox from './Alert';
 
 function DisplayListings(props) {
   const [page, setPage ] = useState(1)
@@ -22,6 +23,10 @@ function DisplayListings(props) {
 
   if (isPending){
     return <NormalSpinner />
+  }
+
+  if (isError){ 
+      return <AlertBox message={error} />
   }
 
   if (data.results.length === 0 && !isPending){
