@@ -15,7 +15,7 @@ function LoginPage() {
     const { loading, error, userInfo } = userLogin
     const dispatch = useDispatch()
     const [alert, setAlert ] = useState('')
-    const RESET_URL = 'https://thecharityshop-9c7b08c3213c.herokuapp.com/password_reset/'
+    const RESET_URL = 'https://charity-shop-backend-xm3ai.ondigitalocean.app/password_reset/'
     
     const submithandler = (e) => {
         e.preventDefault()
