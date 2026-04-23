@@ -12,6 +12,8 @@ import CategoryPage from './pages/CategoryPage';
 import AboutPage from './pages/About';
 import Footer from './components/Footer';
 import DirectoryPage from './pages/Directory';
+import CheckoutPage from './pages/CheckoutPage';
+import OrderConfirmationPage from './pages/OrderConfirmationPage';
 import './App.css'
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from "react-redux";
@@ -48,6 +50,8 @@ function App() {
         <Route path='/category' Component={CategoryPage} exact />
         <Route path='/about' Component={AboutPage} exact />
         <Route path='/directory' Component={DirectoryPage} exact />
+        <Route path='/checkout' Component={CheckoutPage} exact />
+        <Route path='/order/:order_id' Component={OrderConfirmationPage} exact />
       </Routes>
 
       <Footer />
