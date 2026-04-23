@@ -19,10 +19,31 @@ async function apiCall(url){
     return data
 }
 
+async function apiPost(url, body){
+    const config = {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(body)
+    }
+
+    const response = await fetch(url, config)
+    const data = await response.json()
+
+    if (response.status !== 200 && response.status !== 201){
+        throw new Error(data.detail || data.message || 'API call failed')
+    }
+
+    return data
+}
+
 export function getItems(item_id=null, search_text=null, category_id=null, filter=null, page=1){
 
         var data = [];
         var url = ""
+
+        console.log("Fetching items with params:", {item_id, search_text, category_id, filter, page})
 
         if (item_id){
             url = BACKEND_API_BASE_URL + 'items/ebaycharityitems/' + item_id
@@ -47,4 +68,28 @@ export function getItems(item_id=null, search_text=null, category_id=null, filte
 export function getSingleItem(item_id){
    const response = apiCall(BACKEND_API_BASE_URL + 'items/ebaycharityitems/' + item_id)
    return response;
+}
+
+export function initiateCheckout(payload){
+    return apiPost(BACKEND_API_BASE_URL + 'checkout/initiate/', payload)
+}
+
+export function getCheckoutSession(session_id){
+    return apiCall(BACKEND_API_BASE_URL + 'checkout/' + session_id + '/')
+}
+
+export function updateShippingOption(session_id, line_item_id, shipping_option_id){
+    return apiPost(BACKEND_API_BASE_URL + 'checkout/' + session_id + '/update_shipping/', { line_item_id, shipping_option_id })
+}
+
+export function applyCoupon(session_id, redemption_code){
+    return apiPost(BACKEND_API_BASE_URL + 'checkout/' + session_id + '/apply_coupon/', { redemption_code })
+}
+
+export function placeOrder(session_id){
+    return apiPost(BACKEND_API_BASE_URL + 'orders/place/' + session_id + '/', {})
+}
+
+export function getOrder(order_id){
+    return apiCall(BACKEND_API_BASE_URL + 'orders/' + order_id + '/')
 }
