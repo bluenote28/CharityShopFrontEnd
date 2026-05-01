@@ -8,7 +8,6 @@ import { getCharities } from '../actions/charityActions';
 import { getSingleItem } from '../utilities/BackEndClient';
 import CharityDisplay from '../components/CharityDisplay';
 import { useLocation } from 'react-router-dom';
-import { Chat } from '../components/AIChat';
 
 function ItemPage() {
 
