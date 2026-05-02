@@ -144,15 +144,7 @@ function ItemPage() {
                 </Col>
                 <Col></Col>
           </Row>
-
-          <Row className='d-flex justify-content-start mt-4'>
-            <Col sm={6}>
-              <Container className='border rounded-2 py-2'>
-              <Chat message={itemData.name} />
-              </Container>
-            </Col>
-          </Row>
-
+          
           <Row>
             <Col>
               <CharityDisplay image_url={charity?.image_url} description={charity?.description} donation_url={charity?.donation_url} />
