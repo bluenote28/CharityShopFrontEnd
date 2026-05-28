@@ -22,8 +22,8 @@ function ItemListing(props) {
   const favoritesData = useSelector((state) => state.favorites);
   const navigate = useNavigate();
   const [charity, setCharity] = useState(null);
-  
-  useEffect(() => {   
+
+  useEffect(() => {
     if (charities && props.charity && !charity) {
        const foundCharity = charities.find((c) => c.id === props.charity);
        setCharity(foundCharity);
@@ -95,7 +95,7 @@ function ItemListing(props) {
           <Col xs={4} sm={3} className="bg-light">
             <Row><h4 className="text-center mt-2">Benefits</h4></Row>
             <Row>
-              <Image src={charity?.img_url} style={charityImageStyle} />
+              <Image src={charity?.image_url} style={charityImageStyle} />
             </Row>
           </Col>
         </Row>
