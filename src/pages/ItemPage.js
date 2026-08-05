@@ -83,10 +83,6 @@ function ItemPage() {
         window.open(url, '_blank');
     }
 
-    function handleBuyNow(){
-        navigate('/checkout', { state: { itemData } });
-    }
-
     if (loading || !charities|| loadingItem){
         return <NormalSpinner />
     }
@@ -124,7 +120,6 @@ function ItemPage() {
               </Container>
               <ButtonGroup className='mt-3 w-100'>
                 <Button variant="primary" onClick={(e) => handleClick(e,itemData.url)}>Go to item on Ebay</Button>
-                <Button variant="success" onClick={handleBuyNow}>Buy Now</Button>
               </ButtonGroup>
                 </Col>
             </Row>
