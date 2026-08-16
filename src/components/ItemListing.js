@@ -1,4 +1,4 @@
-import { Container, Row, Col } from "react-bootstrap";
+import { Container, Row, Col, OverlayTrigger, Tooltip } from "react-bootstrap";
 import { useSelector } from "react-redux";
 import Image from "react-bootstrap/Image";
 import { useNavigate } from "react-router-dom";
@@ -14,6 +14,23 @@ const imageStyle = {
 
 const charityImageStyle = {
   margin: "auto", width: "300px", height: "200px", objectFit: "contain"
+}
+
+function CharityImage({ charity, itemId }) {
+  const image = <Image src={charity?.image_url} style={charityImageStyle} />;
+
+  if (!charity?.name) {
+    return image;
+  }
+
+  return (
+    <OverlayTrigger
+      placement="top"
+      overlay={<Tooltip id={`charity-tooltip-${itemId}`}>{charity.name}</Tooltip>}
+    >
+      <span>{image}</span>
+    </OverlayTrigger>
+  );
 }
 
 function ItemListing(props) {
@@ -67,7 +84,7 @@ function ItemListing(props) {
           <Col xs={4} sm={3} className="bg-light">
             <Row><h4 className="text-center mt-2">Benefits</h4></Row>
             <Row>
-              <Image src={charity?.image_url} style={charityImageStyle} />
+              <CharityImage charity={charity} itemId={props.id} />
             </Row>
           </Col>
         </Row>
@@ -95,7 +112,7 @@ function ItemListing(props) {
           <Col xs={4} sm={3} className="bg-light">
             <Row><h4 className="text-center mt-2">Benefits</h4></Row>
             <Row>
-              <Image src={charity?.image_url} style={charityImageStyle} />
+              <CharityImage charity={charity} itemId={props.id} />
             </Row>
           </Col>
         </Row>
