@@ -1,4 +1,3 @@
-import { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { getItems } from '../utilities/BackEndClient';
 import Row from 'react-bootstrap/esm/Row';
@@ -8,13 +7,24 @@ import { Container } from 'react-bootstrap';
 import ItemListing from './ItemListing'
 import { useQuery } from '@tanstack/react-query'
 import AlertBox from './Alert';
+import { useSearchParams } from 'react-router-dom';
 
 function DisplayListings(props) {
-  const [page, setPage ] = useState(1)
+  const [searchParams, setSearchParams] = useSearchParams();
+  const page = Math.max(1, parseInt(searchParams.get('page'), 10) || 1);
   const user = useSelector((state) => state.userLogin);
   const { userInfo } = user;
 
-  useEffect(()=>{setPage(1)}, [props.subCategory, props.search, props.filter])
+  function goToPage(nextPage) {
+    const params = new URLSearchParams(searchParams);
+    if (nextPage <= 1) {
+      params.delete('page');
+    } else {
+      params.set('page', String(nextPage));
+    }
+    setSearchParams(params, { replace: true });
+    window.scrollTo({ top: 0, behavior: 'instant' });
+  }
 
   const { isPending, isError, data, error } = useQuery({
     queryKey: [`${[props.search]}${props.subCategory}${props.filter}${page}`],
@@ -36,22 +46,20 @@ function DisplayListings(props) {
   else{
 
       const numOfPages = Math.ceil(data.count / 50)
-      const prevPaginationItems = [<Pagination.First onClick={() => {setPage(1); window.scrollTo({ top: 0, behavior: 'instant' });}} />, 
+      const prevPaginationItems = [<Pagination.First onClick={() => goToPage(1)} />, 
       <Pagination.Prev onClick={()=>{
         if(page === 1){
           return;
         }
         else{
-          setPage(page - 1);
+          goToPage(page - 1);
         }
-        window.scrollTo({ top: 0, behavior: 'instant' });
       }
       
       } />];
       const nextPaginationItems = [<Pagination.Next onClick={()=>{
-        setPage(page + 1);
-        window.scrollTo({ top: 0, behavior: 'instant' });
-      }} />,   <Pagination.Last onClick={()=> setPage(numOfPages)}/>];
+        goToPage(page + 1);
+      }} />,   <Pagination.Last onClick={()=> goToPage(numOfPages)}/>];
   
       return (
         <>          
