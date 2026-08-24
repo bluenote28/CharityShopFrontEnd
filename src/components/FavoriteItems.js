@@ -16,7 +16,7 @@ function FavoriteItems() {
     }
   }, [dispatch, favorites, loading]);
 
-  if (loading || !favorites) {
+  if ((loading && !favorites) || !favorites) {
     return <NormalSpinner />;
   }
 

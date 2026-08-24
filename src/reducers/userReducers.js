@@ -71,27 +71,69 @@ export const userUpdateReducer = (state = {}, action) => {
 
 }
 
+function withFavoriteItems(state, items) {
+        return {
+            ...state.favorites,
+            items
+        }
+}
+
 export const favoritesReducer = (state = {}, action) => {
 
         switch(action.type){
             case GET_FAVORITES_REQUEST:
-                return {loading: true }
+                return {...state, loading: true, error: null }
             case GET_FAVORITES_SUCCESS:
                 return {loading: false, success: true, favorites: action.payload }
             case GET_FAVORITES_ERROR:
-                return {loading: false, error: action.payload}
-            case ADD_FAVORITE_REQUEST:
-                return {loading: true }
+                return {...state, loading: false, error: action.payload}
+            case ADD_FAVORITE_REQUEST: {
+                const items = state.favorites?.items || []
+                const itemId = action.payload?.item
+                const alreadyFavorited = items.some(item => item.ebay_id === itemId)
+                return {
+                    ...state,
+                    error: null,
+                    previousItems: items,
+                    favorites: withFavoriteItems(
+                        state,
+                        alreadyFavorited || !itemId ? items : [...items, { ebay_id: itemId }]
+                    )
+                }
+            }
             case ADD_FAVORITE_SUCCESS:
                 return { loading: false, success: true, favorites: action.payload }
             case ADD_FAVORITE_ERROR:
-                return {loading: false, error: action.payload }
-            case REMOVE_FAVORITE_REQUEST:
-                return {loading: true }
+                return {
+                    ...state,
+                    loading: false,
+                    error: action.payload,
+                    favorites: withFavoriteItems(state, state.previousItems || state.favorites?.items || [])
+                }
+            case REMOVE_FAVORITE_REQUEST: {
+                const items = state.favorites?.items || []
+                const itemId = action.payload?.item
+                return {
+                    ...state,
+                    error: null,
+                    previousItems: items,
+                    favorites: withFavoriteItems(
+                        state,
+                        itemId ? items.filter(item => item.ebay_id !== itemId) : items
+                    )
+                }
+            }
             case REMOVE_FAVORITE_SUCCESS:
                 return { loading: false, success: true, favorites: action.payload }
             case REMOVE_FAVORITE_ERROR:
-                return {loading: false, error: action.payload }
+                return {
+                    ...state,
+                    loading: false,
+                    error: action.payload,
+                    favorites: withFavoriteItems(state, state.previousItems || state.favorites?.items || [])
+                }
+            case USER_LOGOUT:
+                return {}
             default:
                 return state
         }

@@ -95,78 +95,109 @@ export const updateUserProfile = (user) => async (dispatch, getState) => {
         }
 }
 
+function favoriteAuthHeaders(userInfo, includeJsonContentType = false) {
+    const headers = {
+        Authorization: `Bearer ${userInfo.token}`
+    }
+    if (includeJsonContentType) {
+        headers['Content-Type'] = 'application/json'
+    }
+    return headers
+}
+
+function favoriteErrorMessage(error, fallback) {
+    return error.response && error.response.data.message ? error.response.data.message : (error.message || fallback)
+}
+
 export const getUserFavorites = () => async (dispatch, getState) => {
     try{
-        dispatch({type: GET_FAVORITES_REQUEST})
-        
         const { userLogin: { userInfo } } = getState()
+        if (!userInfo?.token) {
+            return
+        }
+
+        dispatch({type: GET_FAVORITES_REQUEST})
         
         const config = {
             method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-                Authorization: `Bearer ${userInfo.token}`
-            }
+            headers: favoriteAuthHeaders(userInfo)
         }
         const response = await fetch(BACKEND_API_BASE_URL + 'favorites/', config)
         const data = await response.json()
+
+        if (!response.ok) {
+            throw new Error(data.detail || data.message || 'Failed to load favorites')
+        }
         
         dispatch({type: GET_FAVORITES_SUCCESS, payload: data})
     }catch(error){
-        dispatch({type: GET_FAVORITES_ERROR, payload: error.response && error.response.data.message ? error.response.data.message : error.message})
+        dispatch({type: GET_FAVORITES_ERROR, payload: favoriteErrorMessage(error, 'Failed to load favorites')})
 
     }
 }
 
 export const addFavorite = (item="", charity="") => async (dispatch, getState) => {
     try{
-        dispatch({type: ADD_FAVORITE_REQUEST})
-        
         const { userLogin: { userInfo } } = getState()
+        if (!userInfo?.token) {
+            dispatch({type: ADD_FAVORITE_ERROR, payload: 'Not logged in'})
+            return
+        }
+
+        dispatch({type: ADD_FAVORITE_REQUEST, payload: { item, charity }})
         
         const config = {
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                Authorization: `Bearer ${userInfo.token}`
-            },
+            headers: favoriteAuthHeaders(userInfo, true),
             body: JSON.stringify({'item': item, 'charity': charity})
         }
         const response = await fetch(BACKEND_API_BASE_URL + 'favorites/', config)
         const data = await response.json()
+
+        if (!response.ok) {
+            throw new Error(data.detail || data.message || 'Failed to add favorite')
+        }
         
         dispatch({type: ADD_FAVORITE_SUCCESS, payload: data})
     }catch(error){
-        dispatch({type: ADD_FAVORITE_ERROR, payload: error.response && error.response.data.message ? error.response.data.message : error.message})
+        dispatch({type: ADD_FAVORITE_ERROR, payload: favoriteErrorMessage(error, 'Failed to add favorite')})
 
     }
 }
 
-export const removeFavorite = (item, charity) => async (dispatch, getState) => {
+export const removeFavorite = (item="", charity="") => async (dispatch, getState) => {
     try{
-        dispatch({type: REMOVE_FAVORITE_REQUEST})
-        
         const { userLogin: { userInfo } } = getState()
+        if (!userInfo?.token) {
+            dispatch({type: REMOVE_FAVORITE_ERROR, payload: 'Not logged in'})
+            return
+        }
+
+        dispatch({type: REMOVE_FAVORITE_REQUEST, payload: { item, charity }})
+
+        // Safari does not reliably send a body with DELETE, so pass ids as query params.
+        const params = new URLSearchParams()
+        if (item) {
+            params.set('item', item)
+        }
+        if (charity) {
+            params.set('charity', charity)
+        }
         
         const config = {
             method: 'DELETE',
-            headers: {
-                'Content-Type': 'application/json',
-                Authorization: `Bearer ${userInfo.token}`
-            },
-            body: JSON.stringify({'item': item, 'charity': charity})
+            headers: favoriteAuthHeaders(userInfo)
         }
-        const response = await fetch(BACKEND_API_BASE_URL + 'favorites/', config)
+        const url = BACKEND_API_BASE_URL + 'favorites/' + (params.toString() ? `?${params.toString()}` : '')
+        const response = await fetch(url, config)
         const data = await response.json()
         
-        if (response.ok) {
-            dispatch({type: REMOVE_FAVORITE_SUCCESS, payload: data})
-        } else {
-            const data = await response.json()
-            throw new Error(data.detail || 'Failed to remove favorite')
+        if (!response.ok) {
+            throw new Error(data.detail || data.message || 'Failed to remove favorite')
         }
+        dispatch({type: REMOVE_FAVORITE_SUCCESS, payload: data})
     }catch(error){
-        dispatch({type: REMOVE_FAVORITE_ERROR, payload: error.response && error.response.data.message ? error.response.data.message : error.message})
+        dispatch({type: REMOVE_FAVORITE_ERROR, payload: favoriteErrorMessage(error, 'Failed to remove favorite')})
 
     }
 }

@@ -24,15 +24,18 @@ function App() {
 
   const dispatch = useDispatch()
   const charitiesState = useSelector((state) => state.charities);
+  const userLogin = useSelector((state) => state.userLogin);
+  const { userInfo } = userLogin;
 
   useEffect(()=> {
-      
-    dispatch(getUserFavorites())
+    if (userInfo?.token) {
+      dispatch(getUserFavorites())
+    }
       
     if (charitiesState.charities.length === 0){
       dispatch(getCharities());
     }
-  }, [dispatch])
+  }, [dispatch, userInfo, charitiesState.charities.length])
 
   return (
     <Router>

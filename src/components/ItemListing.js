@@ -36,7 +36,8 @@ function CharityImage({ charity, itemId }) {
 function ItemListing(props) {
   const charitiesState = useSelector((state) => state.charities);
   const { errorCharities, loading, charities } = charitiesState;
-  const favoritesData = useSelector((state) => state.favorites);
+  const userLogin = useSelector((state) => state.userLogin);
+  const { userInfo } = userLogin;
   const navigate = useNavigate();
   const [charity, setCharity] = useState(null);
 
@@ -58,7 +59,7 @@ function ItemListing(props) {
     console.log(errorCharities);
   }
 
-  else if (!favoritesData.error) {
+  else {
 
     return (
       <Container className="border" style={{ height: "20rem" }}>
@@ -75,39 +76,13 @@ function ItemListing(props) {
             <Row className="fs-4 mb-3 mt-3 d-flex justify-content-between">
               <Col><h6 className="text-center">Price: ${props.price}</h6></Col>
             </Row>
-            <Row className="w-25 m-auto">
-              <Col>
-                <FavoritesButton id={props.id} />
-              </Col>
-            </Row>
-          </Col>
-          <Col xs={4} sm={3} className="bg-light">
-            <Row><h4 className="text-center mt-2">Benefits</h4></Row>
-            <Row>
-              <CharityImage charity={charity} itemId={props.id} />
-            </Row>
-          </Col>
-        </Row>
-      </Container>
-    );
-  }
-  else {
-
-    return (
-      <Container className="border" style={{ height: "20rem" }}>
-        <Row>
-          <Col xs={4} sm={4}>
-            <Image src={props.img_url} style={imageStyle} onClick={(e) => handleClick(e, props.id)}/>
-          </Col>
-          <Col xs={4} sm={5}>
-            <Row className="fs-5 fw-bold mt-2">
-              <Col style={{ cursor: "pointer" }} onClick={(e) => handleClick(e, props.id)}>
-                <h6 className="text-center">{props.name}</h6>
-              </Col>
-            </Row>
-            <Row className="fs-4 mb-3 mt-3 d-flex justify-content-between">
-              <Col><h6 className="text-center">Price: ${props.price}</h6></Col>
-            </Row>
+            {userInfo && (
+              <Row className="w-25 m-auto">
+                <Col>
+                  <FavoritesButton id={props.id} />
+                </Col>
+              </Row>
+            )}
           </Col>
           <Col xs={4} sm={3} className="bg-light">
             <Row><h4 className="text-center mt-2">Benefits</h4></Row>

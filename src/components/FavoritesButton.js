@@ -1,39 +1,43 @@
-import { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Image from 'react-bootstrap/Image';
 import StarUnchecked from '../images/starunchecked.png'
 import StarChecked from '../images/starchecked.png'
 import { useDispatch, useSelector } from "react-redux";
 import { addFavorite, removeFavorite } from '../actions/userActions';
-import NormalSpinner from './Spinner';
+import { useRef } from 'react';
 
 function FavoritesButton(props) {
   const favoritesData = useSelector((state) => state.favorites);
-  const { error, loading, favorites } = favoritesData
+  const { favorites } = favoritesData
   const isFavorite = favorites?.items?.some(item => item.ebay_id === props.id);
-  const [pending, setPending] = useState(false);
+  const pendingRef = useRef(false);
   const dispatch = useDispatch()
 
-  const handleClick = (id) => {
+  const handleClick = (e) => {
+        e.preventDefault();
+        e.stopPropagation();
 
-        if (isFavorite){
-            dispatch(removeFavorite(id))
-        }
-        else{
-            dispatch(addFavorite(id))
+        if (pendingRef.current) {
+            return;
         }
 
-        setPending(false)
-    } 
+        pendingRef.current = true;
+        const request = isFavorite ? dispatch(removeFavorite(props.id)) : dispatch(addFavorite(props.id));
+        Promise.resolve(request).finally(() => {
+            pendingRef.current = false;
+        });
+    }
 
   return (
     <Button
+      type="button"
       variant="outline-light"
-      onClick={() => {setPending(true); setTimeout(() => handleClick(props.id), 300)}}
-      disabled={pending}
+      onClick={handleClick}
+      aria-pressed={!!isFavorite}
+      aria-label={isFavorite ? 'Remove from watch list' : 'Add to watch list'}
     >
-      {pending || loading ? <NormalSpinner /> : <Image src={isFavorite ? StarChecked : StarUnchecked} />}
-     </Button>
+      <Image src={isFavorite ? StarChecked : StarUnchecked} alt="" style={{ pointerEvents: 'none' }} />
+    </Button>
   );
 }
 
