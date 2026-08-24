@@ -1,8 +1,7 @@
 import DisplayListings from '../components/DisplayListings'
-import { Row, Col, Container, Button, ButtonGroup } from 'react-bootstrap';
+import { Row, Col, Container, Button } from 'react-bootstrap';
 import { useSearchParams } from 'react-router-dom';
 import { FILTER_OPTIONS } from '../constants/categoryFilterOptions'
-import formatItemsIntoRows from '../utilities/ItemsGridFormatter'
 
 function CategoryPage() {
 
@@ -10,8 +9,7 @@ function CategoryPage() {
   const category = searchParams.get('category')
   const subCategory = searchParams.get('subCategory')
   const filter = searchParams.get('filter')
-  const CATEGORY_BUTTON_GROUP_PER_ROW = 5;
-  const subCategoryOptions = formatItemsIntoRows(FILTER_OPTIONS[category], CATEGORY_BUTTON_GROUP_PER_ROW)
+  const subCategoryOptions = FILTER_OPTIONS[category] || []
 
   function selectSubCategory(item) {
     const params = { category };
@@ -32,32 +30,26 @@ function CategoryPage() {
   }
 
   function subCategoryBar(){
-
-    return (
-      subCategoryOptions?.map((item, index) => {
-        return (
-          <ButtonGroup key={index*123} size='sm'>
-            {
-              item.map((item, index) => {
-                return (
-                      <Button style={{margin: "1px"}} key={index} variant={isSelected(item) ? "secondary" : "outline-secondary"} onClick={
-                        () => selectSubCategory(item)
-                        }>{item.label}</Button>
-                      )
-                })
-            }
-
-          </ButtonGroup>
-        )
-      }
+    return subCategoryOptions.map((item, index) => (
+      <Button
+        key={index}
+        size="sm"
+        className="m-1"
+        variant={isSelected(item) ? "secondary" : "outline-secondary"}
+        onClick={() => selectSubCategory(item)}
+      >
+        {item.label}
+      </Button>
     ))
   }
 
   return (
     <>           
       <Container className='mb-3 mt-1 p-2 border rounded-3'>
-        <Row className='mt-2'> 
-          {subCategoryBar()}
+        <Row className='mt-2'>
+          <Col className="d-flex flex-wrap">
+            {subCategoryBar()}
+          </Col>
         </Row>
       </Container>
       
