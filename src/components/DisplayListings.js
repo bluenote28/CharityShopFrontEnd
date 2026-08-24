@@ -63,7 +63,7 @@ function DisplayListings(props) {
   
       return (
         <>          
-        <Container>
+        <Container className="px-2 px-sm-3">
             {   
               data.results.map((item, index) => { 
                   return (
@@ -89,7 +89,7 @@ function DisplayListings(props) {
             }
         </Container>
 
-        <Container className='d-flex justify-content-center'>
+        <Container className='d-flex justify-content-center align-items-center flex-wrap px-2'>
            {numOfPages > 1 && (
             <>
               {page > 1 && <Pagination>{prevPaginationItems}</Pagination>}
