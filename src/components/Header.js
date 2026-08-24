@@ -12,7 +12,6 @@ function Header() {
   const user = useSelector((state) => state.userLogin);
   const { userInfo } = user
   const dispatch = useDispatch();
-  const SEARCH_BAR_WIDTH= "500px"
 
   const logoutHandler = () => {
     dispatch(logout());
@@ -33,7 +32,7 @@ function Header() {
                     <Nav.Link as={Link} to="/admin">Admin</Nav.Link>
                   )}
 
-                  <Container style={{ width: SEARCH_BAR_WIDTH }}>
+                  <Container className="px-0 header-search">
                     <SearchBar />
                   </Container>
                   
@@ -63,7 +62,7 @@ function Header() {
 
               <>
 
-                <Container style={{ width: SEARCH_BAR_WIDTH }}>
+                <Container className="px-0 header-search">
                   <SearchBar />
                 </Container>
 
