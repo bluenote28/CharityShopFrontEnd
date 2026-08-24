@@ -31,6 +31,7 @@ function FavoritesButton(props) {
   return (
     <Button
       type="button"
+      className="favorites-button"
       variant="outline-light"
       onClick={handleClick}
       aria-pressed={!!isFavorite}
