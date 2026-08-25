@@ -1,5 +1,5 @@
 import Header from './components/Header';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import SearchPage from './pages/SearchPage';
 import AdminPage from './pages/Admin';
 import LoginPage from './pages/Login';
@@ -20,6 +20,16 @@ import { useDispatch, useSelector } from "react-redux";
 import { getUserFavorites } from './actions/userActions';
 import { getCharities } from './actions/charityActions';
 
+function ScrollToTop() {
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+  }, [pathname]);
+
+  return null;
+}
+
 function App() {
 
   const dispatch = useDispatch()
@@ -39,6 +49,7 @@ function App() {
 
   return (
     <Router>
+      <ScrollToTop />
       <Header />
 
       <Routes>
