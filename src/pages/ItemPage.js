@@ -1,12 +1,13 @@
 import { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom'
 import NormalSpinner from '../components/Spinner';
-import { Container, Row, Col, Image, Button, ButtonGroup} from 'react-bootstrap';
-import { convertIdToCharityName, covertUrlToAffiliateLink, convertItemPageImageUrl } from '../utilities/Converters';
+import { Container, Row, Col, Button, ButtonGroup} from 'react-bootstrap';
+import { convertIdToCharityName, covertUrlToAffiliateLink } from '../utilities/Converters';
 import { useSelector, useDispatch } from "react-redux";
 import { getCharities } from '../actions/charityActions';
 import { getSingleItem } from '../utilities/BackEndClient';
 import CharityDisplay from '../components/CharityDisplay';
+import ItemImageCarousel from '../components/ItemImageCarousel';
 import { useLocation } from 'react-router-dom';
 
 function ItemPage() {
@@ -15,36 +16,11 @@ function ItemPage() {
     const charitiesState = useSelector((state) => state.charities);
     const { errorCharities, loading, charities} = charitiesState;
     const dispatch = useDispatch();
-    const [allImages, setAllImages ] = useState(null)
     const navigate = useNavigate()
-    const [mainImageUrl, setMainImageUrl] = useState(null);
     const [charity, setCharity] = useState(null);
     const location = useLocation();
     const [itemData, setItemData] = useState(location.state || {});
     const [loadingItem, setLoadingItem ] = useState(false)
-
-    const MAIN_IMAGE_STYLE = {
-         maxWidth: '100%',
-         height: '500px',
-         objectFit: 'contain'
-    }
-
-    const MAIN_IMAGE_CONTAINER_STYLE = {
-        maxWidth: '100%',
-        height: '500px',
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: '#f8f9fa',
-        borderRadius: '8px',
-        overflow: "hidden"
-    }
-
-    const SMALL_IMAGE_STYLE = {
-        width: "80px",
-        height: "80px",
-        cursor: 'pointer'
-    }
 
     useEffect(() => {
       if (!loading && (!charities || charities.length === 0)){
@@ -65,12 +41,6 @@ function ItemPage() {
     }, [item_id, itemData.name]);
 
     useEffect(() => {
-
-      if (itemData){
-        setAllImages([{"imageUrl": itemData.img_url}].concat(itemData.additional_images?.additionalImages || []))
-        setMainImageUrl(itemData.img_url)
-      }
-
       if (!charity && !loading && itemData) {
         const foundCharity = charities.find((c) => c.id === itemData.charity);
         setCharity(foundCharity);
@@ -102,10 +72,8 @@ function ItemPage() {
             </Row>
 
             <Row className='mt-4'>
-                <Col sm={6}>
-                  <Container style={MAIN_IMAGE_CONTAINER_STYLE}>
-                  <Image src={mainImageUrl} style={MAIN_IMAGE_STYLE} fluid />
-                  </Container>
+                <Col sm={6} className='mb-3 mb-sm-0'>
+                  <ItemImageCarousel itemData={itemData} />
                 </Col>
                 <Col sm={6} className='d-flex flex-column align-items-center'>
                 <Container className="border rounded-2 mt-2 p-5" style={{backgroundColor: "#f8f9fa"}}>
@@ -123,22 +91,6 @@ function ItemPage() {
               </ButtonGroup>
                 </Col>
             </Row>
-            <Row className='d-flex justify-content-start mt-4'>
-                <Col sm={6}>
-                  {allImages && allImages.length > 1 ?
-                  <Container className='border rounded-2 py-2'>
-                   <h5 style={{textAlign:"center"}}>All Images</h5>
-                  {allImages ? allImages.map((item,index) => {
-                    return <Image key={index} style={SMALL_IMAGE_STYLE} src={convertItemPageImageUrl(item.imageUrl)} thumbnail onClick={() => {
-                        setMainImageUrl(convertItemPageImageUrl(item.imageUrl)); window.scrollTo({ top: 0, behavior: 'instant' });
-                    }} />}) : <></>
-                  }
-                  </Container>
-                  : <></>
-                  }
-                </Col>
-                <Col></Col>
-          </Row>
           
           <Row>
             <Col>
