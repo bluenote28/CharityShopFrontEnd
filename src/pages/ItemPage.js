@@ -8,6 +8,7 @@ import { getCharities } from '../actions/charityActions';
 import { getSingleItem } from '../utilities/BackEndClient';
 import CharityDisplay from '../components/CharityDisplay';
 import ItemImageCarousel from '../components/ItemImageCarousel';
+import FavoritesButton from '../components/FavoritesButton';
 import { useLocation } from 'react-router-dom';
 
 function ItemPage() {
@@ -17,6 +18,8 @@ function ItemPage() {
     const { errorCharities, loading, charities} = charitiesState;
     const dispatch = useDispatch();
     const navigate = useNavigate()
+    const userLogin = useSelector((state) => state.userLogin);
+    const { userInfo } = userLogin;
     const [charity, setCharity] = useState(null);
     const location = useLocation();
     const [itemData, setItemData] = useState(location.state || {});
@@ -89,6 +92,11 @@ function ItemPage() {
               <ButtonGroup className='mt-3 w-100'>
                 <Button variant="primary" onClick={(e) => handleClick(e,itemData.url)}>Go to item on Ebay</Button>
               </ButtonGroup>
+              {userInfo && (
+                <div className="mt-2 w-100">
+                  <FavoritesButton id={itemData.ebay_id || itemData.id || item_id} labeled />
+                </div>
+              )}
                 </Col>
             </Row>
           
