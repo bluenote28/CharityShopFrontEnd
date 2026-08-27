@@ -80,7 +80,9 @@ function DisplayListings(props) {
                           additional_images={item.additional_images} 
                           shippingPrice={item.shipping_price}
                           condition={item.condition}
-                          seller={item.seller} />
+                          seller={item.seller}
+                          donation_percentage={item.donation_percentage}
+                          seller_description={item.seller_description} />
                         </Row>
                       }
                   </div>

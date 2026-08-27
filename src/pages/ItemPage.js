@@ -33,15 +33,18 @@ function ItemPage() {
 
     useEffect(() => {
       async function fetchItem() {
+          if (itemData.name && itemData.donation_percentage != null) {
+            return;
+          }
           if (!itemData.name) {
             setLoadingItem(true);
-            const data = await getSingleItem(item_id);
-            setItemData(data);
-            setLoadingItem(false);
           }
+          const data = await getSingleItem(item_id);
+          setItemData((current) => ({ ...current, ...data }));
+          setLoadingItem(false);
         }
       fetchItem();
-    }, [item_id, itemData.name]);
+    }, [item_id, itemData.name, itemData.donation_percentage]);
 
     useEffect(() => {
       if (!charity && !loading && itemData) {
@@ -102,7 +105,13 @@ function ItemPage() {
           
           <Row>
             <Col>
-              <CharityDisplay image_url={charity?.image_url} description={charity?.description} donation_url={charity?.donation_url} />
+              <CharityDisplay
+                image_url={charity?.image_url}
+                description={charity?.description}
+                donation_url={charity?.donation_url}
+                donation_percentage={itemData.donation_percentage}
+                charity_name={charity?.name || convertIdToCharityName(charities, itemData.charity)}
+              />
             </Col>
           </Row>
         </Container>
