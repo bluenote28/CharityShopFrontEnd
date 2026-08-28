@@ -12,8 +12,6 @@ import CategoryPage from './pages/CategoryPage';
 import AboutPage from './pages/About';
 import Footer from './components/Footer';
 import DirectoryPage from './pages/Directory';
-import CheckoutPage from './pages/CheckoutPage';
-import OrderConfirmationPage from './pages/OrderConfirmationPage';
 import './App.css'
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from "react-redux";
