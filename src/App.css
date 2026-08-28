@@ -216,3 +216,15 @@ main {
     height: 460px;
   }
 }
+
+.charities-table-scroll {
+  max-height: calc(3rem + 10 * 3.75rem);
+  overflow-y: auto;
+}
+
+.charities-table-scroll thead th {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  background-color: #f8f9fa;
+}
