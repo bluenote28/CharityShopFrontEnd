@@ -228,3 +228,19 @@ main {
   z-index: 1;
   background-color: #f8f9fa;
 }
+
+.home-logo {
+  width: 100%;
+  max-width: 420px;
+  height: auto;
+}
+
+.home-category-icon {
+  width: 100%;
+  height: auto;
+}
+
+footer img {
+  max-width: 100%;
+  height: auto;
+}
