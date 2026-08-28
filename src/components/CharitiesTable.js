@@ -44,6 +44,7 @@ function CharitiesTable(props) {
   return (
     <>
         <Form.Control className='mb-3' type="id" placeholder="Search" onChange={(e) => searchCharity(allData,e.target.value)}/>
+        <div className={filteredData?.length > 10 ? 'charities-table-scroll' : undefined}>
         <Table striped>
           <thead>
             <tr>
@@ -79,6 +80,7 @@ function CharitiesTable(props) {
 
           </tbody>
         </Table>
+        </div>
     </>
   );
 }

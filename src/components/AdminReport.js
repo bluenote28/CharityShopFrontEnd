@@ -21,6 +21,7 @@ function AdminReport() {
   return (
     <>
     {!reportData? <NormalSpinner /> :   
+        <div className={reportData.items_per_charity?.length > 10 ? 'charities-table-scroll' : undefined}>
         <Table striped>
           <tbody>
 
@@ -45,6 +46,7 @@ function AdminReport() {
 
           </tbody>
         </Table>
+        </div>
     }
     </>
   );
