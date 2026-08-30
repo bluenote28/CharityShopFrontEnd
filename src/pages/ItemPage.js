@@ -24,6 +24,9 @@ function ItemPage() {
     const location = useLocation();
     const [itemData, setItemData] = useState(location.state || {});
     const [loadingItem, setLoadingItem ] = useState(false)
+    const [loadingSellerDescription, setLoadingSellerDescription] = useState(
+      Boolean((location.state || {}).name) && (location.state || {}).seller_description == null
+    )
 
     useEffect(() => {
       if (!loading && (!charities || charities.length === 0)){
@@ -33,18 +36,22 @@ function ItemPage() {
 
     useEffect(() => {
       async function fetchItem() {
-          if (itemData.name && itemData.donation_percentage != null) {
+          if (itemData.name && itemData.donation_percentage != null && itemData.seller_description != null) {
             return;
           }
           if (!itemData.name) {
             setLoadingItem(true);
           }
+          if (itemData.name && itemData.seller_description == null) {
+            setLoadingSellerDescription(true);
+          }
           const data = await getSingleItem(item_id);
           setItemData((current) => ({ ...current, ...data }));
           setLoadingItem(false);
+          setLoadingSellerDescription(false);
         }
       fetchItem();
-    }, [item_id, itemData.name, itemData.donation_percentage]);
+    }, [item_id, itemData.name, itemData.donation_percentage, itemData.seller_description]);
 
     useEffect(() => {
       if (!charity && !loading && itemData) {
@@ -103,6 +110,26 @@ function ItemPage() {
                 </Col>
             </Row>
           
+          {(loadingSellerDescription || itemData.seller_description) && (
+            <Row className="mt-4">
+              <Col>
+                <Container className="border rounded-2 p-3 p-md-4" style={{backgroundColor: "#f8f9fa"}}>
+                  <h3 className="text-center">Description from Seller</h3>
+                  {loadingSellerDescription ? (
+                    <div className="seller-description-loading">
+                      <NormalSpinner />
+                    </div>
+                  ) : (
+                    <div
+                      className="seller-description"
+                      dangerouslySetInnerHTML={{ __html: itemData.seller_description }}
+                    />
+                  )}
+                </Container>
+              </Col>
+            </Row>
+          )}
+
           <Row>
             <Col>
               <CharityDisplay
