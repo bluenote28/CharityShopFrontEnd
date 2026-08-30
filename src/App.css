@@ -244,3 +244,20 @@ footer img {
   max-width: 100%;
   height: auto;
 }
+
+.seller-description {
+  word-break: break-word;
+  max-height: 20rem;
+  overflow-y: auto;
+}
+
+.seller-description img,
+.seller-description video,
+.seller-description iframe {
+  max-width: 100%;
+  height: auto;
+}
+
+.seller-description-loading {
+  min-height: 8rem;
+}
