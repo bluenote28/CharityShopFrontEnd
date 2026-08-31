@@ -1,15 +1,33 @@
 import { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom'
 import NormalSpinner from '../components/Spinner';
-import { Container, Row, Col, Button, ButtonGroup} from 'react-bootstrap';
+import { Container, Row, Col, Button, ButtonGroup, Modal} from 'react-bootstrap';
 import { convertIdToCharityName, covertUrlToAffiliateLink } from '../utilities/Converters';
 import { useSelector, useDispatch } from "react-redux";
 import { getCharities } from '../actions/charityActions';
-import { getSingleItem } from '../utilities/BackEndClient';
+import { getSingleItem, recordPurchase } from '../utilities/BackEndClient';
 import CharityDisplay from '../components/CharityDisplay';
 import ItemImageCarousel from '../components/ItemImageCarousel';
 import FavoritesButton from '../components/FavoritesButton';
 import { useLocation } from 'react-router-dom';
+
+function todaysDate() {
+    const now = new Date();
+    const month = String(now.getMonth() + 1).padStart(2, '0');
+    const day = String(now.getDate()).padStart(2, '0');
+    return `${now.getFullYear()}-${month}-${day}`;
+}
+
+function formatDonationPercentage(value) {
+    if (value == null || value === '') {
+        return null;
+    }
+    const number = Number(String(value).replace('%', '').trim());
+    if (Number.isNaN(number)) {
+        return null;
+    }
+    return number.toFixed(1);
+}
 
 function ItemPage() {
 
@@ -27,6 +45,8 @@ function ItemPage() {
     const [loadingSellerDescription, setLoadingSellerDescription] = useState(
       Boolean((location.state || {}).name) && (location.state || {}).seller_description == null
     )
+    const [showPurchasePrompt, setShowPurchasePrompt] = useState(false)
+    const [savingPurchase, setSavingPurchase] = useState(false)
 
     useEffect(() => {
       if (!loading && (!charities || charities.length === 0)){
@@ -64,6 +84,47 @@ function ItemPage() {
         e.preventDefault()
         url = covertUrlToAffiliateLink(url);
         window.open(url, '_blank');
+        if (userInfo) {
+            setShowPurchasePrompt(true);
+        }
+    }
+
+    function handlePurchaseNo() {
+        setShowPurchasePrompt(false);
+    }
+
+    async function handlePurchaseYes() {
+        const userId = userInfo?.id;
+        const token = userInfo?.token || userInfo?.access;
+        const charityId = itemData.charity?.id || itemData.charity || charity?.id;
+        const donationPercentage = formatDonationPercentage(itemData.donation_percentage);
+        const itemName = (itemData.name || '').slice(0, 100);
+        const amount = Number(itemData.price);
+        const username = userInfo?.username || userInfo?.email;
+
+        if (!userId || !token || !charityId || donationPercentage == null || !itemName || Number.isNaN(amount)) {
+            alert('Unable to record this purchase. Please try again after signing in.');
+            setShowPurchasePrompt(false);
+            return;
+        }
+
+        try {
+            setSavingPurchase(true);
+            await recordPurchase(userId, {
+                username,
+                user: userId,
+                item_name: itemName,
+                amount: amount.toFixed(2),
+                donation_percentage: donationPercentage,
+                charity: charityId,
+                purchased_at: todaysDate(),
+            }, token);
+            setShowPurchasePrompt(false);
+        } catch (error) {
+            alert(error.message || 'Failed to record purchase');
+        } finally {
+            setSavingPurchase(false);
+        }
     }
 
     if (loading || !charities|| loadingItem){
@@ -100,7 +161,7 @@ function ItemPage() {
                   <Row><h4>Benefits: {convertIdToCharityName(charities, itemData.charity)}</h4></Row>
               </Container>
               <ButtonGroup className='mt-3 w-100'>
-                <Button variant="primary" onClick={(e) => handleClick(e,itemData.url)}>Go to item on Ebay</Button>
+                <Button variant="primary" onClick={(e) => handleClick(e, itemData.url || itemData.web_url)}>Go to item on Ebay</Button>
               </ButtonGroup>
               {userInfo && (
                 <div className="mt-2 w-100">
@@ -142,6 +203,20 @@ function ItemPage() {
             </Col>
           </Row>
         </Container>
+        <Modal show={showPurchasePrompt} onHide={handlePurchaseNo} centered>
+          <Modal.Header closeButton>
+            <Modal.Title>Did you purchase this item?</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            Please let us know if you purchased this item on eBay.
+          </Modal.Body>
+          <Modal.Footer>
+            <Button variant="secondary" onClick={handlePurchaseNo} disabled={savingPurchase}>No</Button>
+            <Button variant="primary" onClick={handlePurchaseYes} disabled={savingPurchase}>
+              {savingPurchase ? 'Saving...' : 'Yes'}
+            </Button>
+          </Modal.Footer>
+        </Modal>
         </>
     )
 }
