@@ -1,30 +1,39 @@
 import { BACKEND_API_BASE_URL } from "../constants/apiContants";
 
-async function apiCall(url){
+async function apiCall(url, token=null){
+    const headers = {
+        'Content-Type': 'application/json'
+    }
+    if (token) {
+        headers.Authorization = `Bearer ${token}`
+    }
 
     const config = {
             method: 'GET',
-            headers: {
-                'Content-Type': 'application/json'
-            }
+            headers
     }
 
     const response = await fetch(url, config)
     const data = await response.json()
 
     if (response.status !== 200){
-        throw new Error(data.message || 'API call failed')
+        throw new Error(data.detail || data.message || 'API call failed')
     }
 
     return data
 }
 
-async function apiPost(url, body){
+async function apiPost(url, body, token=null){
+    const headers = {
+        'Content-Type': 'application/json'
+    }
+    if (token) {
+        headers.Authorization = `Bearer ${token}`
+    }
+
     const config = {
         method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
+        headers,
         body: JSON.stringify(body)
     }
 
@@ -92,4 +101,12 @@ export function placeOrder(session_id){
 
 export function getOrder(order_id){
     return apiCall(BACKEND_API_BASE_URL + 'orders/' + order_id + '/')
+}
+
+export function recordPurchase(userId, payload, token){
+    return apiPost(BACKEND_API_BASE_URL + 'purchases/' + userId + '/', payload, token)
+}
+
+export function getPurchases(userId, token){
+    return apiCall(BACKEND_API_BASE_URL + 'purchases/' + userId + '/', token)
 }
