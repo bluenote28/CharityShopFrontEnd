@@ -8,6 +8,7 @@ import ProfilePage from './pages/ProfilePage';
 import ItemPage from './pages/ItemPage';
 import HomePage from './pages/HomePage';
 import FavoritesPage from './pages/FavoritesPage';
+import PurchasesPage from './pages/PurchasesPage';
 import CategoryPage from './pages/CategoryPage';
 import AboutPage from './pages/About';
 import Footer from './components/Footer';
@@ -58,6 +59,7 @@ function App() {
         <Route path='/register' Component={RegisterPage} exact />
         <Route path='/profile' Component={ProfilePage} exact />
         <Route path='/favorites' Component={FavoritesPage} exact />
+        <Route path='/purchases' Component={PurchasesPage} exact />
         <Route path='/item/:item_id' Component={ItemPage} exact />
         <Route path='/category' Component={CategoryPage} exact />
         <Route path='/about' Component={AboutPage} exact />
