@@ -47,15 +47,23 @@ async function apiPost(url, body, token=null){
     return data
 }
 
-export function getItems(item_id=null, search_text=null, category_id=null, filter=null, page=1){
+export function getItems(item_id=null, search_text=null, category_id=null, filter=null, page=1, charity_id=null){
 
         var data = [];
         var url = ""
 
-        console.log("Fetching items with params:", {item_id, search_text, category_id, filter, page})
+        console.log("Fetching items with params:", {item_id, search_text, category_id, filter, page, charity_id})
 
         if (item_id){
             url = BACKEND_API_BASE_URL + 'items/ebaycharityitems/' + item_id
+            data = apiCall(url)
+        }
+        else if (charity_id && search_text){
+          url = BACKEND_API_BASE_URL + 'items/ebaycharityitems/charity/' + charity_id + '/search/' + encodeURIComponent(search_text) + "?page=" + page
+          data = apiCall(url)
+        }
+        else if (charity_id){
+            url = BACKEND_API_BASE_URL + 'items/ebaycharityitems/charity/' + charity_id + "?page=" + page
             data = apiCall(url)
         }
         else if (search_text){
