@@ -27,8 +27,8 @@ function DisplayListings(props) {
   }
 
   const { isPending, isError, data, error } = useQuery({
-    queryKey: [`${[props.search]}${props.subCategory}${props.filter}${page}`],
-    queryFn: () => getItems(null, props.search, props.subCategory, props.filter, page),
+    queryKey: [`${props.search}${props.subCategory}${props.filter}${props.charityId}${page}`],
+    queryFn: () => getItems(null, props.search, props.subCategory, props.filter, page, props.charityId),
   })
 
   if (isPending){
