@@ -6,6 +6,16 @@ import FavoritesButton from "./FavoritesButton";
 import { useState, useEffect } from "react";
 
 function CharityImage({ charity, itemId }) {
+  const navigate = useNavigate();
+
+  function openCharity(e) {
+    e.preventDefault();
+    e.stopPropagation();
+    if (charity?.id) {
+      navigate(`/charities/${charity.id}`);
+    }
+  }
+
   const image = (
     <Image
       src={charity?.image_url}
@@ -14,7 +24,7 @@ function CharityImage({ charity, itemId }) {
     />
   );
 
-  if (!charity?.name) {
+  if (!charity?.id) {
     return image;
   }
 
@@ -23,7 +33,7 @@ function CharityImage({ charity, itemId }) {
       placement="top"
       overlay={<Tooltip id={`charity-tooltip-${itemId}`}>{charity.name}</Tooltip>}
     >
-      <span className="item-listing-charity">
+      <span className="item-listing-charity" onClick={openCharity} style={{ cursor: 'pointer' }}>
         {image}
         <span className="item-listing-charity-name d-md-none">{charity.name}</span>
       </span>
