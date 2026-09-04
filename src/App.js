@@ -13,6 +13,8 @@ import CategoryPage from './pages/CategoryPage';
 import AboutPage from './pages/About';
 import Footer from './components/Footer';
 import DirectoryPage from './pages/Directory';
+import CharitiesPage from './pages/CharitiesPage';
+import CharityItemsPage from './pages/CharityItemsPage';
 import './App.css'
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from "react-redux";
@@ -64,6 +66,8 @@ function App() {
         <Route path='/category' Component={CategoryPage} exact />
         <Route path='/about' Component={AboutPage} exact />
         <Route path='/directory' Component={DirectoryPage} exact />
+        <Route path='/charities' Component={CharitiesPage} exact />
+        <Route path='/charities/:charityId' Component={CharityItemsPage} exact />
       </Routes>
 
       <Footer />
