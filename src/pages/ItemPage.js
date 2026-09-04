@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useParams, useNavigate } from 'react-router-dom'
+import { useParams, useNavigate, Link } from 'react-router-dom'
 import NormalSpinner from '../components/Spinner';
 import { Container, Row, Col, Button, ButtonGroup, Modal} from 'react-bootstrap';
 import { convertIdToCharityName, covertUrlToAffiliateLink } from '../utilities/Converters';
@@ -158,7 +158,15 @@ function ItemPage() {
                   <Row><h4>Seller: {itemData.seller?.username}</h4></Row>
                   <Row><h4>Total Seller Feedback: {itemData.seller?.feedbackScore}</h4></Row>
                   <Row><h4>Seller Positive Feeback: {itemData.seller?.feedbackPercentage}%</h4></Row>
-                  <Row><h4>Benefits: {convertIdToCharityName(charities, itemData.charity)}</h4></Row>
+                  <Row>
+                    <h4>
+                      Benefits: {(charity?.id || itemData.charity) ? (
+                        <Link to={`/charities/${charity?.id || itemData.charity}`}>
+                          {convertIdToCharityName(charities, itemData.charity)}
+                        </Link>
+                      ) : convertIdToCharityName(charities, itemData.charity)}
+                    </h4>
+                  </Row>
               </Container>
               <ButtonGroup className='mt-3 w-100'>
                 <Button variant="primary" onClick={(e) => handleClick(e, itemData.url || itemData.web_url)}>Go to item on Ebay</Button>
