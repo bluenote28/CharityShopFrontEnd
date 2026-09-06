@@ -42,9 +42,27 @@ export const login = (email, password) => async (dispatch) => {
             dispatch({type: USER_LOGIN_FAIL, payload: error.message})
         }
 }
-export const logout = () => (dispatch) => {
+export const logout = (options = {}) => (dispatch) => {
     localStorage.removeItem('userInfo')
     dispatch({type: USER_LOGOUT})
+    if (options.redirect) {
+        const path = window.location.pathname
+        const protectedPaths = ['/profile', '/favorites', '/purchases', '/admin']
+        const onProtectedPage = protectedPaths.some((protectedPath) => (
+            path === protectedPath || path.startsWith(`${protectedPath}/`)
+        ))
+        if (onProtectedPage) {
+            window.location.href = '/login'
+        }
+    }
+}
+
+export function logoutIfUnauthorized(dispatch, response) {
+    if (response?.status === 401) {
+        dispatch(logout({ redirect: true }))
+        return true
+    }
+    return false
 }
 export const register = (firstName, lastName, email, password) => async (dispatch) => {
         try{
@@ -84,6 +102,9 @@ export const updateUserProfile = (user) => async (dispatch, getState) => {
                 body: JSON.stringify(user)
             }
             const response = await fetch(BACKEND_API_BASE_URL + 'users/profile/', config)
+            if (logoutIfUnauthorized(dispatch, response)) {
+                return
+            }
             const data = await response.json()
             
             dispatch({type: USER_UPDATE_SUCCESS, payload: data})
@@ -123,6 +144,9 @@ export const getUserFavorites = () => async (dispatch, getState) => {
             headers: favoriteAuthHeaders(userInfo)
         }
         const response = await fetch(BACKEND_API_BASE_URL + 'favorites/', config)
+        if (logoutIfUnauthorized(dispatch, response)) {
+            return
+        }
         const data = await response.json()
 
         if (!response.ok) {
@@ -152,6 +176,9 @@ export const addFavorite = (item="", charity="") => async (dispatch, getState) =
             body: JSON.stringify({'item': item, 'charity': charity})
         }
         const response = await fetch(BACKEND_API_BASE_URL + 'favorites/', config)
+        if (logoutIfUnauthorized(dispatch, response)) {
+            return
+        }
         const data = await response.json()
 
         if (!response.ok) {
@@ -190,6 +217,9 @@ export const removeFavorite = (item="", charity="") => async (dispatch, getState
         }
         const url = BACKEND_API_BASE_URL + 'favorites/' + (params.toString() ? `?${params.toString()}` : '')
         const response = await fetch(url, config)
+        if (logoutIfUnauthorized(dispatch, response)) {
+            return
+        }
         const data = await response.json()
         
         if (!response.ok) {
