@@ -17,20 +17,33 @@ function SubmitCharityForm() {
  const dispatch = useDispatch()
  const { charities } = useSelector((state) => state.charities)
 
+ const showAlert = (message, variant = 'primary') => {
+    setAlert({ message, variant })
+ }
+
+ const resetForm = () => {
+    setCharityId('')
+    setName('')
+    setDescription('')
+    setImageUrl('')
+    setDonationUrl('')
+ }
+
  const handleSubmit = async (e) => {
 
     e.preventDefault();
 
     if (validateCharityInput()){
         if ((charities || []).some((charity) => String(charity.id) === String(charityId))) {
-            setAlert("A charity with this ID already exists. Use Update instead.")
+            showAlert("A charity with this ID already exists. Use Update instead.")
             return
         }
         try {
             await dispatch(addCharity({id: charityId, name: name, description: description, image_url: imageUrl, donation_url: donationUrl}));
-            setAlert(null)
+            resetForm()
+            showAlert('Charity added successfully.', 'success')
         } catch (error) {
-            setAlert(error.message || 'Failed to add charity')
+            showAlert(error.message || 'Failed to add charity')
         }
     }
   }
@@ -40,9 +53,9 @@ function SubmitCharityForm() {
    if (validateCharityInput()){
       try {
           await dispatch(updateCharity({id: charityId, name: name, description: description, image_url: imageUrl, donation_url: donationUrl}));
-          setAlert(null)
+          showAlert('Charity updated successfully.', 'success')
       } catch (error) {
-          setAlert(error.message || 'Failed to update charity')
+          showAlert(error.message || 'Failed to update charity')
       }
      }
   }
@@ -54,15 +67,15 @@ function SubmitCharityForm() {
         let validCharityName = isValidCharityName(name)
 
         if (!validCharityID){
-            setAlert("Please enter a valid charity ID");
+            showAlert("Please enter a valid charity ID");
             return false
         }
         else if (!validCharityDescription){
-            setAlert("Please enter a valid charity description");
+            showAlert("Please enter a valid charity description");
             return false
         }
         else if (!validCharityName){
-            setAlert("Please enter a valid charity name");
+            showAlert("Please enter a valid charity name");
             return false
         }
         else{
@@ -72,32 +85,32 @@ function SubmitCharityForm() {
 
   return (
         <>
-            {alert && <AlertBox message={alert} />}
+            {alert && <AlertBox message={alert.message} variant={alert.variant} />}
 
             <Form onSubmit={handleSubmit}>
               <Form.Group className="mb-3">
                 <Form.Label>Charity ID</Form.Label>
-                <Form.Control type="id" placeholder="enter ebay charity id" onChange={(e) => setCharityId(e.target.value)}/>
+                <Form.Control type="id" placeholder="enter ebay charity id" value={charityId} onChange={(e) => setCharityId(e.target.value)}/>
               </Form.Group>
 
               <Form.Group className="mb-3">
                 <Form.Label>Charity Name</Form.Label>
-                <Form.Control type="name" placeholder="enter charity name" onChange={(e) => setName(e.target.value)}/>
+                <Form.Control type="name" placeholder="enter charity name" value={name} onChange={(e) => setName(e.target.value)}/>
               </Form.Group>
 
               <Form.Group className="mb-3">
                 <Form.Label>Description</Form.Label>
-                <Form.Control type="description" placeholder="description" onChange={(e) => setDescription(e.target.value)} />
+                <Form.Control type="description" placeholder="description" value={description} onChange={(e) => setDescription(e.target.value)} />
               </Form.Group>
 
                <Form.Group className="mb-3">
                 <Form.Label>Donation URL</Form.Label>
-                <Form.Control type="donationUrl" placeholder="donation url" onChange={(e) => setDonationUrl(e.target.value)} />
+                <Form.Control type="donationUrl" placeholder="donation url" value={donationUrl} onChange={(e) => setDonationUrl(e.target.value)} />
               </Form.Group>
 
                <Form.Group className="mb-3">
                 <Form.Label>Image URL</Form.Label>
-                <Form.Control type="imageUrl" placeholder="image url" onChange={(e) => setImageUrl(e.target.value)} />
+                <Form.Control type="imageUrl" placeholder="image url" value={imageUrl} onChange={(e) => setImageUrl(e.target.value)} />
               </Form.Group>
 
               <div className='d-flex justify-content-between mb-3'>
