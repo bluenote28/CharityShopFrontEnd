@@ -18,8 +18,11 @@ import CharityItemsPage from './pages/CharityItemsPage';
 import './App.css'
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from "react-redux";
-import { getUserFavorites } from './actions/userActions';
+import { getUserFavorites, logout } from './actions/userActions';
 import { getCharities } from './actions/charityActions';
+import { getAuthToken, getTokenExpiry, isTokenExpired } from './utilities/auth';
+
+const MAX_TIMEOUT_MS = 2147483647;
 
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -47,6 +50,28 @@ function App() {
       dispatch(getCharities());
     }
   }, [dispatch, userInfo, charitiesState.charities.length])
+
+  useEffect(() => {
+    const token = getAuthToken(userInfo);
+    if (!token) {
+      return undefined;
+    }
+
+    let timeoutId;
+
+    const logoutWhenExpired = () => {
+      if (isTokenExpired(token)) {
+        dispatch(logout({ redirect: true }));
+        return;
+      }
+      const expiry = getTokenExpiry(token);
+      const delay = Math.min(expiry - Date.now(), MAX_TIMEOUT_MS);
+      timeoutId = setTimeout(logoutWhenExpired, delay);
+    };
+
+    logoutWhenExpired();
+    return () => clearTimeout(timeoutId);
+  }, [dispatch, userInfo])
 
   return (
     <Router>
