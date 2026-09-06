@@ -2,12 +2,13 @@ import { useSelector } from 'react-redux';
 import { getItems } from '../utilities/BackEndClient';
 import Row from 'react-bootstrap/esm/Row';
 import NormalSpinner from './Spinner';
-import Pagination from 'react-bootstrap/Pagination';
 import { Container } from 'react-bootstrap';
 import ItemListing from './ItemListing'
 import { useQuery } from '@tanstack/react-query'
 import AlertBox from './Alert';
 import { useSearchParams } from 'react-router-dom';
+import ListingFilter from '../utilities/FilterClass';
+import ListingsPagination from './ListingsPagination';
 
 function DisplayListings(props) {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -46,21 +47,7 @@ function DisplayListings(props) {
   else{
 
       const numOfPages = Math.ceil(data.count / 50)
-      const prevPaginationItems = [<Pagination.First onClick={() => goToPage(1)} />, 
-      <Pagination.Prev onClick={()=>{
-        if(page === 1){
-          return;
-        }
-        else{
-          goToPage(page - 1);
-        }
-      }
-      
-      } />];
-      const nextPaginationItems = [<Pagination.Next onClick={()=>{
-        goToPage(page + 1);
-      }} />,   <Pagination.Last onClick={()=> goToPage(numOfPages)}/>];
-  
+
       return (
         <>          
         <Container className="px-2 px-sm-3">
@@ -91,19 +78,7 @@ function DisplayListings(props) {
             }
         </Container>
 
-        <Container className='d-flex justify-content-center align-items-center flex-wrap px-2'>
-           {numOfPages > 1 && (
-            <>
-              {page > 1 && <Pagination>{prevPaginationItems}</Pagination>}
-      
-              <div className='d-flex mx-2 mt-1'>
-                Page {page} of {numOfPages}
-              </div>
-              
-              {page < numOfPages && <Pagination>{nextPaginationItems}</Pagination>}
-            </>
-          )}
-        </Container>
+        <ListingsPagination page={page} pageCount={numOfPages} onPageChange={goToPage} />
             
         </>  
         )
