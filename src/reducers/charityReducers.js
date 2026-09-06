@@ -47,14 +47,34 @@ export const charityReducer = (state = {charities:[]}, action) => {
                 return { ...state }
             case ADD_CHARITY_ERROR:
                 return { ...state, loading: false }
-            case ADD_CHARITY_SUCCESS:
-                return { ...state, loading: false }
+            case ADD_CHARITY_SUCCESS: {
+                const added = action.payload
+                const charities = state.charities || []
+                const alreadyListed = charities.some(
+                    (charity) => String(charity.id) === String(added?.id)
+                )
+                return {
+                    ...state,
+                    loading: false,
+                    charities: alreadyListed || !added ? charities : [...charities, added]
+                }
+            }
             case UPDATE_CHARITY_REQUEST:
                 return { ...state }
             case UPDATE_CHARITY_ERROR:
                 return { ...state, loading: false }
-            case UPDATE_CHARITY_SUCCESS:
-                return { ...state, loading: false }
+            case UPDATE_CHARITY_SUCCESS: {
+                const updated = action.payload
+                return {
+                    ...state,
+                    loading: false,
+                    charities: (state.charities || []).map((charity) =>
+                        String(charity.id) === String(updated?.id)
+                            ? { ...charity, ...updated }
+                            : charity
+                    )
+                }
+            }
             default:
                 return state
         }
