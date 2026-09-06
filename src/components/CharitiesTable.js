@@ -23,7 +23,7 @@ function CharitiesTable(props) {
         setFilteredData(allData);
     }
     setFilteredData(data.filter((item) => {
-        return item.name.toLowerCase().includes(search.toLowerCase())
+        return (item?.name || '').toLowerCase().includes(search.toLowerCase())
     }));
  }
 
