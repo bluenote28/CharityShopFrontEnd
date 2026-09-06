@@ -51,12 +51,13 @@ export const charityReducer = (state = {charities:[]}, action) => {
                 const added = action.payload
                 const charities = state.charities || []
                 const alreadyListed = charities.some(
-                    (charity) => String(charity.id) === String(added?.id)
+                    (charity) => charity && typeof charity === 'object' && String(charity.id) === String(added?.id)
                 )
+                const isCharity = added && typeof added === 'object' && added.id != null
                 return {
                     ...state,
                     loading: false,
-                    charities: alreadyListed || !added ? charities : [...charities, added]
+                    charities: alreadyListed || !isCharity ? charities : [...charities, added]
                 }
             }
             case UPDATE_CHARITY_REQUEST:

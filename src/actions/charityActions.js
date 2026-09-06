@@ -65,7 +65,7 @@ export const addCharity = (charity) => async(dispatch, getState) => {
          console.log(data)
          console.log(response)
          console.log(config.data)
-        dispatch({type: ADD_CHARITY_SUCCESS, payload: data})
+        dispatch({type: ADD_CHARITY_SUCCESS, payload: charity})
     }catch(error){
         dispatch({type: ADD_CHARITY_ERROR, error: error})
     }
