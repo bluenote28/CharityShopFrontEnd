@@ -28,10 +28,7 @@ function CharitiesTable(props) {
  }
 
  function deleteButtonClick(id) {
-    
     dispatch(deleteCharity(id))
-  
-    window.location.reload();
  }
 
  function updateCharityItemsInDB(id, name, description){
