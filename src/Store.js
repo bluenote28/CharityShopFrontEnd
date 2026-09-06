@@ -3,6 +3,7 @@ import { configureStore } from '@reduxjs/toolkit'
 import { thunk } from 'redux-thunk'
 import { charityReducer } from './reducers/charityReducers'
 import { userLoginReducer, userRegisterReducer, userUpdateReducer, favoritesReducer} from './reducers/userReducers';
+import { getAuthToken, isTokenExpired } from './utilities/auth'
 
 const reducer = combineReducers({
   userLogin: userLoginReducer,
@@ -17,7 +18,16 @@ const middleware = [thunk]
 const userInfoFromStorage = (() => {
   try {
     const item = localStorage.getItem('userInfo')
-    return item && item !== 'undefined' ? JSON.parse(item) : null
+    if (!item || item === 'undefined') {
+      return null
+    }
+    const userInfo = JSON.parse(item)
+    const token = getAuthToken(userInfo)
+    if (!token || isTokenExpired(token)) {
+      localStorage.removeItem('userInfo')
+      return null
+    }
+    return userInfo
   } catch (error) {
     return null
   }
