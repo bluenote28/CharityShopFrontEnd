@@ -1,6 +1,6 @@
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { isValidCharityId, isValidCharityDescription, isValidCharityName } from '../utilities/validators';
 import AlertBox from './Alert';
 import { addCharity, updateCharity } from '../actions/charityActions';
@@ -16,9 +16,25 @@ function SubmitCharityForm() {
  const [alert, setAlert] = useState(null);
  const dispatch = useDispatch()
  const { charities } = useSelector((state) => state.charities)
+ const alertTimeoutRef = useRef(null)
+
+ useEffect(() => {
+    return () => {
+        if (alertTimeoutRef.current) {
+            clearTimeout(alertTimeoutRef.current)
+        }
+    }
+ }, [])
 
  const showAlert = (message, variant = 'primary') => {
     setAlert({ message, variant })
+    if (alertTimeoutRef.current) {
+        clearTimeout(alertTimeoutRef.current)
+    }
+    alertTimeoutRef.current = setTimeout(() => {
+        setAlert(null)
+        alertTimeoutRef.current = null
+    }, 4000)
  }
 
  const resetForm = () => {
