@@ -13,11 +13,29 @@ export const charityReducer = (state = {charities:[]}, action) => {
             case GET_CHARITIES_ERROR:
                 return {loading: false, error: action.error, charities: []}
             case DELETE_CHARITY_REQUEST:
-                return {loading: true, charities: []}
+                return {
+                    ...state,
+                    error: null,
+                    previousCharities: state.charities,
+                    charities: (state.charities || []).filter(
+                        (charity) => String(charity.id) !== String(action.payload)
+                    )
+                }
             case DELETE_CHARITY_ERROR:
-                return {loading: false, error: action.error, charities: []}
+                return {
+                    ...state,
+                    loading: false,
+                    error: action.error,
+                    charities: state.previousCharities || state.charities || []
+                }
             case DELETE_CHARITY_SUCCESS:
-                return {loading: false, charities: action.payload}
+                return {
+                    ...state,
+                    loading: false,
+                    charities: (state.charities || []).filter(
+                        (charity) => String(charity.id) !== String(action.payload)
+                    )
+                }
             case ADD_CHARITY_REQUEST:
                 return {loading: true, charities: []}
             case ADD_CHARITY_ERROR:
