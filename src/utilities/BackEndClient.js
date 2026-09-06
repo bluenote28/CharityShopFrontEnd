@@ -1,12 +1,4 @@
 import { BACKEND_API_BASE_URL } from "../constants/apiContants";
-import store from "../Store";
-import { logout } from "../actions/userActions";
-
-function logoutOnUnauthorized(response, token) {
-    if (token && response.status === 401) {
-        store.dispatch(logout({ redirect: true }))
-    }
-}
 
 async function apiCall(url, token=null){
     const headers = {
@@ -22,7 +14,6 @@ async function apiCall(url, token=null){
     }
 
     const response = await fetch(url, config)
-    logoutOnUnauthorized(response, token)
     const data = await response.json()
 
     if (response.status !== 200){
@@ -47,7 +38,6 @@ async function apiPost(url, body, token=null){
     }
 
     const response = await fetch(url, config)
-    logoutOnUnauthorized(response, token)
     const data = await response.json()
 
     if (response.status !== 200 && response.status !== 201){

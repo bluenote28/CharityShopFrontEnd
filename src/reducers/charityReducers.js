@@ -7,9 +7,16 @@ export const charityReducer = (state = {charities:[]}, action) => {
 
         switch(action.type){
             case GET_CHARITIES_REQUEST:
-                return {loading: true, charities: []}
+                return {
+                    ...state,
+                    loading: !(state.charities && state.charities.length),
+                    error: null
+                }
             case GET_CHARITIES_SUCCESS:
-                return {loading: false, charities: action.payload}
+                return {
+                    loading: false,
+                    charities: Array.isArray(action.payload) ? action.payload : (state.charities || [])
+                }
             case GET_CHARITIES_ERROR:
                 return {loading: false, error: action.error, charities: []}
             case DELETE_CHARITY_REQUEST:
@@ -37,17 +44,17 @@ export const charityReducer = (state = {charities:[]}, action) => {
                     )
                 }
             case ADD_CHARITY_REQUEST:
-                return {loading: true, charities: []}
+                return { ...state }
             case ADD_CHARITY_ERROR:
-                return {loading: false, error: action.error, charities: []}
+                return { ...state, loading: false }
             case ADD_CHARITY_SUCCESS:
-                return {loading: false, charities: action.payload}
+                return { ...state, loading: false }
             case UPDATE_CHARITY_REQUEST:
-                return {loading: true, charities: []}
+                return { ...state }
             case UPDATE_CHARITY_ERROR:
-                return {loading: false, error: action.error, charities: []}
+                return { ...state, loading: false }
             case UPDATE_CHARITY_SUCCESS:
-                return {loading: false, charities: action.payload}
+                return { ...state, loading: false }
             default:
                 return state
         }
