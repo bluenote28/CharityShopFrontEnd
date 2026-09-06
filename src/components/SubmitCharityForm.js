@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { isValidCharityId, isValidCharityDescription, isValidCharityName } from '../utilities/validators';
 import AlertBox from './Alert';
 import { addCharity, updateCharity } from '../actions/charityActions';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 function SubmitCharityForm() {
 
@@ -15,24 +15,35 @@ function SubmitCharityForm() {
  const [donationUrl, setDonationUrl ] = useState('');
  const [alert, setAlert] = useState(null);
  const dispatch = useDispatch()
+ const { charities } = useSelector((state) => state.charities)
 
- const handleSubmit = (e) => {
+ const handleSubmit = async (e) => {
 
     e.preventDefault();
 
     if (validateCharityInput()){
-        dispatch(addCharity({id: charityId, name: name, description: description, image_url: imageUrl, donation_url: donationUrl}));
-        setTimeout(() => {
-            window.location.reload();
-        }, 1000);
+        if ((charities || []).some((charity) => String(charity.id) === String(charityId))) {
+            setAlert("A charity with this ID already exists. Use Update instead.")
+            return
+        }
+        try {
+            await dispatch(addCharity({id: charityId, name: name, description: description, image_url: imageUrl, donation_url: donationUrl}));
+            setAlert(null)
+        } catch (error) {
+            setAlert(error.message || 'Failed to add charity')
+        }
     }
   }
 
-  const handleUpdate = () => {
+  const handleUpdate = async () => {
 
    if (validateCharityInput()){
-      dispatch(updateCharity({id: charityId, name: name, description: description, image_url: imageUrl, donation_url: donationUrl}));
-      window.location.reload();
+      try {
+          await dispatch(updateCharity({id: charityId, name: name, description: description, image_url: imageUrl, donation_url: donationUrl}));
+          setAlert(null)
+      } catch (error) {
+          setAlert(error.message || 'Failed to update charity')
+      }
      }
   }
 
