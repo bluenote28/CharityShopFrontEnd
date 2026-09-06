@@ -3,7 +3,7 @@ import Alert from 'react-bootstrap/Alert';
 function AlertBox(props) {
   return (
     <>  
-        <Alert variant={'primary'}>
+        <Alert variant={props.variant || 'primary'}>
             {props.message}
         </Alert>
     
