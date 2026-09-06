@@ -1,4 +1,13 @@
 import { BACKEND_API_BASE_URL } from "../constants/apiContants";
+import store from "../Store";
+import { logout } from "../actions/userActions";
+
+function logoutOnUnauthorized(response, token) {
+    if (token && response.status === 401) {
+        store.dispatch(logout({ redirect: true }))
+    }
+    return response
+}
 
 class Api{
 
@@ -43,7 +52,10 @@ class Api{
                         Authorization: `Bearer ${this.token}`
                     },
                     body: JSON.stringify(this.data)})
-                    .then(response => response.json())
+                    .then(response => {
+                        logoutOnUnauthorized(response, this.token)
+                        return response.json()
+                    })
                     .then(data => {
                         return data;
                     })
@@ -62,7 +74,10 @@ class Api{
                         'Content-Type': 'application/json',
                         Authorization: `Bearer ${this.token}`
                     },})
-                    .then(response => response.json())
+                    .then(response => {
+                        logoutOnUnauthorized(response, this.token)
+                        return response.json()
+                    })
                     .then(data => {
                         return data;
                     })
@@ -80,7 +95,10 @@ class Api{
                         'Content-Type': 'application/json',
                         Authorization: `Bearer ${this.token}`
                     },})
-                    .then(response => response.json())
+                    .then(response => {
+                        logoutOnUnauthorized(response, this.token)
+                        return response.json()
+                    })
                     .then(data => {
                         return data;
                     })
