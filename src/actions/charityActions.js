@@ -23,7 +23,7 @@ export const getCharities = () => async(dispatch) => {
 
 export const deleteCharity = (id) => async(dispatch, getState) => {
     try{
-        dispatch({type: DELETE_CHARITY_REQUEST})
+        dispatch({type: DELETE_CHARITY_REQUEST, payload: id})
         const { userLogin: { userInfo } } = getState()
         
         const config = {
@@ -34,11 +34,15 @@ export const deleteCharity = (id) => async(dispatch, getState) => {
             }
         }
          const response = await fetch(BACKEND_API_BASE_URL + 'charity/deleteCharity/' + id, config)
-         const data = await response.json()
-         console.log(data)
-        dispatch({type: DELETE_CHARITY_SUCCESS, payload: data})
+
+         if (!response.ok) {
+            const data = await response.json().catch(() => ({}))
+            throw new Error(data.detail || data.message || 'Failed to delete charity')
+         }
+
+        dispatch({type: DELETE_CHARITY_SUCCESS, payload: id})
     }catch(error){
-        dispatch({type: DELETE_CHARITY_ERROR, error: error})
+        dispatch({type: DELETE_CHARITY_ERROR, error: error.message || error})
     }
 }
 
