@@ -95,6 +95,7 @@ export const FILTER_OPTIONS = {
         {label: "Textbooks", subCategory: "Textbooks", filter: null},
         {label: "Magazines", subCategory: "Magazines", filter: null},
         {label: "Books", subCategory: "Books", filter: null},
+        {label: "Cook Books", subCategory: "Books", filter: "cookbook"},
         {label: "Antiquarian & Collectible", subCategory: "Antiquarian & Collectible", filter: null},
         {label: "Audiobooks", subCategory: "Audiobooks", filter: null},
         {label: "Study Guides & Test Prep", subCategory: "Study Guides & Test Prep", filter: null},
