@@ -51,10 +51,13 @@ export const FILTER_OPTIONS = {
         { label: "Apple Laptops", subCategory: "Apple Laptops", filter: null},
         { label: "Apple Desktops & All-In-Ones", subCategory: "Apple Desktops & All-In-Ones", filter: null},
         { label: "Monitors", subCategory: "Monitors", filter: null},
+        { label: "Keyboards, Mice & Pointers", subCategory: "Keyboards, Mice & Pointers", filter: null},
         { label: "Printers", subCategory: "Printers", filter: null},
+        { label: "Drives, Storage & Blank Media", subCategory: "Drives, Storage & Blank Media", filter: null},
         { label: "Laptop Replacement Parts", subCategory: "Laptop Replacement Parts", filter: null},
         { label: "Graphics/Video Cards", subCategory: "Graphics/Video Cards", filter: null},
-        { label: "Enterprise Networking, Servers", subCategory: "Enterprise Networking, Servers", filter: null},                    
+        { label: "Wireless Routers", subCategory: "Wireless Routers", filter: null},
+        { label: "Enterprise Networking, Servers", subCategory: "Enterprise Networking, Servers", filter: null},                   
         ],
 
         "Clothing, Shoes & Accessories": [    
