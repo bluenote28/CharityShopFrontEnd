@@ -58,12 +58,21 @@ export const FILTER_OPTIONS = {
         ],
 
         "Clothing, Shoes & Accessories": [    
-                {label: "Womens's Clothing", subCategory: "Womens's Clothing", filter: null},
+                {label: "Women's Clothing", subCategory: "Women's Clothing", filter: null},
+                {label: "Women's Tops", subCategory: "Tops", filter: null},
+                {label: "Dresses", subCategory: "Dresses", filter: null},
+                {label: "Women's Skirts", subCategory: "Skirts", filter: 'women'},
+                {label: "Women's Coats, Jackets & Vests", subCategory: "Coats, Jackets & Vests", filter: 'women'},
+                {label: "Women's Jeans", subCategory: "Jeans", filter: 'women'},
+                {label: "Women's Activewear", subCategory: "Activewear", filter: 'women'},
+                {label: "Women's Accessories", subCategory: "Women's Accessories", filter: null},
                 {label: "Women's Bags & Handbags", subCategory: "Women's Bags & Handbags", filter: null},
                 {label: "Girls", subCategory: "Girls", filter: null}, 
                 {label: "Boys", subCategory: "Boys", filter: null},
-                {label: "Men", subCategory: "Men", filter: null},
                 {label: "Men's Clothing", subCategory: "Men's Clothing", filter: null},
+                {label: "Men's Shirts", subCategory: "Shirts", filter: 'men'},
+                {label: "Men's Pants", subCategory: "Pants", filter: 'men'},
+                {label: "Men's Accessories", subCategory: "Men's Accessories", filter: null},
                 {label:"Baby & Toddler Clothing", subCategory: "Baby & Toddler Clothing", filter: null}
             ],
 
