@@ -245,6 +245,17 @@ footer img {
   height: auto;
 }
 
+.footer-about-link {
+  color: white;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.footer-about-link:hover {
+  color: white;
+  text-decoration: underline;
+}
+
 .seller-description {
   word-break: break-word;
   max-height: 20rem;
