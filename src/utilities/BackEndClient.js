@@ -71,11 +71,11 @@ export function getItems(item_id=null, search_text=null, category_id=null, filte
           data = apiCall(url)
         }
         else if (category_id && filter){
-            url = BACKEND_API_BASE_URL + 'items/ebaycharityitems/category/' + encodeURIComponent(category_id) + `/${filter}` + "?page=" + page
+            url = BACKEND_API_BASE_URL + 'items/ebaycharityitems/category?category=' + encodeURIComponent(category_id) + '&filter=' + encodeURIComponent(filter) + '&page=' + page
             data = apiCall(url)
         }
         else if (category_id){
-            url = BACKEND_API_BASE_URL + 'items/ebaycharityitems/category/' + encodeURIComponent(category_id) + "?page=" + page
+            url = BACKEND_API_BASE_URL + 'items/ebaycharityitems/category?category=' + encodeURIComponent(category_id) + '&page=' + page
             data = apiCall(url)
         }
 
