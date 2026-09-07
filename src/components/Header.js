@@ -45,7 +45,6 @@ function Header() {
                     <NavDropdown.Item href="/purchases">Purchases</NavDropdown.Item>
                     <NavDropdown.Item onClick={logoutHandler}>Logout</NavDropdown.Item>
                   </NavDropdown>
-                  <Nav.Link as={Link} to="/about">About</Nav.Link>
                   </>
                 :
                   <>
@@ -55,7 +54,6 @@ function Header() {
                     <NavDropdown.Item href="/purchases">Purchases</NavDropdown.Item>
                     <NavDropdown.Item onClick={logoutHandler}>Logout</NavDropdown.Item>
                   </NavDropdown>
-                  <Nav.Link as={Link} to="/about">About</Nav.Link>
                   </>
                 }
                 </>
@@ -70,7 +68,6 @@ function Header() {
                 </Container>
 
                 <Nav.Link as={Link} to="/login">Login</Nav.Link>
-                <Nav.Link as={Link} to="/about">About</Nav.Link>
               </>
 
              )}
