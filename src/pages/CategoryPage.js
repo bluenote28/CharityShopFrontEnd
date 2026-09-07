@@ -12,14 +12,17 @@ function CategoryPage() {
   const subCategoryOptions = FILTER_OPTIONS[category] || []
 
   function selectSubCategory(item) {
-    const params = { category };
+    const params = new URLSearchParams()
+    if (category) {
+      params.set('category', category)
+    }
     if (item.subCategory) {
-      params.subCategory = item.subCategory;
+      params.set('subCategory', item.subCategory)
     }
     if (item.filter) {
-      params.filter = item.filter;
+      params.set('filter', item.filter)
     }
-    setSearchParams(params);
+    setSearchParams(params)
   }
 
   function isSelected(item) {
