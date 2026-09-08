@@ -71,10 +71,11 @@ export const userUpdateReducer = (state = {}, action) => {
 
 }
 
-function withFavoriteItems(state, items) {
+function withFavoriteLists(state, items, charities) {
         return {
             ...state.favorites,
-            items
+            items,
+            charities
         }
 }
 
@@ -89,15 +90,22 @@ export const favoritesReducer = (state = {}, action) => {
                 return {...state, loading: false, error: action.payload}
             case ADD_FAVORITE_REQUEST: {
                 const items = state.favorites?.items || []
+                const charities = state.favorites?.charities || []
                 const itemId = action.payload?.item
-                const alreadyFavorited = items.some(item => item.ebay_id === itemId)
+                const charityId = action.payload?.charity
+                const alreadyFavoritedItem = itemId && items.some(item => item.ebay_id === itemId)
+                const alreadyFavoritedCharity = charityId && charities.some(
+                    (charity) => String(charity.id) === String(charityId)
+                )
                 return {
                     ...state,
                     error: null,
                     previousItems: items,
-                    favorites: withFavoriteItems(
+                    previousCharities: charities,
+                    favorites: withFavoriteLists(
                         state,
-                        alreadyFavorited || !itemId ? items : [...items, { ebay_id: itemId }]
+                        alreadyFavoritedItem || !itemId ? items : [...items, { ebay_id: itemId }],
+                        alreadyFavoritedCharity || !charityId ? charities : [...charities, { id: charityId }]
                     )
                 }
             }
@@ -108,18 +116,26 @@ export const favoritesReducer = (state = {}, action) => {
                     ...state,
                     loading: false,
                     error: action.payload,
-                    favorites: withFavoriteItems(state, state.previousItems || state.favorites?.items || [])
+                    favorites: withFavoriteLists(
+                        state,
+                        state.previousItems || state.favorites?.items || [],
+                        state.previousCharities || state.favorites?.charities || []
+                    )
                 }
             case REMOVE_FAVORITE_REQUEST: {
                 const items = state.favorites?.items || []
+                const charities = state.favorites?.charities || []
                 const itemId = action.payload?.item
+                const charityId = action.payload?.charity
                 return {
                     ...state,
                     error: null,
                     previousItems: items,
-                    favorites: withFavoriteItems(
+                    previousCharities: charities,
+                    favorites: withFavoriteLists(
                         state,
-                        itemId ? items.filter(item => item.ebay_id !== itemId) : items
+                        itemId ? items.filter(item => item.ebay_id !== itemId) : items,
+                        charityId ? charities.filter((charity) => String(charity.id) !== String(charityId)) : charities
                     )
                 }
             }
@@ -130,7 +146,11 @@ export const favoritesReducer = (state = {}, action) => {
                     ...state,
                     loading: false,
                     error: action.payload,
-                    favorites: withFavoriteItems(state, state.previousItems || state.favorites?.items || [])
+                    favorites: withFavoriteLists(
+                        state,
+                        state.previousItems || state.favorites?.items || [],
+                        state.previousCharities || state.favorites?.charities || []
+                    )
                 }
             case USER_LOGOUT:
                 return {}
