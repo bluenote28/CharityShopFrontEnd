@@ -3,11 +3,14 @@ import { Container, Row, Col, Card, Form } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import NormalSpinner from '../components/Spinner';
+import FavoritesButton from '../components/FavoritesButton';
 
 function CharitiesPage() {
     const navigate = useNavigate();
     const charitiesState = useSelector((state) => state.charities);
     const { loading, charities } = charitiesState;
+    const userLogin = useSelector((state) => state.userLogin);
+    const { userInfo } = userLogin;
     const [filter, setFilter] = useState('');
 
     if (loading || !charities) {
@@ -49,6 +52,17 @@ function CharitiesPage() {
                                         {charity.description}
                                     </Card.Text>
                                 </Card.Body>
+                                {userInfo && (
+                                    <Card.Footer
+                                        className="charity-browse-favorite"
+                                        onClick={(e) => {
+                                            e.preventDefault();
+                                            e.stopPropagation();
+                                        }}
+                                    >
+                                        <FavoritesButton charityId={charity.id} />
+                                    </Card.Footer>
+                                )}
                             </Card>
                         </Col>
                     ))}
@@ -59,3 +73,4 @@ function CharitiesPage() {
 }
 
 export default CharitiesPage;
+
