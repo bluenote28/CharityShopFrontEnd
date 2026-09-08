@@ -286,6 +286,19 @@ footer img {
   background-color: #f8f9fa;
 }
 
+.charity-browse-favorite {
+  display: flex;
+  justify-content: flex-end;
+  background-color: transparent;
+  border-top: 0;
+  padding-top: 0;
+}
+
+.charity-browse-favorite .favorites-button {
+  border-color: transparent;
+  background: transparent;
+}
+
 .charity-browse-card-image img {
   max-height: 110px;
   width: auto;
