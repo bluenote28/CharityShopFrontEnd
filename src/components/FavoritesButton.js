@@ -6,10 +6,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { addFavorite, removeFavorite } from '../actions/userActions';
 import { useRef } from 'react';
 
-function FavoritesButton({ id, labeled = false }) {
+function FavoritesButton({ id, charityId, labeled = false }) {
   const favoritesData = useSelector((state) => state.favorites);
   const { favorites } = favoritesData
-  const isFavorite = favorites?.items?.some(item => item.ebay_id === id);
+  const isCharityFavorite = charityId != null && charityId !== ''
+  const isFavorite = isCharityFavorite
+    ? favorites?.charities?.some((charity) => String(charity.id) === String(charityId))
+    : favorites?.items?.some(item => item.ebay_id === id);
   const pendingRef = useRef(false);
   const dispatch = useDispatch()
 
@@ -22,7 +25,9 @@ function FavoritesButton({ id, labeled = false }) {
         }
 
         pendingRef.current = true;
-        const request = isFavorite ? dispatch(removeFavorite(id)) : dispatch(addFavorite(id));
+        const request = isFavorite
+            ? dispatch(removeFavorite(isCharityFavorite ? "" : id, isCharityFavorite ? charityId : ""))
+            : dispatch(addFavorite(isCharityFavorite ? "" : id, isCharityFavorite ? charityId : ""));
         Promise.resolve(request).finally(() => {
             pendingRef.current = false;
         });
