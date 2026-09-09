@@ -9,6 +9,7 @@ function CategoryPage() {
   const category = searchParams.get('category')
   const subCategory = searchParams.get('subCategory')
   const filter = searchParams.get('filter')
+  const search = searchParams.get('search')
   const subCategoryOptions = FILTER_OPTIONS[category] || []
 
   function selectSubCategory(item) {
@@ -22,6 +23,9 @@ function CategoryPage() {
     if (item.filter) {
       params.set('filter', item.filter)
     }
+    if (item.search) {
+      params.set('search', item.search)
+    }
     setSearchParams(params)
   }
 
@@ -29,7 +33,10 @@ function CategoryPage() {
     if (item.subCategory !== subCategory) {
       return false;
     }
-    return (item.filter || null) === (filter || null);
+    if ((item.filter || null) !== (filter || null)) {
+      return false;
+    }
+    return (item.search || null) === (search || null);
   }
 
   function subCategoryBar(){
@@ -59,7 +66,7 @@ function CategoryPage() {
       <Container>
         <Row>
             {
-              subCategory ? <Col><DisplayListings subCategory={subCategory} filter={filter} /></Col>
+              subCategory ? <Col><DisplayListings subCategory={subCategory} filter={filter} search={search} /></Col>
               : <p style={{textAlign: "center"}}>Please Select a Category</p>
             }
         </Row>

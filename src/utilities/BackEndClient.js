@@ -66,17 +66,22 @@ export function getItems(item_id=null, search_text=null, category_id=null, filte
             url = BACKEND_API_BASE_URL + 'items/ebaycharityitems/charity/' + charity_id + "?page=" + page
             data = apiCall(url)
         }
+        else if (category_id){
+            const params = new URLSearchParams()
+            params.set('category', category_id)
+            params.set('page', String(page))
+            if (filter) {
+                params.set('filter', filter)
+            }
+            if (search_text) {
+                params.set('search', search_text)
+            }
+            url = BACKEND_API_BASE_URL + 'items/ebaycharityitems/category?' + params.toString()
+            data = apiCall(url)
+        }
         else if (search_text){
           url = BACKEND_API_BASE_URL + 'items/ebaycharityitems/search/' + search_text + "?page=" + page
           data = apiCall(url)
-        }
-        else if (category_id && filter){
-            url = BACKEND_API_BASE_URL + 'items/ebaycharityitems/category?category=' + encodeURIComponent(category_id) + '&filter=' + encodeURIComponent(filter) + '&page=' + page
-            data = apiCall(url)
-        }
-        else if (category_id){
-            url = BACKEND_API_BASE_URL + 'items/ebaycharityitems/category?category=' + encodeURIComponent(category_id) + '&page=' + page
-            data = apiCall(url)
         }
 
         return data;

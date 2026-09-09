@@ -48,6 +48,8 @@ function DisplayListings(props) {
 
       const numOfPages = Math.ceil(data.count / 50)
 
+      console.log(data.results)
+
       return (
         <>          
         <Container className="px-2 px-sm-3">
