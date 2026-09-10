@@ -29,10 +29,6 @@ function Header() {
            
              {userInfo ? (
                 <>
-                  {userInfo.isAdmin && (
-                    <Nav.Link as={Link} to="/admin">Admin</Nav.Link>
-                  )}
-
                   <Container className="px-0 header-search">
                     <SearchBar />
                   </Container>
