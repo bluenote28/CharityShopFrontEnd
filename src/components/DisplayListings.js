@@ -9,6 +9,7 @@ import AlertBox from './Alert';
 import { useSearchParams } from 'react-router-dom';
 import ListingFilter from '../utilities/FilterClass';
 import ListingsPagination from './ListingsPagination';
+import countItemCategories from '../utilities/countItemCategories';
 
 function DisplayListings(props) {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -48,7 +49,7 @@ function DisplayListings(props) {
 
       const numOfPages = Math.ceil(data.count / 50)
 
-      console.log(data.results)
+      //console.log(countItemCategories(data.results))
 
       return (
         <>          
