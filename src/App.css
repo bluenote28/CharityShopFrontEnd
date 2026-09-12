@@ -260,6 +260,22 @@ footer img {
   width: auto;
 }
 
+.google-login {
+  margin-top: 1rem;
+}
+
+.google-login-divider {
+  text-align: center;
+  margin-bottom: 0.75rem;
+}
+
+.google-login-button {
+  display: flex;
+  justify-content: flex-start;
+  min-height: 44px;
+  width: 100%;
+}
+
 .seller-description {
   word-break: break-word;
   max-height: 20rem;
