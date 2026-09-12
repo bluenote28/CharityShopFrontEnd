@@ -46,6 +46,30 @@ export const logout = () => (dispatch) => {
     localStorage.removeItem('userInfo')
     dispatch({type: USER_LOGOUT})
 }
+
+export const googleLogin = (credential) => async (dispatch) => {
+        try{
+            dispatch({type: USER_LOGIN_REQUEST})
+            const config = {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({'credential': credential})
+            }
+            const response = await fetch(BACKEND_API_BASE_URL + 'users/google/', config)
+            const data = await response.json()
+
+            if (response.ok) {
+                dispatch({type: USER_LOGIN_SUCCESS, payload: data})
+                localStorage.setItem('userInfo', JSON.stringify(data))
+            } else {
+                dispatch({type: USER_LOGIN_FAIL, payload: data.detail || 'Google login failed'})
+            }
+        }catch(error){
+            dispatch({type: USER_LOGIN_FAIL, payload: error.message})
+        }
+}
 export const register = (firstName, lastName, email, password) => async (dispatch) => {
         try{
             dispatch({type: USER_REGISTER_REQUEST})
