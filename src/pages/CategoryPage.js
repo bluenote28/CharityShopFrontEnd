@@ -2,6 +2,7 @@ import DisplayListings from '../components/DisplayListings'
 import { Row, Col, Container, Button } from 'react-bootstrap';
 import { useSearchParams } from 'react-router-dom';
 import { FILTER_OPTIONS } from '../constants/categoryFilterOptions'
+import FavoriteCharitiesFilter from '../components/FavoriteCharitiesFilter'
 
 function CategoryPage() {
 
@@ -25,6 +26,9 @@ function CategoryPage() {
     }
     if (item.search) {
       params.set('search', item.search)
+    }
+    if (searchParams.get('favoriteCharities') === '1') {
+      params.set('favoriteCharities', '1')
     }
     setSearchParams(params)
   }
@@ -59,6 +63,11 @@ function CategoryPage() {
         <Row className='mt-2'>
           <Col className="d-flex flex-wrap">
             {subCategoryBar()}
+          </Col>
+        </Row>
+        <Row className="mt-2">
+          <Col>
+            <FavoriteCharitiesFilter />
           </Col>
         </Row>
       </Container>
