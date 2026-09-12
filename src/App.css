@@ -256,6 +256,10 @@ footer img {
   text-decoration: underline;
 }
 
+.favorite-charities-filter {
+  width: auto;
+}
+
 .seller-description {
   word-break: break-word;
   max-height: 20rem;
