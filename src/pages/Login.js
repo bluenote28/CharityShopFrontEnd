@@ -6,6 +6,7 @@ import { login } from '../actions/userActions'
 import LoginFormContainer from '../components/LoginFormContainer'
 import FormPageLayout from '../components/FormPageLayout'
 import AlertBox from '../components/Alert'
+import GoogleLoginButton from '../components/GoogleLoginButton'
 
 function LoginPage() {
 
@@ -55,6 +56,8 @@ function LoginPage() {
                         Sign In
                     </Button>
                 </Form>
+
+                <GoogleLoginButton />
 
                 <Row className='py-1 mt-2'>
                     <Col>
