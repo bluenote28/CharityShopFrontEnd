@@ -14,8 +14,12 @@ import countItemCategories from '../utilities/countItemCategories';
 function DisplayListings(props) {
   const [searchParams, setSearchParams] = useSearchParams();
   const page = Math.max(1, parseInt(searchParams.get('page'), 10) || 1);
-  const user = useSelector((state) => state.userLogin);
-  const { userInfo } = user;
+  const favoriteCharitiesOnly = searchParams.get('favoriteCharities') === '1' && !props.charityId;
+  const favoritesData = useSelector((state) => state.favorites);
+  const { favorites, loading: favoritesLoading } = favoritesData;
+  const favoriteCharityIds = favoriteCharitiesOnly
+    ? (favorites?.charities || []).map((charity) => charity.id).filter((id) => id != null && id !== '')
+    : null;
 
   function goToPage(nextPage) {
     const params = new URLSearchParams(searchParams);
@@ -28,10 +32,20 @@ function DisplayListings(props) {
     window.scrollTo({ top: 0, behavior: 'instant' });
   }
 
+  const charityIdsKey = favoriteCharityIds ? favoriteCharityIds.join(',') : '';
   const { isPending, isError, data, error } = useQuery({
-    queryKey: [`${props.search}${props.subCategory}${props.filter}${props.charityId}${page}`],
-    queryFn: () => getItems(null, props.search, props.subCategory, props.filter, page, props.charityId),
+    queryKey: [`${props.search}${props.subCategory}${props.filter}${props.charityId}${page}${charityIdsKey}${favoriteCharitiesOnly}`],
+    queryFn: () => getItems(null, props.search, props.subCategory, props.filter, page, props.charityId, favoriteCharityIds),
+    enabled: !favoriteCharitiesOnly || favoriteCharityIds.length > 0,
   })
+
+  if (favoriteCharitiesOnly && favoritesLoading && !favorites) {
+    return <NormalSpinner />
+  }
+
+  if (favoriteCharitiesOnly && favoriteCharityIds.length === 0) {
+    return <p style={{textAlign: 'center'}}>Star charities on the Charities page to see items that benefit them.</p>
+  }
 
   if (isPending){
     return <NormalSpinner />
@@ -42,7 +56,13 @@ function DisplayListings(props) {
   }
 
   if (data.results.length === 0 && !isPending){
-      return <p style={{textAlign: 'center'}}>No items to display</p>
+      return (
+        <p style={{textAlign: 'center'}}>
+          {favoriteCharitiesOnly
+            ? 'No items from your favorite charities to display'
+            : 'No items to display'}
+        </p>
+      )
   }
   
   else{
