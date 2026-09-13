@@ -3,7 +3,6 @@ import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-route
 import SearchPage from './pages/SearchPage';
 import AdminPage from './pages/Admin';
 import LoginPage from './pages/Login';
-import RegisterPage from './pages/RegisterPage';
 import ProfilePage from './pages/ProfilePage';
 import ItemPage from './pages/ItemPage';
 import HomePage from './pages/HomePage';
@@ -58,7 +57,6 @@ function App() {
         <Route path='/search' Component={SearchPage} />
         <Route path='/admin' Component={AdminPage} exact />
         <Route path='/login' Component={LoginPage} exact />
-        <Route path='/register' Component={RegisterPage} exact />
         <Route path='/profile' Component={ProfilePage} exact />
         <Route path='/favorites' Component={FavoritesPage} exact />
         <Route path='/purchases' Component={PurchasesPage} exact />
