@@ -9,6 +9,7 @@ export const CATEGORY_OPTIONS = [
         {value: "toys", label: "Toys & Hobbies"},
         {value: "videoGames", label: "Video Games & Consoles"},
         {value: "computer", label: "Computers/Tablets & Networking"},
+        {value: "electronics", label: "Electronics"},
         {value: "jewelry", label: "Jewelry & Watches"},
         {value: "books", label: "Books & Magazines"},
         {value: "crafts", label: "Crafts"},
@@ -107,6 +108,27 @@ export const FILTER_OPTIONS = {
         {label: "Embroidery & Cross Stitch", subCategory: "Embroidery & Cross Stitch", filter: null, search: null},
         {label: "Kids' Crafts", subCategory: "Kids' Crafts", filter: null, search: null},
         {label: "Craft Kits", subCategory: "Craft Kits", filter: null, search: null}
+        ],
+
+        "Electronics": [
+        {label: "TVs", subCategory: "TVs", filter: null, search: null},
+        {label: "Remote Controls", subCategory: "Remote Controls", filter: null, search: null},
+        {label: "DVD & Blu-ray Players", subCategory: "DVD & Blu-ray Players", filter: null, search: null},
+        {label: "Media Streamers", subCategory: "Media Streamers", filter: null, search: null},
+        {label: "Video Cables & Interconnects", subCategory: "Video Cables & Interconnects", filter: null, search: null},
+        {label: "Home Theater Projectors", subCategory: "Home Theater Projectors", filter: null, search: null},
+        {label: "Headphones", subCategory: "Headphones", filter: null, search: null},
+        {label: "Portable Audio", subCategory: "Portable Audio & Headphones", filter: null, search: null},
+        {label: "Cell Phones", subCategory: "Cell Phones & Smartphones", filter: null, search: null},
+        {label: "Phone Cases, Covers & Skins", subCategory: "Cases, Covers & Skins", filter: null, search: null},
+        {label: "Phone Accessories", subCategory: "Cell Phones & Accessories", filter: null, search: null},
+        {label: "Cameras & Photo", subCategory: "Cameras & Photo", filter: null, search: null},
+        {label: "Smart Watches", subCategory: "Smart Watches", filter: null, search: null},
+        {label: "Home Audio", subCategory: "Home Audio", filter: null, search: null},
+        {label: "Vintage Electronics", subCategory: "Vintage Electronics", filter: null, search: null},
+        {label: "Smart Home", subCategory: "Surveillance & Smart Home Electronics", filter: null, search: null},
+        {label: "Batteries & Power", subCategory: "Multipurpose Batteries & Power", filter: null, search: null},
+        {label: "Virtual Reality", subCategory: "Virtual Reality", filter: null, search: null}
         ],
 
         "Jewelry & Watches": [
