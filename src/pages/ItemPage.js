@@ -9,6 +9,7 @@ import { getSingleItem, recordPurchase } from '../utilities/BackEndClient';
 import CharityDisplay from '../components/CharityDisplay';
 import ItemImageCarousel from '../components/ItemImageCarousel';
 import FavoritesButton from '../components/FavoritesButton';
+import AiChat from '../components/AiChat';
 import { useLocation } from 'react-router-dom';
 
 function todaysDate() {
@@ -29,6 +30,28 @@ function formatDonationPercentage(value) {
     return number.toFixed(1);
 }
 
+function stateBelongsToItem(state, itemId) {
+    if (!state || itemId == null || itemId === '') {
+        return false;
+    }
+    const stateId = state.ebay_id || state.id;
+    return stateId != null && String(stateId) === String(itemId);
+}
+
+function isCurrentItem(item, itemId) {
+    if (!item || itemId == null || itemId === '') {
+        return false;
+    }
+    if (item.ebay_id != null && String(item.ebay_id) === String(itemId)) {
+        return true;
+    }
+    return item.id != null && String(item.id) === String(itemId);
+}
+
+function ebayListingUrl(itemId) {
+    return `https://www.ebay.com/itm/${itemId}`;
+}
+
 function ItemPage() {
 
     const { item_id } = useParams()
@@ -40,13 +63,16 @@ function ItemPage() {
     const { userInfo } = userLogin;
     const [charity, setCharity] = useState(null);
     const location = useLocation();
-    const [itemData, setItemData] = useState(location.state || {});
+    const [itemData, setItemData] = useState(() => (
+      stateBelongsToItem(location.state, item_id) ? location.state : {}
+    ));
     const [loadingItem, setLoadingItem ] = useState(false)
     const [loadingSellerDescription, setLoadingSellerDescription] = useState(
       Boolean((location.state || {}).name) && (location.state || {}).seller_description == null
     )
     const [showPurchasePrompt, setShowPurchasePrompt] = useState(false)
     const [savingPurchase, setSavingPurchase] = useState(false)
+    const [itemFetched, setItemFetched] = useState(false)
 
     useEffect(() => {
       if (!loading && (!charities || charities.length === 0)){
@@ -55,30 +81,54 @@ function ItemPage() {
     }, [dispatch, charities, loading]);
 
     useEffect(() => {
+      const next = stateBelongsToItem(location.state, item_id) ? location.state : {};
+      setItemData(next);
+      setCharity(null);
+      setItemFetched(false);
+      setLoadingItem(!next.name);
+      setLoadingSellerDescription(Boolean(next.name) && next.seller_description == null);
+    }, [item_id]);
+
+    useEffect(() => {
+      let cancelled = false;
+
       async function fetchItem() {
-          if (itemData.name && itemData.donation_percentage != null && itemData.seller_description != null) {
-            return;
-          }
           if (!itemData.name) {
             setLoadingItem(true);
           }
           if (itemData.name && itemData.seller_description == null) {
             setLoadingSellerDescription(true);
           }
-          const data = await getSingleItem(item_id);
-          setItemData((current) => ({ ...current, ...data }));
-          setLoadingItem(false);
-          setLoadingSellerDescription(false);
+          try {
+            const data = await getSingleItem(item_id);
+            if (!cancelled) {
+              setItemData((current) => (
+                stateBelongsToItem(current, item_id) ? { ...current, ...data } : data
+              ));
+            }
+          } finally {
+            if (!cancelled) {
+              setLoadingItem(false);
+              setLoadingSellerDescription(false);
+              setItemFetched(true);
+            }
+          }
         }
       fetchItem();
-    }, [item_id, itemData.name, itemData.donation_percentage, itemData.seller_description]);
+      return () => {
+        cancelled = true;
+      };
+    }, [item_id]);
+
+    const ebayLink = ebayListingUrl(item_id);
+    const itemIsCurrent = isCurrentItem(itemData, item_id);
 
     useEffect(() => {
-      if (!charity && !loading && itemData) {
+      if (!loading && itemIsCurrent && itemData) {
         const foundCharity = charities.find((c) => c.id === itemData.charity);
         setCharity(foundCharity);
       }
-    }, [itemData, charities, charity, loading])
+    }, [itemData, charities, loading, itemIsCurrent])
 
     function handleClick(e, url){
         e.preventDefault()
@@ -169,7 +219,7 @@ function ItemPage() {
                   </Row>
               </Container>
               <ButtonGroup className='mt-3 w-100'>
-                <Button variant="primary" onClick={(e) => handleClick(e, itemData.url || itemData.web_url)}>Go to item on Ebay</Button>
+                <Button variant="primary" onClick={(e) => handleClick(e, ebayLink)}>Go to item on Ebay</Button>
               </ButtonGroup>
               {userInfo && (
                 <div className="mt-2 w-100">
@@ -198,6 +248,19 @@ function ItemPage() {
               </Col>
             </Row>
           )}
+
+          <Row className="mt-4">
+            <Col>
+              <AiChat
+                itemId={item_id}
+                itemName={itemData.name}
+                ebayId={itemData.ebay_id || item_id}
+                existingDescription={itemData.ai_description}
+                enabled={itemIsCurrent}
+                ready={itemFetched}
+              />
+            </Col>
+          </Row>
 
           <Row>
             <Col>
