@@ -73,7 +73,6 @@ function GoogleLoginButton() {
 
   return (
     <div className="google-login">
-      <p className="google-login-divider">or</p>
       <div ref={buttonRef} className="google-login-button" />
       {error && <p className="text-danger mt-2 mb-0">{error}</p>}
     </div>
