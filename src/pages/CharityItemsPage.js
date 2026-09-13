@@ -4,6 +4,7 @@ import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import DisplayListings from '../components/DisplayListings';
 import CharityDisplay from '../components/CharityDisplay';
+import CharityCategoryFilter from '../components/CharityCategoryFilter';
 import NormalSpinner from '../components/Spinner';
 
 function CharityItemsPage() {
@@ -11,6 +12,7 @@ function CharityItemsPage() {
     const navigate = useNavigate();
     const [searchParams, setSearchParams] = useSearchParams();
     const searchText = searchParams.get('search') || '';
+    const category = searchParams.get('category') || '';
     const [searchInput, setSearchInput] = useState(searchText);
     const charitiesState = useSelector((state) => state.charities);
     const { loading, charities } = charitiesState;
@@ -76,10 +78,15 @@ function CharityItemsPage() {
                 />
                 <Button className="mx-1" variant="primary" type="submit">Search</Button>
             </Form>
+            <CharityCategoryFilter charityId={charityId} />
             {searchText && (
                 <h2 className="text-center mb-4">Search results for: {searchText}</h2>
             )}
-            <DisplayListings charityId={charityId} search={searchText || null} />
+            <DisplayListings
+                charityId={charityId}
+                search={searchText || null}
+                category={category || null}
+            />
         </Container>
     );
 }
