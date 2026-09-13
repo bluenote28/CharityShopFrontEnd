@@ -1,7 +1,30 @@
 import { useEffect, useState } from 'react'
 import { Button, Form } from 'react-bootstrap'
+import Markdown from 'markdown-to-jsx'
 import { getAiDescription } from '../utilities/BackEndClient'
 import NormalSpinner from './Spinner'
+
+const markdownOptions = {
+  disableParsingRawHTML: true,
+  forceBlock: true,
+  forceWrapper: true,
+  wrapper: 'div',
+  wrapperProps: { className: 'ai-chat-markdown' },
+  overrides: {
+    a: {
+      props: {
+        target: '_blank',
+        rel: 'noopener noreferrer',
+      },
+    },
+  },
+}
+
+function unwrapMarkdownFence(text) {
+  const trimmed = text.trim()
+  const fenced = trimmed.match(/^```(?:markdown|md)?\s*\r?\n([\s\S]*?)\r?\n```$/)
+  return fenced ? fenced[1].trim() : trimmed
+}
 
 function isValidAiDescription(value) {
   if (typeof value !== 'string') {
@@ -115,8 +138,10 @@ function AiChat({ itemId, itemName, ebayId, existingDescription, enabled, ready 
           </div>
         )}
         {!loading && description && (
-          <div className="ai-chat-bubble ai-chat-bubble-assistant">
-            {description}
+          <div className="ai-chat-bubble ai-chat-bubble-assistant ai-chat-bubble-markdown">
+            <Markdown options={markdownOptions}>
+              {unwrapMarkdownFence(description)}
+            </Markdown>
           </div>
         )}
         {!loading && !error && !description && (
