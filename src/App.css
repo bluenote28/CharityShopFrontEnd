@@ -260,6 +260,14 @@ footer img {
   width: auto;
 }
 
+.charity-category-filter {
+  max-width: 28rem;
+}
+
+.charity-category-select__menu {
+  z-index: 5;
+}
+
 .google-login {
   margin-top: 1rem;
 }
