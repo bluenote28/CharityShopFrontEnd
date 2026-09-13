@@ -75,11 +75,11 @@ function DisplayListings(props) {
         <>          
         <Container className="px-2 px-sm-3">
             {   
-              data.results.map((item, index) => { 
+              data.results.map((item) => { 
                   return (
-                  <div key={index}>        
+                  <div key={item.ebay_id}>        
                       {error ? <p>{error}</p>:
-                        <Row key={index} className='mb-3'>
+                        <Row className='mb-3'>
                           <ItemListing
                           name={item.name} 
                           img_url={item.img_url} 
