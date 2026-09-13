@@ -47,12 +47,12 @@ async function apiPost(url, body, token=null){
     return data
 }
 
-export function getItems(item_id=null, search_text=null, category_id=null, filter=null, page=1, charity_id=null, charity_ids=null){
+export function getItems(item_id=null, search_text=null, category_id=null, filter=null, page=1, charity_id=null, charity_ids=null, category=null){
 
         var data = [];
         var url = ""
 
-        console.log("Fetching items with params:", {item_id, search_text, category_id, filter, page, charity_id, charity_ids})
+        console.log("Fetching items with params:", {item_id, search_text, category_id, filter, page, charity_id, charity_ids, category})
 
         if (item_id){
             url = BACKEND_API_BASE_URL + 'items/ebaycharityitems/' + item_id
@@ -60,10 +60,16 @@ export function getItems(item_id=null, search_text=null, category_id=null, filte
         }
         else if (charity_id && search_text){
           url = BACKEND_API_BASE_URL + 'items/ebaycharityitems/charity/' + charity_id + '/search/' + encodeURIComponent(search_text) + "?page=" + page
+          if (category) {
+            url += '&category=' + encodeURIComponent(category)
+          }
           data = apiCall(url)
         }
         else if (charity_id){
             url = BACKEND_API_BASE_URL + 'items/ebaycharityitems/charity/' + charity_id + "?page=" + page
+            if (category) {
+              url += '&category=' + encodeURIComponent(category)
+            }
             data = apiCall(url)
         }
         else if (category_id){
@@ -91,6 +97,10 @@ export function getItems(item_id=null, search_text=null, category_id=null, filte
         }
 
         return data;
+}
+
+export function getCharityCategories(charity_id){
+   return apiCall(BACKEND_API_BASE_URL + 'items/ebaycharityitems/charity/' + charity_id + '/categories')
 }
 
 export function getSingleItem(item_id){
