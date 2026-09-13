@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react'
 import { Button, Form } from 'react-bootstrap'
 import Markdown from 'markdown-to-jsx'
 import { getAiDescription } from '../utilities/BackEndClient'
-import NormalSpinner from './Spinner'
 
 const markdownOptions = {
   disableParsingRawHTML: true,
@@ -128,8 +127,8 @@ function AiChat({ itemId, itemName, ebayId, existingDescription, enabled, ready 
       <div className="ai-chat-header">AI Assistant</div>
       <div className="ai-chat-messages" aria-live="polite">
         {loading && (
-          <div className="ai-chat-status">
-            <NormalSpinner />
+          <div className="ai-chat-bubble ai-chat-bubble-assistant ai-chat-status-message">
+            AI researching this item<span className="ai-chat-ellipsis" aria-hidden="true" />
           </div>
         )}
         {!loading && error && (
