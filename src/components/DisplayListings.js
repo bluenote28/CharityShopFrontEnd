@@ -34,8 +34,8 @@ function DisplayListings(props) {
 
   const charityIdsKey = favoriteCharityIds ? favoriteCharityIds.join(',') : '';
   const { isPending, isError, data, error } = useQuery({
-    queryKey: [`${props.search}${props.subCategory}${props.filter}${props.charityId}${page}${charityIdsKey}${favoriteCharitiesOnly}`],
-    queryFn: () => getItems(null, props.search, props.subCategory, props.filter, page, props.charityId, favoriteCharityIds),
+    queryKey: [`${props.search}${props.subCategory}${props.filter}${props.charityId}${props.category}${page}${charityIdsKey}${favoriteCharitiesOnly}`],
+    queryFn: () => getItems(null, props.search, props.subCategory, props.filter, page, props.charityId, favoriteCharityIds, props.category),
     enabled: !favoriteCharitiesOnly || favoriteCharityIds.length > 0,
   })
 
