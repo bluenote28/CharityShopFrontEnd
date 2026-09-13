@@ -98,6 +98,14 @@ export function getSingleItem(item_id){
    return response;
 }
 
+export function getAiDescription({ item_link, item_name, ebay_id }){
+    return apiPost(BACKEND_API_BASE_URL + 'ai_assistant/', {
+        ebay_id,
+        item_link,
+        item_name
+    })
+}
+
 export function initiateCheckout(payload){
     return apiPost(BACKEND_API_BASE_URL + 'checkout/initiate/', payload)
 }
