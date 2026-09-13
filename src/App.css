@@ -264,11 +264,6 @@ footer img {
   margin-top: 1rem;
 }
 
-.google-login-divider {
-  text-align: center;
-  margin-bottom: 0.75rem;
-}
-
 .google-login-button {
   display: flex;
   justify-content: flex-start;
