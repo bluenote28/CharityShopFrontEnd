@@ -7,9 +7,7 @@ import ItemListing from './ItemListing'
 import { useQuery } from '@tanstack/react-query'
 import AlertBox from './Alert';
 import { useSearchParams } from 'react-router-dom';
-import ListingFilter from '../utilities/FilterClass';
 import ListingsPagination from './ListingsPagination';
-import countItemCategories from '../utilities/countItemCategories';
 
 function DisplayListings(props) {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -69,16 +67,13 @@ function DisplayListings(props) {
 
       const numOfPages = Math.ceil(data.count / 50)
 
-      //console.log(countItemCategories(data.results))
-
       return (
         <>          
         <Container className="px-2 px-sm-3">
             {   
               data.results.map((item) => { 
                   return (
-                  <div key={item.ebay_id}>        
-                      {error ? <p>{error}</p>:
+                  <div key={item.ebay_id}>
                         <Row className='mb-3'>
                           <ItemListing
                           name={item.name} 
@@ -94,7 +89,6 @@ function DisplayListings(props) {
                           donation_percentage={item.donation_percentage}
                           seller_description={item.seller_description} />
                         </Row>
-                      }
                   </div>
                 )
               })
