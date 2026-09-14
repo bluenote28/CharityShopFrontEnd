@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { Button, Form } from 'react-bootstrap'
 import Markdown from 'markdown-to-jsx'
 import { getAiDescription } from '../utilities/BackEndClient'
@@ -23,14 +23,6 @@ function unwrapMarkdownFence(text) {
   const trimmed = text.trim()
   const fenced = trimmed.match(/^```(?:markdown|md)?\s*\r?\n([\s\S]*?)\r?\n```$/)
   return fenced ? fenced[1].trim() : trimmed
-}
-
-function isValidAiDescription(value) {
-  if (typeof value !== 'string') {
-    return false
-  }
-  const text = value.trim()
-  return text.length > 0 && text !== 'AI description is unavailable'
 }
 
 function extractAiDescription(data) {
@@ -60,10 +52,7 @@ function AiChat({ itemId, itemName, ebayId, existingDescription, enabled, ready 
 
   useEffect(() => {
     const listingId = ebayId || itemId
-    const cachedDescription = isValidAiDescription(existingDescription)
-      ? existingDescription.trim()
-      : ''
-
+   
     if (!enabled || !listingId) {
       setDescription('')
       setError('')
@@ -71,8 +60,8 @@ function AiChat({ itemId, itemName, ebayId, existingDescription, enabled, ready 
       return
     }
 
-    if (cachedDescription) {
-      setDescription(cachedDescription)
+    if (existingDescription) {
+      setDescription(existingDescription)
       setError('')
       setLoading(false)
       return
