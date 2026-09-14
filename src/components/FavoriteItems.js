@@ -75,6 +75,7 @@ function FavoriteItems() {
                 img_url={item.img_url}
                 url={item.web_url}
                 id={item.ebay_id}
+                ebay_id={item.ebay_id}
                 favorites={favorites.items}
                 charity={item.charity}
                 price={item.price}
@@ -84,6 +85,7 @@ function FavoriteItems() {
                 seller={item.seller}
                 donation_percentage={item.donation_percentage}
                 seller_description={item.seller_description}
+                ai_description={item.ai_description}
               />
             </Row>
           ))}

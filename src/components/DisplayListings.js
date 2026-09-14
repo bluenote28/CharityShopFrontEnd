@@ -79,7 +79,8 @@ function DisplayListings(props) {
                           name={item.name} 
                           img_url={item.img_url} 
                           url={item.web_url} 
-                          id={item.ebay_id} 
+                          id={item.ebay_id}
+                          ebay_id={item.ebay_id} 
                           price={item.price} 
                           charity={item.charity}
                           additional_images={item.additional_images} 
@@ -87,7 +88,8 @@ function DisplayListings(props) {
                           condition={item.condition}
                           seller={item.seller}
                           donation_percentage={item.donation_percentage}
-                          seller_description={item.seller_description} />
+                          seller_description={item.seller_description}
+                          ai_description={item.ai_description} />
                         </Row>
                   </div>
                 )
