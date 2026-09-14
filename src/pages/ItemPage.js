@@ -56,7 +56,7 @@ function ItemPage() {
 
     const { item_id } = useParams()
     const charitiesState = useSelector((state) => state.charities);
-    const { errorCharities, loading, charities} = charitiesState;
+    const { loading, charities} = charitiesState;
     const dispatch = useDispatch();
     const navigate = useNavigate()
     const userLogin = useSelector((state) => state.userLogin);
