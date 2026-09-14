@@ -33,7 +33,7 @@ function CharitiesTable(props) {
 
  function updateCharityItemsInDB(id, name, description){
 
-    const client = new DatabaseRefreshApi(userInfo.access)
+    const client = new DatabaseRefreshApi(userInfo?.token || userInfo?.access)
     client.update({'id': id, 'name': name, 'description': description})
     alert("Refresh Action Started")
 

@@ -101,7 +101,7 @@ export class ReportApi extends Api{
     }
 
      async getAllData(){
-        return await this.makeApiCall("GET", this.link + 'report'); 
+        return await this.makeApiCall("GET", this.link + 'report/'); 
     }
 }
 
