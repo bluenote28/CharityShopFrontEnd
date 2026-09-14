@@ -116,30 +116,6 @@ export function getAiDescription({ item_link, item_name, ebay_id }){
     })
 }
 
-export function initiateCheckout(payload){
-    return apiPost(BACKEND_API_BASE_URL + 'checkout/initiate/', payload)
-}
-
-export function getCheckoutSession(session_id){
-    return apiCall(BACKEND_API_BASE_URL + 'checkout/' + session_id + '/')
-}
-
-export function updateShippingOption(session_id, line_item_id, shipping_option_id){
-    return apiPost(BACKEND_API_BASE_URL + 'checkout/' + session_id + '/update_shipping/', { line_item_id, shipping_option_id })
-}
-
-export function applyCoupon(session_id, redemption_code){
-    return apiPost(BACKEND_API_BASE_URL + 'checkout/' + session_id + '/apply_coupon/', { redemption_code })
-}
-
-export function placeOrder(session_id){
-    return apiPost(BACKEND_API_BASE_URL + 'orders/place/' + session_id + '/', {})
-}
-
-export function getOrder(order_id){
-    return apiCall(BACKEND_API_BASE_URL + 'orders/' + order_id + '/')
-}
-
 export function recordPurchase(userId, payload, token){
     return apiPost(BACKEND_API_BASE_URL + 'purchases/' + userId + '/', payload, token)
 }
