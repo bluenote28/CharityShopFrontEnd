@@ -13,6 +13,7 @@ function Footer(){
            <Image src={footerimage} />
            <div className="d-flex flex-row align-items-center gap-3 mb-5">
              <Link to="/about" className="footer-about-link">About</Link>
+             <Link to="/directory" className="footer-about-link">Other Charity Shops</Link>
              {userInfo?.isAdmin && (
                <Link to="/admin" className="footer-about-link">Admin</Link>
              )}
