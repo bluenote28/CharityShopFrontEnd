@@ -58,7 +58,7 @@ function ItemListing(props) {
 
   function handleClick(e, id) {
     e.preventDefault();
-    navigate("/item/" + id, {
+    navigate("/item/" + encodeURIComponent(id), {
       state: props,
   });
   }

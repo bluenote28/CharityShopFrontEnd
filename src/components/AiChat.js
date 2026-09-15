@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import { Button, Form } from 'react-bootstrap'
 import Markdown from 'markdown-to-jsx'
 import { getAiDescription } from '../utilities/BackEndClient'
+import { ebayListingUrl } from '../utilities/Converters'
 
 const markdownOptions = {
   disableParsingRawHTML: true,
@@ -45,7 +46,7 @@ function extractAiDescription(data) {
   return ''
 }
 
-function AiChat({ itemId, itemName, ebayId, existingDescription, enabled, ready }) {
+function AiChat({ itemId, itemName, ebayId, existingDescription, enabled, ready, itemLink }) {
   const [description, setDescription] = useState('')
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
@@ -83,7 +84,7 @@ function AiChat({ itemId, itemName, ebayId, existingDescription, enabled, ready 
       try {
         const data = await getAiDescription({
           ebay_id: listingId,
-          item_link: `https://www.ebay.com/itm/${listingId}`,
+          item_link: ebayListingUrl(listingId, itemLink),
           item_name: itemName,
         })
         if (!cancelled) {
