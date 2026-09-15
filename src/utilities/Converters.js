@@ -13,8 +13,55 @@ export function convertIdToCharityName(charities, id){
 
 }
 
-export function covertUrlToAffiliateLink(link){
-    return link.split("?")[0] + "?amdata=enc%3AAQAKAAAAoFu2GTm2ZGNVXFEsdeNYg5JtV0Mb9vSX--sSMCpph7rYoRXJSjeipe1eovEk1WjxgnuPFJmsfFO%2FlScyT89lDhVFR%2BLKsYsfesJCWUvXtlJtlL8%2Bmk5l%2BEsu0sMS3aaDGjMTkMDtvhvFgqR2%2B%2BHOoJZtMFN1P9wzCR61ANbN5M2LtDraWr%2BlI2qGWzE6UWhduBWbzGye8Bc4ULIT3AVAggM%3D&mkcid=1&mkrid=711-53200-19255-0&siteid=0&campid=5339132551&customid=&toolid=10001&mkevt=1"
+const AFFILIATE_PARAMS = {
+    mkcid: '1',
+    mkrid: '711-53200-19255-0',
+    siteid: '0',
+    campid: '5339132551',
+    customid: '',
+    toolid: '10001',
+    mkevt: '1',
+}
+
+export function ebayLegacyItemId(listingId) {
+    if (listingId == null || listingId === '') {
+        return ''
+    }
+    const value = String(listingId).trim()
+    const match = value.match(/^v\d+\|(\d+)(?:\|\d+)?$/i)
+    if (match) {
+        return match[1]
+    }
+    return value
+}
+
+export function ebayListingUrl(listingId, webUrl) {
+    if (typeof webUrl === 'string' && /^https?:\/\//i.test(webUrl.trim())) {
+        return webUrl.trim()
+    }
+    const itemId = ebayLegacyItemId(listingId)
+    if (!itemId) {
+        return ''
+    }
+    return `https://www.ebay.com/itm/${itemId}`
+}
+
+export function covertUrlToAffiliateLink(link) {
+    if (!link) {
+        return link
+    }
+    try {
+        const url = new URL(link)
+        url.searchParams.delete('amdata')
+        Object.entries(AFFILIATE_PARAMS).forEach(([key, value]) => {
+            url.searchParams.set(key, value)
+        })
+        return url.toString()
+    } catch {
+        const base = String(link).split('?')[0]
+        const params = new URLSearchParams(AFFILIATE_PARAMS)
+        return `${base}?${params.toString()}`
+    }
 }
 
 export function convertItemPageImageUrl(url){
