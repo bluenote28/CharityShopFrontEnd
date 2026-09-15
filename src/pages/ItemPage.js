@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom'
 import NormalSpinner from '../components/Spinner';
 import { Container, Row, Col, Button, ButtonGroup, Modal} from 'react-bootstrap';
-import { convertIdToCharityName, covertUrlToAffiliateLink } from '../utilities/Converters';
+import { convertIdToCharityName, covertUrlToAffiliateLink, ebayListingUrl } from '../utilities/Converters';
 import { useSelector, useDispatch } from "react-redux";
 import { getCharities } from '../actions/charityActions';
 import { getSingleItem, recordPurchase } from '../utilities/BackEndClient';
@@ -46,10 +46,6 @@ function isCurrentItem(item, itemId) {
         return true;
     }
     return item.id != null && String(item.id) === String(itemId);
-}
-
-function ebayListingUrl(itemId) {
-    return `https://www.ebay.com/itm/${itemId}`;
 }
 
 function ItemPage() {
@@ -120,7 +116,10 @@ function ItemPage() {
       };
     }, [item_id]);
 
-    const ebayLink = ebayListingUrl(item_id);
+    const ebayLink = ebayListingUrl(
+      itemData.ebay_id || item_id,
+      itemData.web_url || itemData.url
+    );
     const itemIsCurrent = isCurrentItem(itemData, item_id);
 
     useEffect(() => {
@@ -255,6 +254,7 @@ function ItemPage() {
                 itemId={item_id}
                 itemName={itemData.name}
                 ebayId={itemData.ebay_id || item_id}
+                itemLink={itemData.web_url || itemData.url}
                 existingDescription={itemData.ai_description}
                 enabled={itemIsCurrent}
                 ready={itemFetched}

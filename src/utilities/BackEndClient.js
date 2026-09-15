@@ -104,7 +104,7 @@ export function getCharityCategories(charity_id){
 }
 
 export function getSingleItem(item_id){
-   const response = apiCall(BACKEND_API_BASE_URL + 'items/ebaycharityitems/' + item_id)
+   const response = apiCall(BACKEND_API_BASE_URL + 'items/ebaycharityitems/' + encodeURIComponent(item_id))
    return response;
 }
 
