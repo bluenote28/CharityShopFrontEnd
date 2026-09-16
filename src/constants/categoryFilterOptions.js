@@ -149,17 +149,23 @@ export const FILTER_OPTIONS = {
         {label: "Dictionaries & Reference", subCategory: "Dictionaries & Reference", filter: null, search: null}],
 
         "Toys & Hobbies": [
+        {label: "Toys & Hobbies", subCategory: "Toys & Hobbies", filter: null, search: null},
         {label: "Action Figures", subCategory: "Action Figures", filter: null, search: null},
         {label: "Fisher Price",subCategory: "Fisher Price", filter: null, search: null},
         {label: "Disney", subCategory: "Disney", filter: null, search: null},
         {label: "LEGO (R) Complete Sets & Packs", subCategory: "LEGO (R) Complete Sets & Packs", filter: null, search: null},
         {label: "LEGO (R) Building Toys", subCategory: "LEGO (R) Building Toys", filter: null, search: null},
         {label: "LEGO (R) Bricks, Pieces & Parts", subCategory: "LEGO (R) Bricks, Pieces & Parts", filter: null, search: null},
+        {label: "Collectible Card Games", subCategory: "Collectible Card Games", filter: null, search: null},
         {label: "Puzzles", subCategory: "Puzzles", filter: null, search: null},
+        {label: "Board & Traditional Games", subCategory: "Board & Traditional Games", filter: null, search: null},
         {label: "Electronic Games", subCategory: "Electronic Games", filter: null, search: null},
         {label: "Models & Kits", subCategory: "Models & Kits", filter: null, search: null},
         {label: "Cars: Racing, NASCAR", subCategory: "Cars: Racing, NASCAR", filter: null, search: null},
-        {label: "Star Wars", subCategory: "Star Wars", filter: null, search: null}
+        {label: "Diecast & Toy Vehicles", subCategory: "Diecast & Toy Vehicles", filter: null, search: null},
+        {label: "Railroads & Trains", subCategory: "Railroads & Trains", filter: null, search: null},
+        {label: "Star Wars", subCategory: "Star Wars", filter: null, search: null},
+        {label: "Stuffed Animals", subCategory: "Stuffed Animals", filter: null, search: null},
         ],
 
         "Collectibles": [
