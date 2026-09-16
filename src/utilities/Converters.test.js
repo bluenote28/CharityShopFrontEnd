@@ -2,6 +2,7 @@ import {
   covertUrlToAffiliateLink,
   ebayLegacyItemId,
   ebayListingUrl,
+  ebaySearchAffiliateUrl,
 } from './Converters'
 
 describe('ebay listing URLs', () => {
@@ -32,5 +33,26 @@ describe('ebay listing URLs', () => {
     expect(affiliateUrl.searchParams.has('amdata')).toBe(false)
     expect(affiliateUrl.searchParams.get('campid')).toBe('5339132551')
     expect(affiliateUrl.searchParams.get('mkevt')).toBe('1')
+  })
+})
+
+describe('ebay search affiliate URLs', () => {
+  test('builds a search URL with the query and affiliate params', () => {
+    const url = new URL(ebaySearchAffiliateUrl('vintage lamp'))
+
+    expect(url.origin + url.pathname).toBe('https://www.ebay.com/sch/i.html')
+    expect(url.searchParams.get('_nkw')).toBe('vintage lamp')
+    expect(url.searchParams.get('campid')).toBe('5339132551')
+    expect(url.searchParams.get('mkcid')).toBe('1')
+    expect(url.searchParams.get('mkrid')).toBe('711-53200-19255-0')
+    expect(url.searchParams.get('mkevt')).toBe('1')
+  })
+
+  test('handles empty or missing search text', () => {
+    const url = new URL(ebaySearchAffiliateUrl(''))
+
+    expect(url.origin + url.pathname).toBe('https://www.ebay.com/sch/i.html')
+    expect(url.searchParams.has('_nkw')).toBe(false)
+    expect(url.searchParams.get('campid')).toBe('5339132551')
   })
 })
