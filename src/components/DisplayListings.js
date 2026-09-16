@@ -8,6 +8,7 @@ import { useQuery } from '@tanstack/react-query'
 import AlertBox from './Alert';
 import { useSearchParams } from 'react-router-dom';
 import ListingsPagination from './ListingsPagination';
+import GoToEbayButton from './GoToEbayButton';
 
 function DisplayListings(props) {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -55,11 +56,14 @@ function DisplayListings(props) {
 
   if (data.results.length === 0 && !isPending){
       return (
-        <p style={{textAlign: 'center'}}>
-          {favoriteCharitiesOnly
-            ? 'No items from your favorite charities to display'
-            : 'No items to display'}
-        </p>
+        <div style={{ textAlign: 'center' }}>
+          <p>
+            {favoriteCharitiesOnly
+              ? 'No items from your favorite charities to display'
+              : 'No items to display'}
+          </p>
+          <GoToEbayButton search={props.search} />
+        </div>
       )
   }
   
