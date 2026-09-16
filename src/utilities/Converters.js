@@ -64,6 +64,18 @@ export function covertUrlToAffiliateLink(link) {
     }
 }
 
+export function ebaySearchAffiliateUrl(searchText) {
+    const query = (searchText == null ? '' : String(searchText)).trim()
+    const url = new URL('https://www.ebay.com/sch/i.html')
+    if (query) {
+        url.searchParams.set('_nkw', query)
+    }
+    Object.entries(AFFILIATE_PARAMS).forEach(([key, value]) => {
+        url.searchParams.set(key, value)
+    })
+    return url.toString()
+}
+
 export function convertItemPageImageUrl(url){
     
     if (url == null){
