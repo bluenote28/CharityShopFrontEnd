@@ -2,7 +2,7 @@ const VALID_CHARITY_ID_SIZE = 9;
 const MAX_CHARITY_DESCRIPTION_LENGTH = 700;
 const MAX_CHARITY_NAME_LENGTH = 80;
 const CHARITY_NAME_REGEX = /[^\w\s'\-&.:,]/g;
-const DESCRIPTION_REGEX =  /[^A-Za-z0-9\s.'":;$()%+,&\-\/\u2018\u2019\u201C\u201D]/g;
+const DESCRIPTION_REGEX =  /[^A-Za-z0-9\s.'":;$()%+,&\-/\u2018\u2019\u201C\u201D]/g;
 const REGEX_TYPES = Object.freeze({ 
     DESCRIPTION: "description",
     NAME: "name"
@@ -23,7 +23,7 @@ export function isValidCharityId(id){
 
 export function isValidCharityDescription(description){
 
-        if (description.length > MAX_CHARITY_DESCRIPTION_LENGTH || description.length == 0){
+        if (description.length > MAX_CHARITY_DESCRIPTION_LENGTH || description.length === 0){
             return false;
         }
         else if(hasInvalidCharacters(description, REGEX_TYPES.DESCRIPTION)){
@@ -36,7 +36,7 @@ export function isValidCharityDescription(description){
 
 export function isValidCharityName(name){
 
-        if (name.length > MAX_CHARITY_NAME_LENGTH || name.length == 0){
+        if (name.length > MAX_CHARITY_NAME_LENGTH || name.length === 0){
             return false;
         }
         else if(hasInvalidCharacters(name, REGEX_TYPES.NAME)){
@@ -49,19 +49,19 @@ export function isValidCharityName(name){
 
 function hasInvalidCharacters(inputString, type) {
     
+    let regex;
     switch(type){
         case REGEX_TYPES.NAME:
-            var REGEX = CHARITY_NAME_REGEX;
+            regex = CHARITY_NAME_REGEX;
             break;
         case REGEX_TYPES.DESCRIPTION:
-            var REGEX = DESCRIPTION_REGEX;
-            console.log(inputString.match(DESCRIPTION_REGEX))
+            regex = DESCRIPTION_REGEX;
             break;
         default:
             return false;
     }
     
-    if (inputString.search(REGEX) != -1){
+    if (inputString.search(regex) !== -1){
         return true
     }
     else{

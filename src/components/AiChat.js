@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Button, Form } from 'react-bootstrap'
 import Markdown from 'markdown-to-jsx'
 import { getAiDescription } from '../utilities/BackEndClient'
@@ -110,7 +110,7 @@ function AiChat({ itemId, itemName, ebayId, existingDescription, enabled, ready,
     return () => {
       cancelled = true
     }
-  }, [enabled, ready, ebayId, itemId, itemName, existingDescription])
+  }, [enabled, ready, ebayId, itemId, itemName, itemLink, existingDescription])
 
   return (
     <div className="ai-chat">

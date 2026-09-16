@@ -83,16 +83,18 @@ function ItemPage() {
       setItemFetched(false);
       setLoadingItem(!next.name);
       setLoadingSellerDescription(Boolean(next.name) && next.seller_description == null);
-    }, [item_id]);
+    }, [item_id, location.state]);
 
     useEffect(() => {
       let cancelled = false;
+      const hasName = Boolean(stateBelongsToItem(location.state, item_id) && location.state.name);
+      const needsSellerDescription = hasName && location.state.seller_description == null;
 
       async function fetchItem() {
-          if (!itemData.name) {
+          if (!hasName) {
             setLoadingItem(true);
           }
-          if (itemData.name && itemData.seller_description == null) {
+          if (needsSellerDescription) {
             setLoadingSellerDescription(true);
           }
           try {
@@ -114,7 +116,7 @@ function ItemPage() {
       return () => {
         cancelled = true;
       };
-    }, [item_id]);
+    }, [item_id, location.state]);
 
     const ebayLink = ebayListingUrl(
       itemData.ebay_id || item_id,

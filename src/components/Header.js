@@ -33,7 +33,7 @@ function Header() {
                     <SearchBar />
                   </Container>
                   
-                  {userInfo.name != " " ?
+                  {userInfo.name !== " " ?
                   <>
                   <NavDropdown title={userInfo.name} id="basic-nav-dropdown">
                     <NavDropdown.Item href="/profile">Profile</NavDropdown.Item>

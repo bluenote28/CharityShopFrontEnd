@@ -24,7 +24,7 @@ function AdminPage() {
         if (!loading && !charities){
            dispatch(getCharities())
         };
-    }, [dispatch, charities])
+    }, [dispatch, charities, loading])
       
   function deleteItemsFromDB(){
       const client = new DatabaseRefreshApi(userInfo?.token || userInfo?.access)
