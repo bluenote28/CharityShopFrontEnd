@@ -165,6 +165,8 @@ export const FILTER_OPTIONS = {
         "Collectibles": [
         { label: "Sports Trading Cards", subCategory: "Sports Trading Cards", filter: null, search: null},
         { label: "Non-Sport Trading Cards", subCategory: "Non-Sport Trading Cards", filter: null, search: null},
+        { label: "Pokemon Cards", subCategory: "Non-Sport Trading Cards", filter: null, search: "pokemon" },
+        { label: "MTG Cards", subCategory: "Non-Sport Trading Cards", filter: null, search: "mtg"},
         { label: "Trading Card Lots", subCategory: "Trading Card Lots", filter: null, search: null},
         { label: "Comics", subCategory: "Comics", filter: null, search: null},
         { label: "Coins", subCategory: "Coins", filter: null, search: null},
