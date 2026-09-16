@@ -34,6 +34,7 @@ function DisplayListings(props) {
   }
   
   else{
+      console.log(data.results)
 
       const numOfPages = Math.ceil(data.count / 50)
       const prevPaginationItems = [<Pagination.First onClick={() => {setPage(1); window.scrollTo({ top: 0, behavior: 'instant' });}} />, 
