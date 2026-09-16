@@ -64,6 +64,7 @@ function DisplayListings(props) {
   }
   
   else{
+    
       console.log(data.results)
 
       const numOfPages = Math.ceil(data.count / 50)
