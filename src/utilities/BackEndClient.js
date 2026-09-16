@@ -1,30 +1,39 @@
 import { BACKEND_API_BASE_URL } from "../constants/apiContants";
 
-async function apiCall(url){
+async function apiCall(url, token=null){
+    const headers = {
+        'Content-Type': 'application/json'
+    }
+    if (token) {
+        headers.Authorization = `Bearer ${token}`
+    }
 
     const config = {
             method: 'GET',
-            headers: {
-                'Content-Type': 'application/json'
-            }
+            headers
     }
 
     const response = await fetch(url, config)
     const data = await response.json()
 
     if (response.status !== 200){
-        throw new Error(data.message || 'API call failed')
+        throw new Error(data.detail || data.message || 'API call failed')
     }
 
     return data
 }
 
-async function apiPost(url, body){
+async function apiPost(url, body, token=null){
+    const headers = {
+        'Content-Type': 'application/json'
+    }
+    if (token) {
+        headers.Authorization = `Bearer ${token}`
+    }
+
     const config = {
         method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
+        headers,
         body: JSON.stringify(body)
     }
 
@@ -38,58 +47,79 @@ async function apiPost(url, body){
     return data
 }
 
-export function getItems(item_id=null, search_text=null, category_id=null, filter=null, page=1){
+export function getItems(item_id=null, search_text=null, category_id=null, filter=null, page=1, charity_id=null, charity_ids=null, category=null){
 
         var data = [];
         var url = ""
 
-        console.log("Fetching items with params:", {item_id, search_text, category_id, filter, page})
+        console.log("Fetching items with params:", {item_id, search_text, category_id, filter, page, charity_id, charity_ids, category})
 
         if (item_id){
             url = BACKEND_API_BASE_URL + 'items/ebaycharityitems/' + item_id
             data = apiCall(url)
         }
-        else if (search_text){
-          url = BACKEND_API_BASE_URL + 'items/ebaycharityitems/search/' + search_text + "?page=" + page
+        else if (charity_id && search_text){
+          url = BACKEND_API_BASE_URL + 'items/ebaycharityitems/charity/' + charity_id + '/search/' + encodeURIComponent(search_text) + "?page=" + page
+          if (category) {
+            url += '&category=' + encodeURIComponent(category)
+          }
           data = apiCall(url)
         }
-        else if (category_id && filter){
-            url = BACKEND_API_BASE_URL + 'items/ebaycharityitems/category/' + encodeURIComponent(category_id) + `/${filter}` + "?page=" + page
+        else if (charity_id){
+            url = BACKEND_API_BASE_URL + 'items/ebaycharityitems/charity/' + charity_id + "?page=" + page
+            if (category) {
+              url += '&category=' + encodeURIComponent(category)
+            }
             data = apiCall(url)
         }
         else if (category_id){
-            url = BACKEND_API_BASE_URL + 'items/ebaycharityitems/category/' + encodeURIComponent(category_id) + "?page=" + page
+            const params = new URLSearchParams()
+            params.set('category', category_id)
+            params.set('page', String(page))
+            if (filter) {
+                params.set('filter', filter)
+            }
+            if (search_text) {
+                params.set('search', search_text)
+            }
+            if (charity_ids?.length) {
+                params.set('charity_ids', charity_ids.join(','))
+            }
+            url = BACKEND_API_BASE_URL + 'items/ebaycharityitems/category?' + params.toString()
             data = apiCall(url)
+        }
+        else if (search_text){
+          url = BACKEND_API_BASE_URL + 'items/ebaycharityitems/search/' + encodeURIComponent(search_text) + "?page=" + page
+          if (charity_ids?.length) {
+            url += '&charity_ids=' + encodeURIComponent(charity_ids.join(','))
+          }
+          data = apiCall(url)
         }
 
         return data;
 }
 
+export function getCharityCategories(charity_id){
+   return apiCall(BACKEND_API_BASE_URL + 'items/ebaycharityitems/charity/' + charity_id + '/categories')
+}
+
 export function getSingleItem(item_id){
-   const response = apiCall(BACKEND_API_BASE_URL + 'items/ebaycharityitems/' + item_id)
+   const response = apiCall(BACKEND_API_BASE_URL + 'items/ebaycharityitems/' + encodeURIComponent(item_id))
    return response;
 }
 
-export function initiateCheckout(payload){
-    return apiPost(BACKEND_API_BASE_URL + 'checkout/initiate/', payload)
+export function getAiDescription({ item_link, item_name, ebay_id }){
+    return apiPost(BACKEND_API_BASE_URL + 'ai_assistant/', {
+        ebay_id,
+        item_link,
+        item_name
+    })
 }
 
-export function getCheckoutSession(session_id){
-    return apiCall(BACKEND_API_BASE_URL + 'checkout/' + session_id + '/')
+export function recordPurchase(userId, payload, token){
+    return apiPost(BACKEND_API_BASE_URL + 'purchases/' + userId + '/', payload, token)
 }
 
-export function updateShippingOption(session_id, line_item_id, shipping_option_id){
-    return apiPost(BACKEND_API_BASE_URL + 'checkout/' + session_id + '/update_shipping/', { line_item_id, shipping_option_id })
-}
-
-export function applyCoupon(session_id, redemption_code){
-    return apiPost(BACKEND_API_BASE_URL + 'checkout/' + session_id + '/apply_coupon/', { redemption_code })
-}
-
-export function placeOrder(session_id){
-    return apiPost(BACKEND_API_BASE_URL + 'orders/place/' + session_id + '/', {})
-}
-
-export function getOrder(order_id){
-    return apiCall(BACKEND_API_BASE_URL + 'orders/' + order_id + '/')
+export function getPurchases(userId, token){
+    return apiCall(BACKEND_API_BASE_URL + 'purchases/' + userId + '/', token)
 }

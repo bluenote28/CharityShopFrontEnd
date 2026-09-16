@@ -4,9 +4,10 @@ import Image from 'react-bootstrap/Image';
 function CategoryIcon(props) {
 
 return (
-  <Col>
-      <Image src={props.src} fluid rounded 
+  <Col xs={6} md={4} className="mb-2 mb-md-3">
+      <Image src={props.src} alt={props.label || ''} fluid rounded 
         onClick={props.onclick}
+        className="home-category-icon"
         style={{ cursor: 'pointer' }} />
   </Col>
   );

@@ -27,7 +27,7 @@ function AdminPage() {
     }, [dispatch, charities])
       
   function deleteItemsFromDB(){
-      const client = new DatabaseRefreshApi(userInfo.access)
+      const client = new DatabaseRefreshApi(userInfo?.token || userInfo?.access)
       client.deleteItems()
       alert("Delete Action Started")
   }

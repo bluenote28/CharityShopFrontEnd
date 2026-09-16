@@ -23,27 +23,26 @@ function CharitiesTable(props) {
         setFilteredData(allData);
     }
     setFilteredData(data.filter((item) => {
-        return item.name.toLowerCase().includes(search.toLowerCase())
+        return (item?.name || '').toLowerCase().includes(search.toLowerCase())
     }));
  }
 
  function deleteButtonClick(id) {
-    
     dispatch(deleteCharity(id))
-  
-    window.location.reload();
  }
 
  function updateCharityItemsInDB(id, name, description){
 
-    const client = new DatabaseRefreshApi(userInfo.access)
+    const client = new DatabaseRefreshApi(userInfo?.token || userInfo?.access)
     client.update({'id': id, 'name': name, 'description': description})
+    alert("Refresh Action Started")
 
  }
 
   return (
     <>
         <Form.Control className='mb-3' type="id" placeholder="Search" onChange={(e) => searchCharity(allData,e.target.value)}/>
+        <div className={filteredData?.length > 10 ? 'charities-table-scroll' : undefined}>
         <Table striped>
           <thead>
             <tr>
@@ -79,6 +78,7 @@ function CharitiesTable(props) {
 
           </tbody>
         </Table>
+        </div>
     </>
   );
 }

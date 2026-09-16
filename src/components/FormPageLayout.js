@@ -9,10 +9,10 @@ function FormPageLayout({children}){
 
 return (    
     <Container>
-            <Row>
-                <Col></Col>
-                <Col>{children}</Col>
-                <Col></Col>
+            <Row className="justify-content-center">
+                <Col xs={12} sm={10} md={6} lg={5}>
+                    {children}
+                </Col>
             </Row>
     </Container>
 )

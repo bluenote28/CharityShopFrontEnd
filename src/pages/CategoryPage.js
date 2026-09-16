@@ -1,54 +1,81 @@
-import { useState } from 'react'
 import DisplayListings from '../components/DisplayListings'
-import { Row, Col, Container, Button, ButtonGroup } from 'react-bootstrap';
+import { Row, Col, Container, Button } from 'react-bootstrap';
 import { useSearchParams } from 'react-router-dom';
 import { FILTER_OPTIONS } from '../constants/categoryFilterOptions'
-import formatItemsIntoRows from '../utilities/ItemsGridFormatter'
+import FavoriteCharitiesFilter from '../components/FavoriteCharitiesFilter'
 
 function CategoryPage() {
 
-  const [searchParams] = useSearchParams();
+  const [searchParams, setSearchParams] = useSearchParams();
   const category = searchParams.get('category')
-  const [subCategory, setSubCategory] = useState(null)
-  const [filter, setFilter] = useState(null)
-  const CATEGORY_BUTTON_GROUP_PER_ROW = 5;
-  const subCategoryOptions = formatItemsIntoRows(FILTER_OPTIONS[category], CATEGORY_BUTTON_GROUP_PER_ROW)
-  const [categorySelected, setCategorySelected] = useState(false)
+  const subCategory = searchParams.get('subCategory')
+  const filter = searchParams.get('filter')
+  const search = searchParams.get('search')
+  const subCategoryOptions = FILTER_OPTIONS[category] || []
+
+  function selectSubCategory(item) {
+    const params = new URLSearchParams()
+    if (category) {
+      params.set('category', category)
+    }
+    if (item.subCategory) {
+      params.set('subCategory', item.subCategory)
+    }
+    if (item.filter) {
+      params.set('filter', item.filter)
+    }
+    if (item.search) {
+      params.set('search', item.search)
+    }
+    if (searchParams.get('favoriteCharities') === '1') {
+      params.set('favoriteCharities', '1')
+    }
+    setSearchParams(params)
+  }
+
+  function isSelected(item) {
+    if (item.subCategory !== subCategory) {
+      return false;
+    }
+    if ((item.filter || null) !== (filter || null)) {
+      return false;
+    }
+    return (item.search || null) === (search || null);
+  }
 
   function subCategoryBar(){
-
-    return (
-      subCategoryOptions?.map((item, index) => {
-        return (
-          <ButtonGroup key={index*123} size='sm'>
-            {
-              item.map((item, index) => {
-                return (
-                      <Button style={{margin: "1px"}} key={index} variant="outline-secondary" onClick={
-                        () => {setSubCategory(item.subCategory); setCategorySelected(true); setFilter(item.filter) 
-                        }}>{item.label}</Button>
-                      )
-                })
-            }
-
-          </ButtonGroup>
-        )
-      }
+    return subCategoryOptions.map((item, index) => (
+      <Button
+        key={index}
+        size="sm"
+        className="m-1"
+        variant={isSelected(item) ? "secondary" : "outline-secondary"}
+        onClick={() => selectSubCategory(item)}
+      >
+        {item.label}
+      </Button>
     ))
   }
 
   return (
     <>           
       <Container className='mb-3 mt-1 p-2 border rounded-3'>
-        <Row className='mt-2'> 
-          {subCategoryBar()}
+        <Row className='mt-2'>
+          <Col className="d-flex flex-wrap">
+            {subCategoryBar()}
+          </Col>
+        </Row>
+        <Row className="mt-2">
+          <Col>
+            <FavoriteCharitiesFilter />
+          </Col>
         </Row>
       </Container>
       
       <Container>
         <Row>
             {
-              categorySelected ? <Col><DisplayListings subCategory={subCategory} filter={filter} /></Col>
+              subCategory ? <Col><DisplayListings subCategory={subCategory} filter={filter} search={search} /></Col>
               : <p style={{textAlign: "center"}}>Please Select a Category</p>
             }
         </Row>

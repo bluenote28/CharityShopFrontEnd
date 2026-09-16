@@ -12,7 +12,6 @@ function Header() {
   const user = useSelector((state) => state.userLogin);
   const { userInfo } = user
   const dispatch = useDispatch();
-  const SEARCH_BAR_WIDTH= "500px"
 
   const logoutHandler = () => {
     dispatch(logout());
@@ -26,14 +25,11 @@ function Header() {
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className='mx-auto'>
              <Nav.Link as={Link} to="/">Home</Nav.Link>
+             <Nav.Link as={Link} to="/charities">Charities</Nav.Link>
            
              {userInfo ? (
                 <>
-                  {userInfo.isAdmin && (
-                    <Nav.Link as={Link} to="/admin">Admin</Nav.Link>
-                  )}
-
-                  <Container style={{ width: SEARCH_BAR_WIDTH }}>
+                  <Container className="px-0 header-search">
                     <SearchBar />
                   </Container>
                   
@@ -42,18 +38,18 @@ function Header() {
                   <NavDropdown title={userInfo.name} id="basic-nav-dropdown">
                     <NavDropdown.Item href="/profile">Profile</NavDropdown.Item>
                     <NavDropdown.Item href="/favorites">Watch List</NavDropdown.Item>
+                    <NavDropdown.Item href="/purchases">Purchases</NavDropdown.Item>
                     <NavDropdown.Item onClick={logoutHandler}>Logout</NavDropdown.Item>
                   </NavDropdown>
-                  <Nav.Link as={Link} to="/about">About</Nav.Link>
                   </>
                 :
                   <>
                   <NavDropdown title={"Welcome"} id="basic-nav-dropdown">
                     <NavDropdown.Item href="/profile">Profile</NavDropdown.Item>
                     <NavDropdown.Item href="/favorites">Watch List</NavDropdown.Item>
+                    <NavDropdown.Item href="/purchases">Purchases</NavDropdown.Item>
                     <NavDropdown.Item onClick={logoutHandler}>Logout</NavDropdown.Item>
                   </NavDropdown>
-                  <Nav.Link as={Link} to="/about">About</Nav.Link>
                   </>
                 }
                 </>
@@ -63,12 +59,11 @@ function Header() {
 
               <>
 
-                <Container style={{ width: SEARCH_BAR_WIDTH }}>
+                <Container className="px-0 header-search">
                   <SearchBar />
                 </Container>
 
                 <Nav.Link as={Link} to="/login">Login</Nav.Link>
-                <Nav.Link as={Link} to="/about">About</Nav.Link>
               </>
 
              )}

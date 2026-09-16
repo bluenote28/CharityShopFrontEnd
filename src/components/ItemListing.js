@@ -1,25 +1,51 @@
-import { Container, Row, Col } from "react-bootstrap";
+import { Container, Row, Col, OverlayTrigger, Tooltip } from "react-bootstrap";
 import { useSelector } from "react-redux";
 import Image from "react-bootstrap/Image";
 import { useNavigate } from "react-router-dom";
 import FavoritesButton from "./FavoritesButton";
 import { useState, useEffect } from "react";
 
-const imageStyle = {
-  width: "100%",
-  object: "cover",
-  height: "315px",
-  cursor: "pointer",
-};
+function CharityImage({ charity, itemId }) {
+  const navigate = useNavigate();
 
-const charityImageStyle = {
-  margin: "auto", width: "300px", height: "200px", objectFit: "contain"
+  function openCharity(e) {
+    e.preventDefault();
+    e.stopPropagation();
+    if (charity?.id) {
+      navigate(`/charities/${charity.id}`);
+    }
+  }
+
+  const image = (
+    <Image
+      src={charity?.image_url}
+      alt=""
+      className="item-listing-charity-image"
+    />
+  );
+
+  if (!charity?.id) {
+    return image;
+  }
+
+  return (
+    <OverlayTrigger
+      placement="top"
+      overlay={<Tooltip id={`charity-tooltip-${itemId}`}>{charity.name}</Tooltip>}
+    >
+      <span className="item-listing-charity" onClick={openCharity} style={{ cursor: 'pointer' }}>
+        {image}
+        <span className="item-listing-charity-name d-md-none">{charity.name}</span>
+      </span>
+    </OverlayTrigger>
+  );
 }
 
 function ItemListing(props) {
   const charitiesState = useSelector((state) => state.charities);
   const { errorCharities, loading, charities } = charitiesState;
-  const favoritesData = useSelector((state) => state.favorites);
+  const userLogin = useSelector((state) => state.userLogin);
+  const { userInfo } = userLogin;
   const navigate = useNavigate();
   const [charity, setCharity] = useState(null);
 
@@ -32,7 +58,7 @@ function ItemListing(props) {
 
   function handleClick(e, id) {
     e.preventDefault();
-    navigate("/item/" + id, {
+    navigate("/item/" + encodeURIComponent(id), {
       state: props,
   });
   }
@@ -41,62 +67,30 @@ function ItemListing(props) {
     console.log(errorCharities);
   }
 
-  else if (!favoritesData.error) {
-
-    return (
-      <Container className="border" style={{ height: "20rem" }}>
-        <Row>
-          <Col xs={4}>
-            <Image src={props.img_url} style={imageStyle} onClick={(e) => handleClick(e, props.id)}/>
-          </Col>
-          <Col xs={4} sm={5}>
-            <Row sm={1} className="fs-5 fw-bold mt-2">
-              <Col style={{ cursor: "pointer" }} onClick={(e) => handleClick(e, props.id)}>
-                <h6 className="text-center">{props.name}</h6>
-              </Col>
-            </Row>
-            <Row className="fs-4 mb-3 mt-3 d-flex justify-content-between">
-              <Col><h6 className="text-center">Price: ${props.price}</h6></Col>
-            </Row>
-            <Row className="w-25 m-auto">
-              <Col>
-                <FavoritesButton id={props.id} />
-              </Col>
-            </Row>
-          </Col>
-          <Col xs={4} sm={3} className="bg-light">
-            <Row><h4 className="text-center mt-2">Benefits</h4></Row>
-            <Row>
-              <Image src={charity?.image_url} style={charityImageStyle} />
-            </Row>
-          </Col>
-        </Row>
-      </Container>
-    );
-  }
   else {
 
     return (
-      <Container className="border" style={{ height: "20rem" }}>
-        <Row>
-          <Col xs={4} sm={4}>
-            <Image src={props.img_url} style={imageStyle} onClick={(e) => handleClick(e, props.id)}/>
+      <Container fluid className="item-listing border rounded-3">
+        <Row className="g-2 g-md-0 align-items-center">
+          <Col xs={5} md={4} className="p-2">
+            <div className="item-listing-image-wrap" onClick={(e) => handleClick(e, props.id)}>
+              <Image src={props.img_url} alt="" />
+            </div>
           </Col>
-          <Col xs={4} sm={5}>
-            <Row className="fs-5 fw-bold mt-2">
-              <Col style={{ cursor: "pointer" }} onClick={(e) => handleClick(e, props.id)}>
-                <h6 className="text-center">{props.name}</h6>
-              </Col>
-            </Row>
-            <Row className="fs-4 mb-3 mt-3 d-flex justify-content-between">
-              <Col><h6 className="text-center">Price: ${props.price}</h6></Col>
-            </Row>
+          <Col xs={7} md={5} className="item-listing-details py-2">
+            <h6 className="item-listing-title" onClick={(e) => handleClick(e, props.id)}>
+              {props.name}
+            </h6>
+            <p className="item-listing-price">Price: ${props.price}</p>
+            {userInfo && (
+              <div className="item-listing-favorite">
+                <FavoritesButton id={props.id} />
+              </div>
+            )}
           </Col>
-          <Col xs={4} sm={3} className="bg-light">
-            <Row><h4 className="text-center mt-2">Benefits</h4></Row>
-            <Row>
-              <Image src={charity?.image_url} style={charityImageStyle} />
-            </Row>
+          <Col xs={12} md={3} className="item-listing-benefits">
+            <div className="item-listing-benefits-label">Benefits</div>
+            <CharityImage charity={charity} itemId={props.id} />
           </Col>
         </Row>
       </Container>

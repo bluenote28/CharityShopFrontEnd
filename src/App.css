@@ -19,3 +19,535 @@ h1, h4, p,.form-label, a {
 main {
   flex: 1;
 }
+
+.header-search {
+  width: 100%;
+  max-width: 500px;
+}
+
+.item-listing {
+  overflow: hidden;
+  padding: 0.25rem;
+}
+
+.header-search .form-control {
+  min-width: 0;
+}
+
+.item-listing-image-wrap {
+  position: relative;
+  width: 100%;
+  padding-top: 100%;
+  overflow: hidden;
+  border-radius: 6px;
+  background-color: #f8f9fa;
+  cursor: pointer;
+}
+
+.item-listing-image-wrap img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.item-listing-details {
+  min-width: 0;
+}
+
+.item-listing-title {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-align: left;
+  cursor: pointer;
+  margin-bottom: 0.35rem;
+  word-break: break-word;
+}
+
+.item-listing-price {
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+}
+
+.item-listing-benefits {
+  background-color: #f8f9fa;
+  border-radius: 6px;
+  padding: 0.5rem 0.75rem;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.item-listing-benefits-label {
+  font-weight: 600;
+  font-size: 0.9rem;
+  white-space: nowrap;
+}
+
+.item-listing-charity {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-width: 0;
+}
+
+.item-listing-charity-image {
+  width: auto;
+  height: 40px;
+  max-width: 72px;
+  object-fit: contain;
+}
+
+.item-listing-charity-name {
+  font-size: 0.85rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.favorites-button img {
+  width: 28px;
+  height: 28px;
+}
+
+@media (min-width: 768px) {
+  .item-listing-image-wrap {
+    padding-top: 0;
+    height: 250px;
+  }
+
+  .item-listing-image-wrap img {
+    position: relative;
+    height: 250px;
+  }
+
+  .item-listing-title {
+    text-align: center;
+    -webkit-line-clamp: 4;
+  }
+
+  .item-listing-price {
+    text-align: center;
+  }
+
+  .item-listing-favorite {
+    display: flex;
+    justify-content: center;
+  }
+
+  .item-listing-benefits {
+    flex-direction: column;
+    justify-content: center;
+    min-height: 250px;
+    text-align: center;
+  }
+
+  .item-listing-benefits-label {
+    font-size: 1.25rem;
+  }
+
+  .item-listing-charity {
+    justify-content: center;
+    width: 100%;
+  }
+
+  .item-listing-charity-image {
+    height: 150px;
+    max-width: 220px;
+  }
+
+  .favorites-button img {
+    width: 36px;
+    height: 36px;
+  }
+}
+
+.item-image-carousel {
+  position: relative;
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  overflow: hidden;
+  min-height: 280px;
+}
+
+.item-image-carousel .carousel-inner,
+.item-image-carousel .carousel-item {
+  height: 280px;
+}
+
+.item-image-carousel .carousel-item img {
+  width: 100%;
+  height: 280px;
+  object-fit: contain;
+}
+
+.item-image-carousel-counter {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  z-index: 3;
+  background: rgba(0, 0, 0, 0.65);
+  color: #fff;
+  padding: 0.2rem 0.7rem;
+  border-radius: 999px;
+  font-size: 0.85rem;
+  line-height: 1.4;
+}
+
+.item-image-carousel .carousel-indicators {
+  margin-bottom: 0.5rem;
+}
+
+.item-image-carousel .carousel-indicators [data-bs-target] {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+
+@media (min-width: 768px) {
+  .item-image-carousel .carousel-inner,
+  .item-image-carousel .carousel-item,
+  .item-image-carousel .carousel-item img {
+    height: 460px;
+  }
+}
+
+.charities-table-scroll {
+  max-height: calc(3rem + 10 * 3.75rem);
+  overflow-y: auto;
+}
+
+.charities-table-scroll thead th {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  background-color: #f8f9fa;
+}
+
+.home-logo {
+  width: 100%;
+  max-width: 420px;
+  height: auto;
+}
+
+.home-category-icon {
+  width: 100%;
+  height: auto;
+}
+
+footer img {
+  max-width: 100%;
+  height: auto;
+}
+
+.footer-about-link {
+  color: white;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.footer-about-link:hover {
+  color: white;
+  text-decoration: underline;
+}
+
+.favorite-charities-filter {
+  width: auto;
+}
+
+.charity-category-filter {
+  max-width: 28rem;
+}
+
+.charity-category-select__menu {
+  z-index: 5;
+}
+
+.google-login {
+  margin-top: 1rem;
+}
+
+.google-login-button {
+  display: flex;
+  justify-content: flex-start;
+  min-height: 44px;
+  width: 100%;
+}
+
+.seller-description {
+  word-break: break-word;
+  max-height: 20rem;
+  overflow-y: auto;
+}
+
+.seller-description img,
+.seller-description video,
+.seller-description iframe {
+  max-width: 100%;
+  height: auto;
+}
+
+.seller-description-loading {
+  min-height: 8rem;
+}
+
+.ai-chat {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid #dee2e6;
+  border-radius: 0.5rem;
+  background-color: #f8f9fa;
+  min-height: 22rem;
+  overflow: hidden;
+}
+
+.ai-chat-header {
+  background-color: #1406d4;
+  color: #fff;
+  font-weight: 600;
+  padding: 0.75rem 1rem;
+}
+
+.ai-chat-messages {
+  flex: 1;
+  overflow-y: auto;
+  padding: 1rem;
+  min-height: 12rem;
+  max-height: 32rem;
+}
+
+.ai-chat-empty {
+  text-align: center;
+  color: #6c757d;
+}
+
+.ai-chat-status-message {
+  color: #495057;
+  font-style: italic;
+}
+
+.ai-chat-ellipsis::after {
+  display: inline-block;
+  width: 1.25em;
+  content: '';
+  animation: ai-chat-ellipsis 1.4s steps(4, end) infinite;
+}
+
+@keyframes ai-chat-ellipsis {
+  0% {
+    content: '';
+  }
+  25% {
+    content: '.';
+  }
+  50% {
+    content: '..';
+  }
+  75% {
+    content: '...';
+  }
+}
+
+.ai-chat-bubble {
+  max-width: 85%;
+  padding: 0.75rem 1rem;
+  border-radius: 1rem;
+  word-break: break-word;
+}
+
+.ai-chat-bubble-assistant {
+  background-color: #fff;
+  border: 1px solid #dee2e6;
+  border-bottom-left-radius: 0.25rem;
+}
+
+.ai-chat-bubble-markdown {
+  max-width: 100%;
+  padding: 1rem 1.15rem;
+}
+
+.ai-chat-bubble-error {
+  color: #842029;
+  background-color: #f8d7da;
+  border-color: #f5c2c7;
+  white-space: pre-wrap;
+}
+
+.ai-chat-markdown {
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: #212529;
+}
+
+.ai-chat-markdown > *:first-child {
+  margin-top: 0;
+}
+
+.ai-chat-markdown > *:last-child {
+  margin-bottom: 0;
+}
+
+.ai-chat-markdown p {
+  margin: 0 0 0.8rem;
+}
+
+.ai-chat-markdown h1,
+.ai-chat-markdown h2,
+.ai-chat-markdown h3,
+.ai-chat-markdown h4 {
+  color: #1406d4;
+  font-weight: 600;
+  line-height: 1.3;
+  margin: 1.1rem 0 0.5rem;
+}
+
+.ai-chat-markdown h1 {
+  font-size: 1.25rem;
+}
+
+.ai-chat-markdown h2 {
+  font-size: 1.12rem;
+}
+
+.ai-chat-markdown h3,
+.ai-chat-markdown h4 {
+  font-size: 1rem;
+}
+
+.ai-chat-markdown ul,
+.ai-chat-markdown ol {
+  margin: 0 0 0.8rem;
+  padding-left: 1.35rem;
+}
+
+.ai-chat-markdown li {
+  margin: 0.2rem 0;
+}
+
+.ai-chat-markdown li > p {
+  margin-bottom: 0.35rem;
+}
+
+.ai-chat-markdown strong {
+  font-weight: 600;
+}
+
+.ai-chat-markdown a {
+  color: #1406d4;
+}
+
+.ai-chat-markdown blockquote {
+  margin: 0 0 0.8rem;
+  padding: 0.35rem 0.85rem;
+  border-left: 3px solid #1406d4;
+  color: #495057;
+  background: #f8f9fa;
+}
+
+.ai-chat-markdown code {
+  font-size: 0.88em;
+  background: #f1f3f5;
+  padding: 0.1rem 0.35rem;
+  border-radius: 0.25rem;
+}
+
+.ai-chat-markdown pre {
+  margin: 0 0 0.8rem;
+  padding: 0.75rem 0.9rem;
+  background: #f1f3f5;
+  border-radius: 0.4rem;
+  overflow-x: auto;
+}
+
+.ai-chat-markdown pre code {
+  background: transparent;
+  padding: 0;
+}
+
+.ai-chat-markdown table {
+  width: 100%;
+  margin: 0 0 0.8rem;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+}
+
+.ai-chat-markdown th,
+.ai-chat-markdown td {
+  border: 1px solid #dee2e6;
+  padding: 0.4rem 0.55rem;
+  text-align: left;
+}
+
+.ai-chat-markdown th {
+  background: #f1f3f5;
+  font-weight: 600;
+}
+
+.ai-chat-markdown hr {
+  margin: 1rem 0;
+  border: 0;
+  border-top: 1px solid #dee2e6;
+}
+
+.ai-chat-markdown img {
+  max-width: 100%;
+  height: auto;
+}
+
+.ai-chat-composer {
+  display: flex;
+  gap: 0.5rem;
+  padding: 0.75rem;
+  border-top: 1px solid #dee2e6;
+  background-color: #fff;
+}
+
+.ai-chat-composer .btn {
+  flex-shrink: 0;
+}
+
+.charity-browse-card {
+  cursor: pointer;
+}
+
+.charity-browse-card-image {
+  height: 140px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.75rem;
+  background-color: #f8f9fa;
+}
+
+.charity-browse-favorite {
+  display: flex;
+  justify-content: flex-end;
+  background-color: transparent;
+  border-top: 0;
+  padding-top: 0;
+}
+
+.charity-browse-favorite .favorites-button {
+  border-color: transparent;
+  background: transparent;
+}
+
+.charity-browse-card-image img {
+  max-height: 110px;
+  width: auto;
+  max-width: 100%;
+  object-fit: contain;
+}
+
+.charity-browse-card-description {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}

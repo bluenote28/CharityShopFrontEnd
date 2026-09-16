@@ -94,32 +94,6 @@ class Api{
 }
 
 
-export class CharityApi extends Api{
-
-    constructor(){
-        super(BACKEND_API_BASE_URL + 'charity/');
-    }
-
-    async getAllData(){
-        return await this.makeApiCall("GET", this.link + 'getCharities') 
-    }
-
-    async getDataById(id){
-        return await this.makeApiCall("GET", this.link + id)
-    }
-
-    async add(data){
-        this.data = data
-        return await this.makeApiCall("POST", this.link + 'addCharity/')
-    }
-
-    async update(id, data){
-        this.data = data
-        return await this.makeApiCall("PUT", this.link + 'updateCharity/' + id)
-    }
-        
-}
-
 export class ReportApi extends Api{
 
      constructor(token){
@@ -127,7 +101,7 @@ export class ReportApi extends Api{
     }
 
      async getAllData(){
-        return await this.makeApiCall("GET", this.link + 'report'); 
+        return await this.makeApiCall("GET", this.link + 'report/'); 
     }
 }
 

@@ -7,29 +7,75 @@ export const charityReducer = (state = {charities:[]}, action) => {
 
         switch(action.type){
             case GET_CHARITIES_REQUEST:
-                return {loading: true, charities: []}
+                return {
+                    ...state,
+                    loading: !(state.charities && state.charities.length),
+                    error: null
+                }
             case GET_CHARITIES_SUCCESS:
-                return {loading: false, charities: action.payload}
+                return {
+                    loading: false,
+                    charities: Array.isArray(action.payload) ? action.payload : (state.charities || [])
+                }
             case GET_CHARITIES_ERROR:
                 return {loading: false, error: action.error, charities: []}
             case DELETE_CHARITY_REQUEST:
-                return {loading: true, charities: []}
+                return {
+                    ...state,
+                    error: null,
+                    previousCharities: state.charities,
+                    charities: (state.charities || []).filter(
+                        (charity) => String(charity.id) !== String(action.payload)
+                    )
+                }
             case DELETE_CHARITY_ERROR:
-                return {loading: false, error: action.error, charities: []}
+                return {
+                    ...state,
+                    loading: false,
+                    error: action.error,
+                    charities: state.previousCharities || state.charities || []
+                }
             case DELETE_CHARITY_SUCCESS:
-                return {loading: false, charities: action.payload}
+                return {
+                    ...state,
+                    loading: false,
+                    charities: (state.charities || []).filter(
+                        (charity) => String(charity.id) !== String(action.payload)
+                    )
+                }
             case ADD_CHARITY_REQUEST:
-                return {loading: true, charities: []}
+                return { ...state }
             case ADD_CHARITY_ERROR:
-                return {loading: false, error: action.error, charities: []}
-            case ADD_CHARITY_SUCCESS:
-                return {loading: false, charities: action.payload}
+                return { ...state, loading: false }
+            case ADD_CHARITY_SUCCESS: {
+                const added = action.payload
+                const charities = state.charities || []
+                const alreadyListed = charities.some(
+                    (charity) => charity && typeof charity === 'object' && String(charity.id) === String(added?.id)
+                )
+                const isCharity = added && typeof added === 'object' && added.id != null
+                return {
+                    ...state,
+                    loading: false,
+                    charities: alreadyListed || !isCharity ? charities : [...charities, added]
+                }
+            }
             case UPDATE_CHARITY_REQUEST:
-                return {loading: true, charities: []}
+                return { ...state }
             case UPDATE_CHARITY_ERROR:
-                return {loading: false, error: action.error, charities: []}
-            case UPDATE_CHARITY_SUCCESS:
-                return {loading: false, charities: action.payload}
+                return { ...state, loading: false }
+            case UPDATE_CHARITY_SUCCESS: {
+                const updated = action.payload
+                return {
+                    ...state,
+                    loading: false,
+                    charities: (state.charities || []).map((charity) =>
+                        String(charity.id) === String(updated?.id)
+                            ? { ...charity, ...updated }
+                            : charity
+                    )
+                }
+            }
             default:
                 return state
         }

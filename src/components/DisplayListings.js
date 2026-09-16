@@ -1,25 +1,49 @@
-import { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { getItems } from '../utilities/BackEndClient';
 import Row from 'react-bootstrap/esm/Row';
 import NormalSpinner from './Spinner';
-import Pagination from 'react-bootstrap/Pagination';
 import { Container } from 'react-bootstrap';
 import ItemListing from './ItemListing'
 import { useQuery } from '@tanstack/react-query'
 import AlertBox from './Alert';
+import { useSearchParams } from 'react-router-dom';
+import ListingsPagination from './ListingsPagination';
 
 function DisplayListings(props) {
-  const [page, setPage ] = useState(1)
-  const user = useSelector((state) => state.userLogin);
-  const { userInfo } = user;
+  const [searchParams, setSearchParams] = useSearchParams();
+  const page = Math.max(1, parseInt(searchParams.get('page'), 10) || 1);
+  const favoriteCharitiesOnly = searchParams.get('favoriteCharities') === '1' && !props.charityId;
+  const favoritesData = useSelector((state) => state.favorites);
+  const { favorites, loading: favoritesLoading } = favoritesData;
+  const favoriteCharityIds = favoriteCharitiesOnly
+    ? (favorites?.charities || []).map((charity) => charity.id).filter((id) => id != null && id !== '')
+    : null;
 
-  useEffect(()=>{setPage(1)}, [props.subCategory, props.search, props.filter])
+  function goToPage(nextPage) {
+    const params = new URLSearchParams(searchParams);
+    if (nextPage <= 1) {
+      params.delete('page');
+    } else {
+      params.set('page', String(nextPage));
+    }
+    setSearchParams(params, { replace: true });
+    window.scrollTo({ top: 0, behavior: 'instant' });
+  }
 
+  const charityIdsKey = favoriteCharityIds ? favoriteCharityIds.join(',') : '';
   const { isPending, isError, data, error } = useQuery({
-    queryKey: [`${[props.search]}${props.subCategory}${props.filter}${page}`],
-    queryFn: () => getItems(null, props.search, props.subCategory, props.filter, page),
+    queryKey: [`${props.search}${props.subCategory}${props.filter}${props.charityId}${props.category}${page}${charityIdsKey}${favoriteCharitiesOnly}`],
+    queryFn: () => getItems(null, props.search, props.subCategory, props.filter, page, props.charityId, favoriteCharityIds, props.category),
+    enabled: !favoriteCharitiesOnly || favoriteCharityIds.length > 0,
   })
+
+  if (favoriteCharitiesOnly && favoritesLoading && !favorites) {
+    return <NormalSpinner />
+  }
+
+  if (favoriteCharitiesOnly && favoriteCharityIds.length === 0) {
+    return <p style={{textAlign: 'center'}}>Star charities on the Charities page to see items that benefit them.</p>
+  }
 
   if (isPending){
     return <NormalSpinner />
@@ -30,71 +54,51 @@ function DisplayListings(props) {
   }
 
   if (data.results.length === 0 && !isPending){
-      return <p style={{textAlign: 'center'}}>No items to display</p>
+      return (
+        <p style={{textAlign: 'center'}}>
+          {favoriteCharitiesOnly
+            ? 'No items from your favorite charities to display'
+            : 'No items to display'}
+        </p>
+      )
   }
   
   else{
       console.log(data.results)
 
       const numOfPages = Math.ceil(data.count / 50)
-      const prevPaginationItems = [<Pagination.First onClick={() => {setPage(1); window.scrollTo({ top: 0, behavior: 'instant' });}} />, 
-      <Pagination.Prev onClick={()=>{
-        if(page === 1){
-          return;
-        }
-        else{
-          setPage(page - 1);
-        }
-        window.scrollTo({ top: 0, behavior: 'instant' });
-      }
-      
-      } />];
-      const nextPaginationItems = [<Pagination.Next onClick={()=>{
-        setPage(page + 1);
-        window.scrollTo({ top: 0, behavior: 'instant' });
-      }} />,   <Pagination.Last onClick={()=> setPage(numOfPages)}/>];
-  
+
       return (
         <>          
-        <Container>
+        <Container className="px-2 px-sm-3">
             {   
-              data.results.map((item, index) => { 
+              data.results.map((item) => { 
                   return (
-                  <div key={index}>        
-                      {error ? <p>{error}</p>:
-                        <Row key={index} className='mb-3'>
+                  <div key={item.ebay_id}>
+                        <Row className='mb-3'>
                           <ItemListing
                           name={item.name} 
                           img_url={item.img_url} 
                           url={item.web_url} 
-                          id={item.ebay_id} 
+                          id={item.ebay_id}
+                          ebay_id={item.ebay_id} 
                           price={item.price} 
                           charity={item.charity}
                           additional_images={item.additional_images} 
                           shippingPrice={item.shipping_price}
                           condition={item.condition}
-                          seller={item.seller} />
+                          seller={item.seller}
+                          donation_percentage={item.donation_percentage}
+                          seller_description={item.seller_description}
+                          ai_description={item.ai_description} />
                         </Row>
-                      }
                   </div>
                 )
               })
             }
         </Container>
 
-        <Container className='d-flex justify-content-center'>
-           {numOfPages > 1 && (
-            <>
-              {page > 1 && <Pagination>{prevPaginationItems}</Pagination>}
-      
-              <div className='d-flex mx-2 mt-1'>
-                Page {page} of {numOfPages}
-              </div>
-              
-              {page < numOfPages && <Pagination>{nextPaginationItems}</Pagination>}
-            </>
-          )}
-        </Container>
+        <ListingsPagination page={page} pageCount={numOfPages} onPageChange={goToPage} />
             
         </>  
         )
