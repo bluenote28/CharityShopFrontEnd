@@ -14,6 +14,7 @@ import Footer from './components/Footer';
 import DirectoryPage from './pages/Directory';
 import CharitiesPage from './pages/CharitiesPage';
 import CharityItemsPage from './pages/CharityItemsPage';
+import AiAgentWidget from './components/AiAgentWidget';
 import './App.css'
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from "react-redux";
@@ -69,6 +70,7 @@ function App() {
       </Routes>
 
       <Footer />
+      <AiAgentWidget />
     </Router>
   );
 }
