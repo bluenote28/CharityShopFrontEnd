@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react'
 import { Button, Form } from 'react-bootstrap'
 import Markdown from 'markdown-to-jsx'
 import { getAiDescription } from '../utilities/BackEndClient'
-import { ebayListingUrl } from '../utilities/Converters'
 
 const markdownOptions = {
   disableParsingRawHTML: true,
@@ -46,15 +45,14 @@ function extractAiDescription(data) {
   return ''
 }
 
-function AiChat({ itemId, itemName, ebayId, existingDescription, enabled, ready, itemLink }) {
+function AiChat({ ebayId, existingDescription, enabled, ready}) {
   const [description, setDescription] = useState('')
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
 
   useEffect(() => {
-    const listingId = ebayId || itemId
    
-    if (!enabled || !listingId) {
+    if (!enabled || !ebayId) {
       setDescription('')
       setError('')
       setLoading(false)
@@ -83,9 +81,7 @@ function AiChat({ itemId, itemName, ebayId, existingDescription, enabled, ready,
       setDescription('')
       try {
         const data = await getAiDescription({
-          ebay_id: listingId,
-          item_link: ebayListingUrl(listingId, itemLink),
-          item_name: itemName,
+          ebay_id: ebayId,
         })
         if (!cancelled) {
           const text = extractAiDescription(data)
@@ -110,7 +106,7 @@ function AiChat({ itemId, itemName, ebayId, existingDescription, enabled, ready,
     return () => {
       cancelled = true
     }
-  }, [enabled, ready, ebayId, itemId, itemName, itemLink, existingDescription])
+  }, [enabled, ready, ebayId, existingDescription])
 
   return (
     <div className="ai-chat">

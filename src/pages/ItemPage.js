@@ -197,10 +197,7 @@ function ItemPage() {
           <Row className="mt-4">
             <Col>
               <AiChat
-                itemId={item_id}
-                itemName={itemData.name}
                 ebayId={itemData.ebay_id || item_id}
-                itemLink={itemData.web_url || itemData.url}
                 existingDescription={itemData.ai_description}
                 enabled={itemIsCurrent}
                 ready={itemFetched}
