@@ -116,6 +116,13 @@ export function getAiDescription({ item_link, item_name, ebay_id }){
     })
 }
 
+export function getAiChatReply({ messages, page_context }){
+    return apiPost(BACKEND_API_BASE_URL + 'ai_assistant/chat/', {
+        messages,
+        page_context
+    })
+}
+
 export function recordPurchase(userId, payload, token){
     return apiPost(BACKEND_API_BASE_URL + 'purchases/' + userId + '/', payload, token)
 }
