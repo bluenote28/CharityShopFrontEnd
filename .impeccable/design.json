@@ -1,0 +1,227 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-09-23T07:10:00.000Z",
+  "title": "Design System: Charity Shop",
+  "extensions": {
+    "colorMeta": {
+      "deep-royal-ultramarine": {
+        "role": "primary",
+        "displayName": "Deep Royal Ultramarine",
+        "canonical": "#1406d4",
+        "tonalRamp": ["#080347", "#0b0480", "#0e05a3", "#1406d4", "#3d32e0", "#6e66ea", "#a8a3f4", "#e8e7fb"]
+      },
+      "ultramarine-pressed": {
+        "role": "primary",
+        "displayName": "Ultramarine Pressed",
+        "canonical": "#0f05a8",
+        "tonalRamp": ["#060240", "#0a0470", "#0c0590", "#0f05a8", "#3a31c4", "#6a63d8", "#a29ce8", "#e4e2f6"]
+      },
+      "canvas": {
+        "role": "neutral",
+        "displayName": "Canvas",
+        "canonical": "#ffffff",
+        "tonalRamp": ["#1a1a1a", "#3d3d3d", "#6b6b6b", "#9a9a9a", "#c8c8c8", "#e6e6e6", "#f4f4f4", "#ffffff"]
+      },
+      "quiet-shelf": {
+        "role": "neutral",
+        "displayName": "Quiet Shelf Gray",
+        "canonical": "#f8f9fa",
+        "tonalRamp": ["#1c1e21", "#3a3e44", "#5c636a", "#868e96", "#adb5bd", "#dee2e6", "#f1f3f5", "#f8f9fa"]
+      },
+      "ink": {
+        "role": "neutral",
+        "displayName": "Ink",
+        "canonical": "#0B0B0B",
+        "tonalRamp": ["#0B0B0B", "#212529", "#343a40", "#495057", "#6c757d", "#adb5bd", "#dee2e6", "#f8f9fa"]
+      },
+      "body": {
+        "role": "neutral",
+        "displayName": "Body",
+        "canonical": "#212529",
+        "tonalRamp": ["#0B0B0B", "#212529", "#343a40", "#495057", "#6c757d", "#adb5bd", "#dee2e6", "#f8f9fa"]
+      },
+      "secondary-text": {
+        "role": "neutral",
+        "displayName": "Secondary text",
+        "canonical": "#495057",
+        "tonalRamp": ["#0B0B0B", "#212529", "#343a40", "#495057", "#6c757d", "#adb5bd", "#dee2e6", "#f8f9fa"]
+      },
+      "muted": {
+        "role": "neutral",
+        "displayName": "Muted",
+        "canonical": "#6c757d",
+        "tonalRamp": ["#0B0B0B", "#212529", "#343a40", "#495057", "#6c757d", "#adb5bd", "#dee2e6", "#f8f9fa"]
+      },
+      "stroke": {
+        "role": "neutral",
+        "displayName": "Stroke",
+        "canonical": "#dee2e6",
+        "tonalRamp": ["#0B0B0B", "#343a40", "#6c757d", "#adb5bd", "#ced4da", "#dee2e6", "#e9ecef", "#f8f9fa"]
+      },
+      "white": {
+        "role": "neutral",
+        "displayName": "White",
+        "canonical": "#ffffff",
+        "tonalRamp": ["#1a1a1a", "#3d3d3d", "#6b6b6b", "#9a9a9a", "#c8c8c8", "#e6e6e6", "#f4f4f4", "#ffffff"]
+      },
+      "danger-text": {
+        "role": "neutral",
+        "displayName": "Danger text",
+        "canonical": "#842029",
+        "tonalRamp": ["#2c0b0e", "#58151c", "#842029", "#a4131c", "#ea868f", "#f5c2c7", "#f8d7da", "#fce8ea"]
+      },
+      "danger-well": {
+        "role": "neutral",
+        "displayName": "Danger well",
+        "canonical": "#f8d7da",
+        "tonalRamp": ["#2c0b0e", "#58151c", "#842029", "#ea868f", "#f5c2c7", "#f8d7da", "#fce8ea", "#fff5f5"]
+      },
+      "danger-stroke": {
+        "role": "neutral",
+        "displayName": "Danger stroke",
+        "canonical": "#f5c2c7",
+        "tonalRamp": ["#2c0b0e", "#58151c", "#842029", "#ea868f", "#f5c2c7", "#f8d7da", "#fce8ea", "#fff5f5"]
+      },
+      "scrim": {
+        "role": "neutral",
+        "displayName": "Scrim",
+        "canonical": "rgba(15, 18, 36, 0.45)",
+        "tonalRamp": ["#0f1224", "#1c2238", "#2a334c", "#495057", "#adb5bd", "#dee2e6", "#f8f9fa", "#ffffff"]
+      }
+    },
+    "typographyMeta": {
+      "headline": { "displayName": "Headline", "purpose": "Page titles such as About, Charities, Watch List, Purchases." },
+      "title": { "displayName": "Title", "purpose": "Section titles and item-detail headings." },
+      "body": { "displayName": "Body", "purpose": "Default reading text." },
+      "label": { "displayName": "Label", "purpose": "Benefits labels, prices, and compact chrome titles." }
+    },
+    "shadows": [
+      {
+        "name": "action-glow",
+        "value": "0 0.4rem 1rem rgba(20, 6, 212, 0.35)",
+        "purpose": "FAB. Brand-colored, not neutral."
+      },
+      {
+        "name": "overlay-panel",
+        "value": "0 0.75rem 2rem rgba(0, 0, 0, 0.22)",
+        "purpose": "Centered shop-assistant panel over the scrim."
+      }
+    ],
+    "motion": [
+      {
+        "name": "ellipsis-steps",
+        "value": "1.4s steps(4, end) infinite",
+        "purpose": "Thinking/researching status in chat. Almost no other motion exists."
+      }
+    ],
+    "breakpoints": [
+      { "name": "md", "value": "768px" }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Canon primary action. Tint to ultramarine; do not copy leftover Bootstrap #0d6efd.",
+      "html": "<button class=\"ds-btn-primary\" type=\"button\">Go to item on Ebay</button>",
+      "css": ".ds-btn-primary { background: #1406d4; color: #fff; padding: 0.375rem 0.75rem; border: 0; border-radius: 0.375rem; font-weight: 400; font-size: 1rem; line-height: 1.5; cursor: pointer; } .ds-btn-primary:hover, .ds-btn-primary:focus-visible { background: #0f05a8; } .ds-btn-primary:focus-visible { outline: 2px solid #1406d4; outline-offset: 2px; }"
+    },
+    {
+      "name": "Outline Dark Button",
+      "kind": "button",
+      "refersTo": "button-outline-dark",
+      "description": "Back and secondary navigation.",
+      "html": "<button class=\"ds-btn-outline-dark\" type=\"button\">Go back to search results</button>",
+      "css": ".ds-btn-outline-dark { background: #ffffff; color: #0B0B0B; padding: 0.375rem 0.75rem; border: 1px solid #0B0B0B; border-radius: 0.375rem; font-size: 1rem; cursor: pointer; } .ds-btn-outline-dark:hover, .ds-btn-outline-dark:focus-visible { background: #0B0B0B; color: #ffffff; } .ds-btn-outline-dark:focus-visible { outline: 2px solid #1406d4; outline-offset: 2px; }"
+    },
+    {
+      "name": "Search Field",
+      "kind": "input",
+      "refersTo": "input",
+      "description": "Header and page search. Compact control plus a primary Search action.",
+      "html": "<div class=\"ds-search\"><input class=\"ds-search-input\" type=\"search\" placeholder=\"Search all items\" aria-label=\"Search\" /><button class=\"ds-btn-primary\" type=\"button\">Search</button></div>",
+      "css": ".ds-search { display: flex; gap: 0.25rem; max-width: 500px; } .ds-search-input { flex: 1; min-width: 0; padding: 0.375rem 0.75rem; border: 1px solid #dee2e6; border-radius: 0.375rem; font-size: 1rem; color: #0B0B0B; background: #ffffff; } .ds-search-input:focus-visible { outline: 2px solid #1406d4; outline-offset: 1px; } .ds-search .ds-btn-primary { background: #1406d4; color: #fff; padding: 0.375rem 0.75rem; border: 0; border-radius: 0.375rem; cursor: pointer; } .ds-search .ds-btn-primary:hover, .ds-search .ds-btn-primary:focus-visible { background: #0f05a8; }"
+    },
+    {
+      "name": "Navbar",
+      "kind": "nav",
+      "refersTo": "navbar",
+      "description": "Full-width ultramarine storefront bar with white links and centered search.",
+      "html": "<nav class=\"ds-navbar\"><a class=\"ds-nav-link\" href=\"#\">Home</a><a class=\"ds-nav-link\" href=\"#\">Charities</a><span class=\"ds-nav-search\">Search all items</span><a class=\"ds-nav-link\" href=\"#\">Login</a></nav>",
+      "css": ".ds-navbar { display: flex; align-items: center; justify-content: center; gap: 1.25rem; background: #1406d4; color: #fff; min-height: 56px; padding: 0.5rem 1rem; } .ds-nav-link { color: #fff; text-decoration: none; font-size: 1rem; } .ds-nav-link:hover, .ds-nav-link:focus-visible { text-decoration: underline; color: #fff; } .ds-nav-search { background: #ffffff; color: #6c757d; padding: 0.35rem 0.75rem; border-radius: 0.375rem; min-width: 12rem; font-size: 0.95rem; }"
+    },
+    {
+      "name": "Subcategory Chip",
+      "kind": "chip",
+      "refersTo": "button-outline-dark",
+      "description": "Category page filters. Outline when idle, solid secondary when selected.",
+      "html": "<div class=\"ds-chips\"><button class=\"ds-chip ds-chip-selected\" type=\"button\">Nintendo Games</button><button class=\"ds-chip\" type=\"button\">Xbox Games</button></div>",
+      "css": ".ds-chips { display: flex; flex-wrap: wrap; gap: 0.25rem; } .ds-chip { background: #ffffff; color: #6c757d; border: 1px solid #6c757d; border-radius: 0.375rem; padding: 0.25rem 0.5rem; font-size: 0.875rem; cursor: pointer; } .ds-chip:hover, .ds-chip:focus-visible { background: #6c757d; color: #ffffff; } .ds-chip-selected { background: #6c757d; color: #ffffff; }"
+    },
+    {
+      "name": "Listing Row",
+      "kind": "card",
+      "refersTo": "listing-row",
+      "description": "Catalog row: photo well, title/price, Benefits charity mark on Quiet Shelf Gray.",
+      "html": "<article class=\"ds-listing\"><div class=\"ds-listing-image\"></div><div class=\"ds-listing-details\"><h6 class=\"ds-listing-title\">Vintage Nintendo listing</h6><p class=\"ds-listing-price\">Price: $24.99</p></div><div class=\"ds-listing-benefits\"><div class=\"ds-listing-benefits-label\">Benefits</div><div class=\"ds-listing-charity\">Charity mark</div></div></article>",
+      "css": ".ds-listing { display: grid; grid-template-columns: 1.1fr 1.4fr 0.9fr; align-items: center; gap: 0.5rem; border: 1px solid #dee2e6; border-radius: 0.5rem; padding: 0.25rem; background: #ffffff; color: #0B0B0B; } .ds-listing-image { background: #f8f9fa; border-radius: 6px; min-height: 7rem; } .ds-listing-title { margin: 0 0 0.35rem; font-size: 1rem; font-weight: 500; } .ds-listing-price { margin: 0; font-weight: 600; } .ds-listing-benefits { background: #f8f9fa; border-radius: 6px; padding: 0.5rem 0.75rem; text-align: center; min-height: 7rem; display: flex; flex-direction: column; justify-content: center; gap: 0.5rem; } .ds-listing-benefits-label { font-weight: 600; font-size: 0.9rem; }"
+    },
+    {
+      "name": "Shelf Well",
+      "kind": "card",
+      "refersTo": "shelf-well",
+      "description": "Quiet Shelf Gray tray for images, item details, and charity logos.",
+      "html": "<div class=\"ds-shelf\">Item details sit on Quiet Shelf Gray, not on brand blue.</div>",
+      "css": ".ds-shelf { background: #f8f9fa; color: #0B0B0B; border: 1px solid #dee2e6; border-radius: 0.5rem; padding: 1rem 1.25rem; }"
+    },
+    {
+      "name": "Shop Assistant FAB",
+      "kind": "custom",
+      "refersTo": "fab",
+      "description": "Fixed bottom-right chat opener. Loudest interactive object on every page.",
+      "html": "<button class=\"ds-fab\" type=\"button\" aria-label=\"Open shop assistant\"><svg viewBox=\"0 0 24 24\" width=\"26\" height=\"26\" aria-hidden=\"true\"><path fill=\"currentColor\" d=\"M4 4h16a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H8l-4 3v-3H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2zm2 4v2h12V8H6zm0 4v2h8v-2H6z\"/></svg></button>",
+      "css": ".ds-fab { width: 3.5rem; height: 3.5rem; border: 0; border-radius: 50%; background: #1406d4; color: #fff; box-shadow: 0 0.4rem 1rem rgba(20, 6, 212, 0.35); display: inline-flex; align-items: center; justify-content: center; cursor: pointer; } .ds-fab:hover, .ds-fab:focus-visible { background: #0f05a8; } .ds-fab:focus-visible { outline: 2px solid #ffffff; outline-offset: 3px; }"
+    },
+    {
+      "name": "User Chat Bubble",
+      "kind": "custom",
+      "refersTo": "user-bubble",
+      "description": "Shopper messages in the assistant. Ultramarine, not a second accent.",
+      "html": "<div class=\"ds-bubble-user\">Show me Nintendo items that benefit charity</div>",
+      "css": ".ds-bubble-user { max-width: 85%; margin-left: auto; background: #1406d4; color: #fff; padding: 0.75rem 1rem; border-radius: 1rem; border-bottom-right-radius: 0.25rem; font-size: 1rem; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Blue Storefront",
+    "overview": "Charity Shop looks like a simple shop wrapped in an electric blue banner. The header and footer are the storefront: Deep Royal Ultramarine, full width, white type, logo in the footer. Inside the banner, the catalog is quiet so product photos, prices, and charity marks can lead. The blue is loud on purpose; the listings are not.\n\nThe system is Bootstrap 5 with one custom brand color. Density is catalog-like: rows of items, category icon grids, bordered wells. Personality is tactile and confident on chrome and primary actions, workmanlike everywhere else. Copy on the site is plain and explanatory; the visuals should stay that direct.\n\nConfirmed visual rejections: do not treat Bootstrap’s default primary blue as the brand; do not dress the catalog in lifestyle atmosphere, extra palettes, or decorative depth that competes with the merchandise.",
+    "keyCharacteristics": [
+      "Ultramarine chrome (header, footer, chat, FAB) against a white page",
+      "Quiet Shelf Gray wells so images and charity logos sit on a cool rest, not on color",
+      "Catalog rows and cards stay visually quiet; lift is for things that act",
+      "Bootstrap layout and controls; brand identity lives in the banner and in primary actions",
+      "Logo, not display type, is the home-page hero"
+    ],
+    "rules": [
+      { "name": "The One Banner Rule", "body": "Deep Royal Ultramarine owns chrome and primary action. It is loud on purpose. Listings, wells, and charity marks stay on canvas or Quiet Shelf Gray so the item can lead.", "section": "colors" },
+      { "name": "The No Second Blue Rule", "body": "Bootstrap’s shipped `.btn-primary` (`#0d6efd`) is leftover. Do not copy it. New primary actions tint to Deep Royal Ultramarine.", "section": "colors" },
+      { "name": "The Logo-Is-Display Rule", "body": "Do not invent a display typeface for hero moments. The logo (`src/images/charityShopLogo.png`, max-width 420px) is the display.", "section": "typography" },
+      { "name": "The Arial Exception", "body": "About currently forces Arial. That is a local override, not the app stack. New screens keep the Bootstrap system stack.", "section": "typography" },
+      { "name": "The Lift-What-Acts Rule", "body": "Shadows belong on clickable overlays and primary floating actions. Do not add ambient shadows under listing rows, charity cards, or page sections just to “add depth.”", "section": "elevation" }
+    ],
+    "dos": [
+      "Do wrap the app in Deep Royal Ultramarine chrome (header and footer) and keep page interiors white.",
+      "Do sit images, charity logos, and detail groups on Quiet Shelf Gray (`{colors.quiet-shelf}`).",
+      "Do keep the Benefits mark visible on every listing row.",
+      "Do tint new primary actions to Deep Royal Ultramarine; hover to Ultramarine Pressed.",
+      "Do lift only what the shopper acts on (FAB, overlays, and similarly clickable objects)."
+    ],
+    "donts": [
+      "Don't copy Bootstrap’s default primary `#0d6efd` onto new buttons or links.",
+      "Don't add a second brand color, a lifestyle palette, or decorative photography behind the catalog.",
+      "Don't invent a display typeface; the logo is the display.",
+      "Don't drop-shadow static listing rows or page sections.",
+      "Don't hide or rename Watch List, Benefits, or Go to item on eBay as part of a visual refresh — those are product terms, not styling."
+    ]
+  }
+}

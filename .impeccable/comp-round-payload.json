@@ -1,0 +1,41 @@
+{
+  "title": "Choose the Home composition",
+  "question": "Same marketplace world (eBay/Amazon craft). Pick how Home is structured.",
+  "options": [
+    {
+      "id": "home-tiles",
+      "label": "Department tiles",
+      "thesis": "Logo and search, then a full department-tile grid, then a few featured listings with charity badges.",
+      "palette": ["#ffffff", "#111827", "#2563eb", "#f8fafc"],
+      "materials": ["product photography", "clean card grid", "charity badge"],
+      "viewport": "Desktop Home: centered logo, search, icon-tile departments, featured listings.",
+      "risk": "The tile grid can delay seeing actual items.",
+      "comp": ".impeccable/mocks/home-comp-1.webp"
+    },
+    {
+      "id": "home-search",
+      "label": "Search first",
+      "thesis": "Search is the main object; departments shrink to a chip row; listings sit under it.",
+      "palette": ["#ffffff", "#111827", "#2563eb", "#f8fafc"],
+      "materials": ["product photography", "search field", "charity badge"],
+      "viewport": "Desktop Home: compact chrome, dominant Search all items, chip departments, listing strip.",
+      "risk": "Can feel like Amazon’s search page more than a category storefront.",
+      "comp": ".impeccable/mocks/home-comp-2.webp"
+    },
+    {
+      "id": "home-listings",
+      "label": "Listings first",
+      "thesis": "Departments are a text strip; the page is a dense product grid with a charity badge on every card.",
+      "palette": ["#ffffff", "#111827", "#2563eb", "#f8fafc"],
+      "materials": ["product photography", "listing cards", "charity badge"],
+      "viewport": "Desktop Home: tight search header, text departments, four-column listings.",
+      "risk": "Category entry is weaker; browse-by-department is less obvious.",
+      "comp": ".impeccable/mocks/home-comp-3.webp"
+    }
+  ],
+  "steer": true,
+  "buildPath": {
+    "value": "comp",
+    "toggle": true
+  }
+}

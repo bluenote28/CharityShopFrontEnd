@@ -1,0 +1,140 @@
+{
+  "title": "Choose the visual world",
+  "question": "The current site looks basic. Pick a replacement world for Home (category grid first). Checkout stays on eBay; Benefits stays obvious on every listing. Not a donation poster.",
+  "options": [
+    {
+      "id": "assigned",
+      "label": "Specimen Binder",
+      "kicker": "THE ROLL",
+      "lineage": "collector’s trading-card album and specimen sleeves",
+      "thesis": "Charity Shop as a binder of object-cards: you pick a department pocket, then pull a listing whose charity lives as the affiliation stripe.",
+      "palette": ["#12141a", "#e8eaee", "#f4f1ea", "#c5a35a", "#0b0b0b"],
+      "materials": ["PVC sleeve", "card stock", "foil stamp", "graphite rules"],
+      "viewport": "Desktop Home: logo as the album plate, then a strict pocket grid of category cards with a gold fringe for Benefits — no donate hero.",
+      "risk": "Clothing shoppers may read it as collectibles-only unless apparel cards feel like lookbook specimens.",
+      "raised": [
+        { "from": "challenger-kraftwerk", "raise": "Signal Grid: pockets sit on a modular grid; the active pocket lights its edge like a live node." },
+        { "from": "challenger-orizuru", "raise": "Gold Step: Find → Browse → eBay is one numbered sequence on the binder, never a campaign." },
+        { "from": "challenger-cloud", "raise": "Fringe Benefit: charity and donation sit as a narrow edge band on every card, never a poster block." },
+        { "from": "challenger-phosphor", "raise": "Live Index: header search is a first-class typed lane, equal in energy to the pocket grid." }
+      ],
+      "comp": ".impeccable/mocks/decision/assigned.webp"
+    },
+    {
+      "id": "model-pick",
+      "label": "Floor Directory",
+      "kicker": "IMPECCABLE’S PICK",
+      "lineage": "department-store enamel floor guides",
+      "thesis": "Home is a store directory: departments you already want, listed like floors, not causes.",
+      "palette": ["#1e3a5f", "#c4a35a", "#f3eee4", "#0e1218", "#8b1e1e"],
+      "materials": ["enamel", "brass numbers", "directory board"],
+      "viewport": "Desktop Home: a large enamel directory of departments with brass index numbers; search is the you-are-here plaque.",
+      "risk": "This is the retail-directory look most runs in this category land on.",
+      "comp": ".impeccable/mocks/decision/model-pick.webp"
+    },
+    {
+      "id": "challenger-transit",
+      "label": "Midnight Transit Diagram",
+      "verdict": "competitive",
+      "lineage": "metropolitan rail map as midnight-blue enamel mural",
+      "thesis": "Categories are colored lines, charities are interchanges; you ride a department into listings.",
+      "palette": ["#0b1c3a", "#f4f7fb", "#e23b3b", "#2f6fed", "#f0b429", "#2fa36b"],
+      "materials": ["midnight enamel", "porcelain ticks", "45-degree linework"],
+      "viewport": "Desktop Home: a diagram of departments as transit lines meeting at charity interchanges; tap a line to enter that catalog.",
+      "case": "Holds audience identification: everyone already knows how to follow a line to a destination.",
+      "risk": "Can read as trip-planning instead of shopping if merchandise never appears on the map.",
+      "comp": ".impeccable/mocks/decision/challenger-transit.webp",
+      "hero": ".impeccable/mocks/decision/qb-transit-hero.webp",
+      "board": ".impeccable/mocks/decision/qb-transit.webp"
+    },
+    {
+      "id": "challenger-depot",
+      "label": "Depot Destination Blind",
+      "verdict": "competitive",
+      "lineage": "bus-depot destination blinds in dyed duck cloth",
+      "thesis": "Departments snap under one window like destinations; a stalled seam is the only error.",
+      "palette": ["#1f4d3a", "#e6c84a", "#f4efe4", "#0e1a14"],
+      "materials": ["bottle-green duck cloth", "chrome-yellow legends", "bleached calico"],
+      "viewport": "Desktop Home: a backlit destination blind of departments; the selected course sits in the window, others stacked above and below.",
+      "case": "Holds product clarity: picking a destination is picking a department, with no donate story.",
+      "risk": "Cloth-and-split-flap grammar can feel like transit hardware, not a shop, if merchandise is absent.",
+      "comp": ".impeccable/mocks/decision/challenger-depot.webp",
+      "hero": ".impeccable/mocks/decision/qb-depot-hero.webp",
+      "board": ".impeccable/mocks/decision/qb-depot.webp"
+    },
+    {
+      "id": "challenger-kraftwerk",
+      "label": "Man-Machine Grid",
+      "verdict": "declined",
+      "lineage": "Kraftwerk man-machine neon line diagrams",
+      "thesis": "Departments wired on a traffic-signal grid; the live node is the category you are about to enter.",
+      "palette": ["#111111", "#f5f5f5", "#e10600", "#ffbf00", "#00a651"],
+      "materials": ["enamel fills", "neon rules", "modular grid"],
+      "viewport": "Desktop Home: four-across category nodes on a black-and-white grid, one hazard-red rule, connectors lighting on hover.",
+      "case": "Loses identification: shoppers hunting Nintendo or coats do not see themselves in a man-machine band.",
+      "risk": "Reads as an electronic-music identity, not a shop.",
+      "kept": "Signal Grid: modular pockets and a lit active edge.",
+      "hero": ".impeccable/mocks/decision/qb-kraftwerk.webp"
+    },
+    {
+      "id": "challenger-orizuru",
+      "label": "Orizuru Sequence",
+      "verdict": "declined",
+      "lineage": "one uncut vermilion washi sheet folded into a crane",
+      "thesis": "Shopping as thirty-two recoverable folds on one sheet, from flat geometry to a finished purchase path.",
+      "palette": ["#c41e3a", "#f7f1e8", "#c5a35a", "#161616"],
+      "materials": ["vermilion washi", "crease white", "sumi ink"],
+      "viewport": "Desktop Home: a square sheet of numbered category folds; the active crease is gold.",
+      "case": "Loses clarity: a 32-step fold fights the job of picking a department now.",
+      "risk": "Vermilion paper can slide into campaign-red, which this product refused.",
+      "kept": "Gold Step: Find → Browse → eBay as one numbered sequence.",
+      "hero": ".impeccable/mocks/decision/qb-orizuru.webp"
+    },
+    {
+      "id": "challenger-cloud",
+      "label": "Iridescent Cloud Edge",
+      "verdict": "declined",
+      "lineage": "pastel diffraction bands on a forming cloud edge",
+      "thesis": "A white catalog whose only color is a hairline fringe — Benefits as weather at the edge of the object.",
+      "palette": ["#f7f8fa", "#5b6570", "#9fe3c8", "#f3b6c4", "#8b7cc9"],
+      "materials": ["cloud white", "slate ink", "spectral fringe"],
+      "viewport": "Desktop Home: wide white field, thin category names, mint-rose-violet only at card edges.",
+      "case": "Loses both: pastel hope reads like a donation appeal, which the brief named as wrong.",
+      "risk": "Soft spectral color is the charity-poster mood this redesign must refuse.",
+      "kept": "Fringe Benefit: charity lives on the card edge, never as a poster block.",
+      "hero": ".impeccable/mocks/decision/qb-cloud.webp"
+    },
+    {
+      "id": "challenger-phosphor",
+      "label": "Phosphor Terminal",
+      "verdict": "declined",
+      "lineage": "green-phosphor midnight machine-room terminal",
+      "thesis": "The shop as one scrolling transcript: you type what you want, the catalog prints itself.",
+      "palette": ["#07140a", "#7cff6b", "#14331c"],
+      "materials": ["P1 phosphor", "curved glass", "scanlines"],
+      "viewport": "Desktop Home: an 80-column green catalog index; categories as typed rows, search as the cursor line.",
+      "case": "Loses identification: general shoppers do not arrive expecting a machine-room terminal.",
+      "risk": "Monospace-as-costume plus developer romance, against Operate’s earned familiarity.",
+      "kept": "Live Index: search as a first-class typed lane.",
+      "hero": ".impeccable/mocks/decision/qb-phosphor.webp"
+    }
+  ],
+  "reroll": {
+    "registers": ["safer", "bolder"]
+  },
+  "buildPath": {
+    "value": "comp",
+    "toggle": true
+  },
+  "canon": true,
+  "canonCard": {
+    "label": "The category standard",
+    "thesis": "A polished charity marketplace: logo, search, even category tiles, listing grid, charity badge — the expected shop, executed well.",
+    "palette": ["#ffffff", "#111827", "#2563eb", "#f8fafc"],
+    "materials": ["product photography", "clean card grid", "badge"],
+    "viewport": "Desktop Home: centered logo, search, icon-tile departments, then featured listings with a small charity badge.",
+    "risk": "Indistinguishable from every other marketplace, by design.",
+    "comp": ".impeccable/mocks/decision/canon.webp"
+  },
+  "steer": true
+}

@@ -1,0 +1,30 @@
+{
+  "regions": [
+    { "id": "ground", "kind": "texture", "grid": "F1:F1", "note": "plain white marketplace page ground, no ink" },
+    { "id": "header", "kind": "chrome", "grid": "A0:J1", "note": "slim white top bar holding logo, wordmark, and text links" },
+    { "id": "logo-mark", "kind": "image", "grid": "A0:A0", "note": "blue bag-and-heart mark at the left of the wordmark" },
+    { "id": "wordmark", "kind": "text", "grid": "B0:C0", "note": "Charity Shop wordmark with small HOME under it" },
+    { "id": "nav-how", "kind": "text", "grid": "H0:H0", "note": "How It Works link" },
+    { "id": "nav-sell", "kind": "text", "grid": "I0:I0", "note": "Sell / Donate link (product will not ship this; maps to About/none)" },
+    { "id": "nav-account", "kind": "text", "grid": "J0:J0", "note": "Account link" },
+    { "id": "search-input", "kind": "control", "grid": "A2:H2", "snap": false, "note": "large rounded Search all items field with magnifying glass" },
+    { "id": "search-button", "kind": "control", "grid": "I2:J2", "note": "solid marketplace-blue Search button" },
+    { "id": "chip-womens", "kind": "control", "grid": "A3:B3", "note": "Women's Clothing pill" },
+    { "id": "chip-mens", "kind": "control", "grid": "C3:C3", "note": "Men's Clothing pill" },
+    { "id": "chip-collectibles", "kind": "control", "grid": "D3:E3", "note": "Collectibles pill" },
+    { "id": "chip-games", "kind": "control", "grid": "F3:F3", "note": "Video Games pill" },
+    { "id": "chip-electronics", "kind": "control", "grid": "G3:G3", "note": "Electronics pill" },
+    { "id": "chip-home", "kind": "control", "grid": "H3:H3", "note": "Home & Garden pill" },
+    { "id": "chip-charities", "kind": "control", "grid": "I3:J3", "note": "Charities pill" },
+    { "id": "heading-featured", "kind": "text", "grid": "A4:C4", "note": "Featured Listings heading" },
+    { "id": "link-view-all", "kind": "control", "grid": "H4:J4", "note": "View all listings with arrow" },
+    { "id": "listing-1-photo", "kind": "plate", "grid": "A5:C6", "bleed": true, "note": "cream knit sweater on hanger, product photo" },
+    { "id": "listing-2-photo", "kind": "plate", "grid": "D5:E6", "bleed": true, "note": "black wristwatch on white, product photo" },
+    { "id": "listing-3-photo", "kind": "plate", "grid": "F5:H6", "bleed": true, "note": "GameCube and controller, product photo" },
+    { "id": "listing-4-photo", "kind": "plate", "grid": "I5:J6", "bleed": true, "note": "wooden nightstand with plant, product photo" },
+    { "id": "listing-1-copy", "kind": "text", "grid": "A7:C9", "note": "charity badge, title, category, price, location time" },
+    { "id": "listing-2-copy", "kind": "text", "grid": "D7:E9", "snap": false, "note": "charity badge, title, category, price, location time" },
+    { "id": "listing-3-copy", "kind": "text", "grid": "F7:H9", "snap": false, "note": "charity badge, title, category, price, location time" },
+    { "id": "listing-4-copy", "kind": "text", "grid": "I7:J9", "note": "charity badge, title, category, price, location time" }
+  ]
+}
