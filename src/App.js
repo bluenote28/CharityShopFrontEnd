@@ -50,27 +50,29 @@ function App() {
 
   return (
     <Router>
-      <ScrollToTop />
-      <Header />
-
-      <Routes>
-        <Route path='/' Component={HomePage} exact />
-        <Route path='/search' Component={SearchPage} />
-        <Route path='/admin' Component={AdminPage} exact />
-        <Route path='/login' Component={LoginPage} exact />
-        <Route path='/profile' Component={ProfilePage} exact />
-        <Route path='/favorites' Component={FavoritesPage} exact />
-        <Route path='/purchases' Component={PurchasesPage} exact />
-        <Route path='/item/:item_id' Component={ItemPage} exact />
-        <Route path='/category' Component={CategoryPage} exact />
-        <Route path='/about' Component={AboutPage} exact />
-        <Route path='/directory' Component={DirectoryPage} exact />
-        <Route path='/charities' Component={CharitiesPage} exact />
-        <Route path='/charities/:charityId' Component={CharityItemsPage} exact />
-      </Routes>
-
-      <Footer />
-      <AiAgentWidget />
+      <div className="app-shell">
+        <ScrollToTop />
+        <Header />
+        <main className="app-main">
+          <Routes>
+            <Route path='/' Component={HomePage} exact />
+            <Route path='/search' Component={SearchPage} />
+            <Route path='/admin' Component={AdminPage} exact />
+            <Route path='/login' Component={LoginPage} exact />
+            <Route path='/profile' Component={ProfilePage} exact />
+            <Route path='/favorites' Component={FavoritesPage} exact />
+            <Route path='/purchases' Component={PurchasesPage} exact />
+            <Route path='/item/:item_id' Component={ItemPage} exact />
+            <Route path='/category' Component={CategoryPage} exact />
+            <Route path='/about' Component={AboutPage} exact />
+            <Route path='/directory' Component={DirectoryPage} exact />
+            <Route path='/charities' Component={CharitiesPage} exact />
+            <Route path='/charities/:charityId' Component={CharityItemsPage} exact />
+          </Routes>
+        </main>
+        <Footer />
+        <AiAgentWidget />
+      </div>
     </Router>
   );
 }

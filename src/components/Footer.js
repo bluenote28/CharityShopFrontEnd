@@ -9,13 +9,13 @@ function Footer(){
 
     return (
 
-        <footer className='d-flex flex-column justify-content-center align-items-center mt-auto' style={{backgroundColor: "#1406d4", width: "100%"}}>
-           <Image src={footerimage} />
-           <div className="d-flex flex-row align-items-center gap-3 mb-5">
-             <Link to="/about" className="footer-about-link">About</Link>
-             <Link to="/directory" className="footer-about-link">Other Charity Shops</Link>
+        <footer className="marketplace-footer">
+           <Image src={footerimage} alt="Charity Shop" className="marketplace-footer-logo" />
+           <div className="d-flex flex-row align-items-center gap-3 mb-4">
+             <Link to="/about" className="marketplace-footer-link">About</Link>
+             <Link to="/directory" className="marketplace-footer-link">Other Charity Shops</Link>
              {userInfo?.isAdmin && (
-               <Link to="/admin" className="footer-about-link">Admin</Link>
+               <Link to="/admin" className="marketplace-footer-link">Admin</Link>
              )}
            </div>
         </footer>

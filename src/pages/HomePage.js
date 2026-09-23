@@ -1,46 +1,75 @@
+import { useEffect, useState } from 'react';
 import Container from 'react-bootstrap/Container'
-import Image from 'react-bootstrap/Image';
-import CharityShopLogo from '../images/charityShopLogo.png'
-import { Row, Col } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
-import CategoryIcon from '../components/CategoryIcon';
-import { CATEGORY_OPTIONS } from "../constants/categoryFilterOptions";
+import { useSelector } from 'react-redux';
+import SearchBar from '../components/SearchBar';
+import CharityItemRoulette from '../components/CharityItemRoulette';
+import { CATEGORY_OPTIONS } from '../constants/categoryFilterOptions';
+import NormalSpinner from '../components/Spinner';
+
+const HOME_CHIPS = [
+  "Women's Clothing",
+  "Men's Clothing",
+  'Collectibles',
+  'Video Games & Consoles',
+  'Electronics',
+  'Home & Garden',
+];
+
+const ROULETTE_COUNT = 3;
+
+function pickCharities(charities, count) {
+  const shuffled = [...charities].sort(() => Math.random() - 0.5);
+  return shuffled.slice(0, Math.min(count, shuffled.length));
+}
 
 function HomePage() {
+  const navigate = useNavigate();
+  const charitiesState = useSelector((state) => state.charities);
+  const { loading, charities } = charitiesState;
+  const [picked, setPicked] = useState([]);
+  const chips = CATEGORY_OPTIONS.filter((option) => HOME_CHIPS.includes(option.label));
+  const pickedIds = picked.map((charity) => charity.id);
 
-    const navigate = useNavigate();
-
-    function loadIcons(){
-        const icons = []
-
-        for (let i = 1; i < CATEGORY_OPTIONS.length; i++) {
-            icons.push(
-                <CategoryIcon
-                    key={CATEGORY_OPTIONS[i].value}
-                    src={'icons/' + CATEGORY_OPTIONS[i].value + '.png'}
-                    label={CATEGORY_OPTIONS[i].label}
-                    onclick={() => navigate(`/category?category=${encodeURIComponent(CATEGORY_OPTIONS[i].label)}`)}
-                />
-            )
-        }
-
-        return icons
+  useEffect(() => {
+    if (!charities?.length || picked.length) {
+      return;
     }
+    setPicked(pickCharities(charities, ROULETTE_COUNT));
+  }, [charities, picked.length]);
 
-    return (
-        <>
-            <Container className="px-3">
-                <Row className="justify-content-center">
-                    <Col xs={10} sm={8} md={6} className="d-flex justify-content-center py-3">
-                        <Image src={CharityShopLogo} alt="Charity Shop" fluid className="home-logo" />
-                    </Col>
-                </Row>
-                <Row className="g-2 g-md-3 pb-4">
-                    {loadIcons()}
-                </Row>
-            </Container>
-        </>
-    )
+  return (
+    <div className="home-marketplace">
+      <Container>
+        <SearchBar variant="hero" />
+        <div className="home-chips" role="navigation" aria-label="Departments">
+          {chips.map((option) => (
+            <button
+              key={option.value}
+              type="button"
+              className="home-chip"
+              onClick={() => navigate(`/category?category=${encodeURIComponent(option.label)}`)}
+            >
+              {option.label === 'Video Games & Consoles' ? 'Video Games' : option.label}
+            </button>
+          ))}
+          <button type="button" className="home-chip" onClick={() => navigate('/charities')}>
+            Charities
+          </button>
+        </div>
+
+        {loading && !charities?.length && <NormalSpinner />}
+        {picked.map((charity, index) => (
+          <CharityItemRoulette
+            key={charity.id}
+            charity={charity}
+            excludeIds={pickedIds}
+            stepDelay={index * 800}
+          />
+        ))}
+      </Container>
+    </div>
+  );
 }
 
 export default HomePage
