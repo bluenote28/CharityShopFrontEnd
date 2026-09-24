@@ -1,11 +1,8 @@
-import { useEffect, useState } from 'react';
 import Container from 'react-bootstrap/Container'
 import { useNavigate } from 'react-router-dom';
-import { useSelector } from 'react-redux';
 import SearchBar from '../components/SearchBar';
 import CharityItemRoulette from '../components/CharityItemRoulette';
 import { CATEGORY_OPTIONS } from '../constants/categoryFilterOptions';
-import NormalSpinner from '../components/Spinner';
 
 const HOME_CHIPS = [
   "Women's Clothing",
@@ -16,27 +13,24 @@ const HOME_CHIPS = [
   'Home & Garden',
 ];
 
-const ROULETTE_COUNT = 3;
-
-function pickCharities(charities, count) {
-  const shuffled = [...charities].sort(() => Math.random() - 0.5);
-  return shuffled.slice(0, Math.min(count, shuffled.length));
-}
+const HOME_ROULETTES = [
+  {
+    title: 'Video Games',
+    category: 'Video Games & Consoles',
+  },
+  {
+    title: 'Collectibles',
+    category: 'Collectibles',
+  },
+  {
+    title: 'Electronics',
+    category: 'Consumer Electronics',
+  },
+];
 
 function HomePage() {
   const navigate = useNavigate();
-  const charitiesState = useSelector((state) => state.charities);
-  const { loading, charities } = charitiesState;
-  const [picked, setPicked] = useState([]);
   const chips = CATEGORY_OPTIONS.filter((option) => HOME_CHIPS.includes(option.label));
-  const pickedIds = picked.map((charity) => charity.id);
-
-  useEffect(() => {
-    if (!charities?.length || picked.length) {
-      return;
-    }
-    setPicked(pickCharities(charities, ROULETTE_COUNT));
-  }, [charities, picked.length]);
 
   return (
     <div className="home-marketplace">
@@ -58,12 +52,11 @@ function HomePage() {
           </button>
         </div>
 
-        {loading && !charities?.length && <NormalSpinner />}
-        {picked.map((charity, index) => (
+        {HOME_ROULETTES.map((reel, index) => (
           <CharityItemRoulette
-            key={charity.id}
-            charity={charity}
-            excludeIds={pickedIds}
+            key={reel.category}
+            title={reel.title}
+            category={reel.category}
             stepDelay={index * 800}
           />
         ))}

@@ -1,6 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useSelector } from 'react-redux';
 import { useQuery } from '@tanstack/react-query';
 import FeaturedListingCard from './FeaturedListingCard';
 import { getItems } from '../utilities/BackEndClient';
@@ -19,12 +18,12 @@ function visibleCountForWidth(width) {
   return 4;
 }
 
-function CharityItemRoulette({ charity: assignedCharity = null, excludeIds = [], stepDelay = 0 }) {
+function CharityItemRoulette({
+  title,
+  category,
+  stepDelay = 0,
+}) {
   const navigate = useNavigate();
-  const charitiesState = useSelector((state) => state.charities);
-  const { loading, charities } = charitiesState;
-  const [charity, setCharity] = useState(null);
-  const [triedIds, setTriedIds] = useState([]);
   const [offset, setOffset] = useState(0);
   const [paused, setPaused] = useState(false);
   const [visibleCount, setVisibleCount] = useState(4);
@@ -41,51 +40,13 @@ function CharityItemRoulette({ charity: assignedCharity = null, excludeIds = [],
     return () => media.removeEventListener('change', sync);
   }, []);
 
-  useEffect(() => {
-    if (charity || !charities?.length) {
-      return;
-    }
-    if (assignedCharity) {
-      setCharity(assignedCharity);
-      setTriedIds([assignedCharity.id]);
-      return;
-    }
-    const available = charities.filter((entry) => !excludeIds.includes(entry.id));
-    const pool = available.length ? available : charities;
-    const pick = pool[Math.floor(Math.random() * pool.length)];
-    setCharity(pick);
-    setTriedIds([pick.id]);
-  }, [assignedCharity, charities, charity, excludeIds]);
-
-  const charityId = charity?.id;
   const { isPending, data } = useQuery({
-    queryKey: ['charity-roulette', charityId],
-    queryFn: () => getItems(null, null, null, null, 1, charityId),
-    enabled: Boolean(charityId),
+    queryKey: ['category-roulette', category],
+    queryFn: () => getItems(null, null, category, null, 1),
+    enabled: Boolean(category),
   });
 
   const items = data?.results || [];
-
-  useEffect(() => {
-    if (isPending || !charity || !charities?.length) {
-      return;
-    }
-    if (items.length > 0) {
-      return;
-    }
-    if (triedIds.length >= charities.length) {
-      return;
-    }
-    const blocked = new Set([...excludeIds, ...triedIds]);
-    const remaining = charities.filter((entry) => !blocked.has(entry.id));
-    if (remaining.length === 0) {
-      return;
-    }
-    const next = remaining[Math.floor(Math.random() * remaining.length)];
-    setCharity(next);
-    setTriedIds((current) => [...current, next.id]);
-    setOffset(0);
-  }, [isPending, items.length, charity, charities, triedIds]);
 
   useEffect(() => {
     const node = viewportRef.current;
@@ -154,25 +115,18 @@ function CharityItemRoulette({ charity: assignedCharity = null, excludeIds = [],
     });
   }
 
-  if (loading && !charities?.length) {
-    return <NormalSpinner />;
-  }
-
-  if (!charity) {
-    return null;
-  }
-
   const slotWidth = viewportWidth > 0
     ? (viewportWidth - GAP_PX * (visibleCount - 1)) / visibleCount
     : 0;
   const loopItems = canSpin ? items.concat(items.slice(0, visibleCount)) : items;
   const translateX = slotWidth > 0 ? -(offset * (slotWidth + GAP_PX)) : 0;
+  const categoryPath = `/category?category=${encodeURIComponent(category)}`;
 
   return (
     <section
       className="home-roulette"
       aria-roledescription="carousel"
-      aria-label={`Items benefiting ${charity.name}`}
+      aria-label={title}
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
       onFocusCapture={() => setPaused(true)}
@@ -183,7 +137,7 @@ function CharityItemRoulette({ charity: assignedCharity = null, excludeIds = [],
       }}
     >
       <div className="home-featured-header">
-        <h2 className="home-featured-title">Items benefiting {charity.name}</h2>
+        <h2 className="home-featured-title">{title}</h2>
         <div className="home-roulette-actions">
           {canSpin && (
             <>
@@ -202,7 +156,7 @@ function CharityItemRoulette({ charity: assignedCharity = null, excludeIds = [],
           <button
             type="button"
             className="home-view-all"
-            onClick={() => navigate(`/charities/${charity.id}`)}
+            onClick={() => navigate(categoryPath)}
           >
             View all listings →
           </button>
