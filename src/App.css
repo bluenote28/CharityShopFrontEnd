@@ -148,6 +148,26 @@ h1, h4, p,.form-label, a {
     color: #085ece;
 }
 
+.home-chip-selected,
+.home-chip-selected:hover,
+.home-chip-selected:focus-visible {
+    background: #085ece;
+    border-color: #085ece;
+    color: #ffffff;
+}
+
+.home-chip-selected:hover,
+.home-chip-selected:focus-visible {
+    background: #074bb0;
+    border-color: #074bb0;
+}
+
+.category-chip-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
 .home-featured-header {
     display: flex;
     align-items: baseline;

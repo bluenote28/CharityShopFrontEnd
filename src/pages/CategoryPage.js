@@ -1,5 +1,5 @@
 import DisplayListings from '../components/DisplayListings'
-import { Row, Col, Container, Button } from 'react-bootstrap';
+import { Row, Col, Container } from 'react-bootstrap';
 import { useSearchParams } from 'react-router-dom';
 import { FILTER_OPTIONS } from '../constants/categoryFilterOptions'
 import FavoriteCharitiesFilter from '../components/FavoriteCharitiesFilter'
@@ -45,15 +45,15 @@ function CategoryPage() {
 
   function subCategoryBar(){
     return subCategoryOptions.map((item, index) => (
-      <Button
+      <button
         key={index}
-        size="sm"
-        className="m-1"
-        variant={isSelected(item) ? "secondary" : "outline-secondary"}
+        type="button"
+        className={isSelected(item) ? 'home-chip home-chip-selected' : 'home-chip'}
+        aria-pressed={isSelected(item)}
         onClick={() => selectSubCategory(item)}
       >
         {item.label}
-      </Button>
+      </button>
     ))
   }
 
@@ -61,7 +61,7 @@ function CategoryPage() {
     <>           
       <Container className='mb-3 mt-1 p-2 border rounded-3'>
         <Row className='mt-2'>
-          <Col className="d-flex flex-wrap">
+          <Col className="category-chip-row">
             {subCategoryBar()}
           </Col>
         </Row>
