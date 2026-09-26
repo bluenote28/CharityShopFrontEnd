@@ -2,6 +2,7 @@ import Container from 'react-bootstrap/Container'
 import { useNavigate } from 'react-router-dom';
 import SearchBar from '../components/SearchBar';
 import CharityItemRoulette from '../components/CharityItemRoulette';
+import HomeOtherShops from '../components/HomeOtherShops';
 import { CATEGORY_OPTIONS } from '../constants/categoryFilterOptions';
 
 const HOME_CHIPS = [
@@ -60,6 +61,8 @@ function HomePage() {
             stepDelay={index * 800}
           />
         ))}
+
+        <HomeOtherShops />
       </Container>
     </div>
   );
