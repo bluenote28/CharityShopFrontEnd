@@ -11,7 +11,7 @@ function CharityShopCard(props) {
       <Card.Img variant="top" src={props.image_url}
         style={{ margin: "auto", width: "200px", height: "200px", objectFit: "contain" }} />
       <Card.Body className='d-flex flex-column justify-content-center'>
-        <Card.Title>{props.charity_name}</Card.Title>
+        <Card.Title>{props.name || props.charity_name}</Card.Title>
         <Card.Text>
          {props.description}
         </Card.Text>
