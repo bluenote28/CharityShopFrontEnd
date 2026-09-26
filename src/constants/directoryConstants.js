@@ -1,7 +1,7 @@
 export const DIRECTORY = {
 
         "Food and Drink" : [
-            {url: "https://www.mysticmonkcoffee.com/", image_url: "https://www.mysticmonkcoffee.com/cdn/shop/files/Web_logo_2_7c9a958a-48df-4880-8b03-87902c2525cb.png?v=1630574429&width=140", name: "Mystic Monk Coffe", description: "Sells coffee and tea to support their monastery"},
+            {url: "https://www.mysticmonkcoffee.com/", image_url: "https://www.mysticmonkcoffee.com/cdn/shop/files/Web_logo_2_7c9a958a-48df-4880-8b03-87902c2525cb.png?v=1630574429&width=140", name: "Mystic Monk Coffee", description: "Sells coffee and tea to support their monastery"},
             {url: "https://monasterygreetings.com/", image_url: "https://monasterygreetings.com/cdn/shop/files/Monastery_Greetings_Logo.jpg?v=1736458211&width=600", name: "Monastery Greetings", description: "Sells products from Abbeys, Convents, Hermitages & Monasteries"},
         ],
 
