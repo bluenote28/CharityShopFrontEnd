@@ -12,6 +12,7 @@ const HOME_CHIPS = [
   'Video Games & Consoles',
   'Electronics',
   'Home & Garden',
+  'Computers/Tablets & Networking',
 ];
 
 const HOME_ROULETTES = [
@@ -31,7 +32,9 @@ const HOME_ROULETTES = [
 
 function HomePage() {
   const navigate = useNavigate();
-  const chips = CATEGORY_OPTIONS.filter((option) => HOME_CHIPS.includes(option.label));
+  const chips = HOME_CHIPS.map((label) =>
+    CATEGORY_OPTIONS.find((option) => option.label === label)
+  ).filter(Boolean);
 
   return (
     <div className="home-marketplace">
@@ -48,9 +51,6 @@ function HomePage() {
               {option.label === 'Video Games & Consoles' ? 'Video Games' : option.label}
             </button>
           ))}
-          <button type="button" className="home-chip" onClick={() => navigate('/charities')}>
-            Charities
-          </button>
         </div>
 
         {HOME_ROULETTES.map((reel, index) => (
